@@ -177,9 +177,9 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: 'Noto Serif SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'KaiTi', "KaiTi", "Microsoft YaHei", sans-serif;
   font-size: 0.85em;
-  line-height: 1.9;
+  line-height: 2.1;
 }
 @media (max-width: 991px) {
   body {
@@ -193,7 +193,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Noto Serif SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'KaiTi', "KaiTi", "Microsoft YaHei", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
@@ -391,7 +391,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, "PingFang SC", "Microsoft YaHei";
+  font-family: consolas, Menlo, monospace, "KaiTi", "Microsoft YaHei";
 }
 code {
   background: #eee;
@@ -921,16 +921,16 @@ pre .javascript .function {
 }
 .main-inner {
   margin: 0 auto;
-  width: 800px;
+  width: 700px;
 }
 @media (min-width: 1200px) {
   .main-inner {
-    width: 900px;
+    width: 800px;
   }
 }
 @media (min-width: 1600px) {
   .main-inner {
-    width: 1000px;
+    width: 900px;
   }
 }
 @media (max-width: 767px) {
@@ -943,16 +943,16 @@ pre .javascript .function {
 }
 .header-inner {
   margin: 0 auto;
-  width: 800px;
+  width: 700px;
 }
 @media (min-width: 1200px) {
   .header-inner {
-    width: 900px;
+    width: 800px;
   }
 }
 @media (min-width: 1600px) {
   .header-inner {
-    width: 1000px;
+    width: 900px;
   }
 }
 .site-brand-container {
@@ -985,7 +985,7 @@ pre .javascript .function {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: 'Noto Serif SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'KaiTi', "KaiTi", "Microsoft YaHei", sans-serif;
   font-size: 1.2em;
   font-weight: normal;
   margin: 0;
@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c1ffff;
+  background: #ffff4a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1389,16 +1389,16 @@ pre .javascript .function {
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
-  width: 800px;
+  width: 700px;
 }
 @media (min-width: 1200px) {
   .footer-inner {
-    width: 900px;
+    width: 800px;
   }
 }
 @media (min-width: 1600px) {
   .footer-inner {
-    width: 1000px;
+    width: 900px;
   }
 }
 .languages {
@@ -1519,7 +1519,7 @@ pre .javascript .function {
   }
 }
 .post-body {
-  font-family: 'Noto Serif SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'KaiTi', "KaiTi", "Microsoft YaHei", sans-serif;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -1817,7 +1817,7 @@ pre .javascript .function {
 }
 .posts-expand .post-meta {
   color: #999;
-  font-family: 'Noto Serif SC', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'KaiTi', "KaiTi", "Microsoft YaHei", sans-serif;
   font-size: 0.65em;
   margin: 3px 0 60px 0;
   text-align: center;
@@ -2306,15 +2306,15 @@ body {
   -o-background-size: cover;
   -moz-background-size: cover;
   -ms-background-size: cover;
-  opacity: 0.9;
 }
-body footer > div > div {
+body #footer > div > div {
   color: #000;
+}
+.header-inner {
+  background: rgba(255,255,255,0.91);
+  opacity: 1;
 }
 .main-inner {
   background: #fff;
-  opacity: 0.9;
-}
-.header-inner {
-  opacity: 0.8;
+  opacity: 0.95;
 }

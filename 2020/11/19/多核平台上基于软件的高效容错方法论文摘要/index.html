@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Efficient Software-Based Fault Tolerance Approach on Multicore Platforms 多核平台上基于软件的高效容错方法 Delft University of Technology">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多核平台上基于软件的高效容错方法论文摘要">
+<meta property="og:url" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="Efficient Software-Based Fault Tolerance Approach on Multicore Platforms 多核平台上基于软件的高效容错方法 Delft University of Technology">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image002.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image004.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image006.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image008.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image010.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image012.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image013.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image015.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image017.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image019.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image021.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image023.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image025.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image027.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image029.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image031.jpg">
+<meta property="og:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image033.jpg">
+<meta property="article:published_time" content="2020-11-19T04:13:22.000Z">
+<meta property="article:modified_time" content="2021-12-29T09:23:05.345Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image002.jpg">
+
+<link rel="canonical" href="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多核平台上基于软件的高效容错方法论文摘要 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多核平台上基于软件的高效容错方法论文摘要
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-19 12:13:22" itemprop="dateCreated datePublished" datetime="2020-11-19T12:13:22+08:00">2020-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-29 17:23:05" itemprop="dateModified" datetime="2021-12-29T17:23:05+08:00">2021-12-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Efficient Software-Based Fault Tolerance Approach on Multicore Platforms</p>
+<p>多核平台上基于软件的高效容错方法</p>
+<p>Delft University of Technology</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image002.jpg" alt="img"></p>
+<span id="more"></span>
+
+<p>代尔夫特理工大学（Technische Universiteit Delft，简写TU Delft）始建于1842年，位于荷兰代尔夫特市，前身为荷兰王国皇家学院，是荷兰历史最悠久、规模最大、综合实力最强的理工大学，是欧洲顶尖工科联盟IDEA联盟成员，专注于工程技术领域，是欧洲最著名的理工大学之一，其高质量的教学及高超的科研水平在世界上具有领先地位和卓越声誉。</p>
+<p><strong>I. I NTRODUCTION</strong></p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image004.jpg" alt="img"></p>
+<p>This paper describes a low overhead software-based fault tolerance approach for shared memory multicore systems. The scheme is implemented at user-space level and requires almost no changes to the original application. Redundant multithreaded processes are used to detect soft errors and recover from them. Our scheme makes sure that the execution of the redundant processes is identical even in the presence of non- determinism due to shared memory accesses. It provides a very low overhead mechanism to achieve this. Moreover it implements a fast error detection and recovery mechanism. The overhead incurred by our approach ranges from 0% to 18% for selected benchmarks. This is lower than comparable systems published in literature. </p>
+<p>The abundant computational resources available in mul-ticore systems have made it feasible to implement otherwiseprohibitively intensive tasks on consumer grade systems. However, these systems integrate billions of transistors to implement multiple cores on a single die, thus raising reliability concerns, as smaller transistors are more susceptible to both transient [12] as well as permanent [13] faults.</p>
+<p>在多核系统中可用的丰富的计算资源使得在消费级系统中执行其他高强度任务成为可能。无论如何，这些系统集成了数十亿个晶体管在单个芯片上实现多核，从而提高了可靠性，因为较小的晶体管更容易受到瞬态[12]和永久性[13]故障的影响。</p>
+<p>一种仅短暂影响电气设备的介电性能，且可在短时间内自行恢复的故障；电力系统中90%以上的故障都是瞬态故障或由瞬态故障扩大的</p>
+<p>A soft error refers to a temporary malfunction occurring with a normal semiconductor and a memory chip, etc. due to certain causes.</p>
+<p>发生软错误的原因：</p>
+<p>A common approach for providing fault tolerance is toperform redundant execution of the software. This is done by using the state machine replication approach. In this approach the replicated copies of a process (known as replicas) follow the same execution sequence and produce the same output if given the same input本文通过提供容错的方式，减轻软错误对进程的影响，提供容错的一种常见方法是执行软件的冗余执行。这是通过使用状态机复制方法完成的。在这种方法中，流程的复制副本(称为副本)遵循相同的执行顺序，如果给定相同的输入，则产生相同的输出。</p>
+<p>This is usually done by having one replica log the non-deterministic events and have the other replicas replay them at the same point in program execution. In a shared memory multithreaded program, this also means that the original and replica processes perform non- deterministic shared memory accesses deterministically, so that they do not diverge in the absence of faults.</p>
+<p>这通常是通过让一个副本记录不确定性事件，并让其他副本在程序执行的同一点重放它们来实现的。在共享内存多线程程序中，这也意味着原始进程和复制进程确定性地执行非确定性共享内存访问，以便在没有错误的情况下，它们的结果不会发生差异。</p>
+<p>非确定性是指在理论计算机科学中，针对各种计算机器模型（自动机），在每一时刻，根据当时的状态和输入，若机器有多个动作可供选择时，则称机器为非确定性的</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image006.jpg" alt="img"><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image008.jpg" alt="img"></p>
+<p>In this paper, we describe a software based efficient fault tolerance scheme that performs the following. 在本文中，我们描述了一个基于软件的有效容错方案，其执行如下。</p>
+<p>\1) The scheme is implemented using a user-level library and does not require a modified kernel. 该方案使用用户级库实现，不需要修改内核。(代码和数据结构都存在在用户空间里，调用库中的一个函数只是导致了用户空间中的一个本地函数调用，而不是系统调用)</p>
+<p>\2) Record and Replay of synchronization operations is made efficient and scalable by eliminating atomic operations and true and false sharing of cache lines. 通过消除原子操作（原子操作是指不会被<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6/10226112">线程调度</a>机制打断的操作；这种操作一旦开始，就一直运行到结束，中间不会有任何上下文切换）和真伪缓存行（今天的CPU不再是按字节访问内存，而是以64字节为单位的块(chunk)拿取，称为一个缓存行(cache line)，同时缓存存在多级缓存L1L2,这种，伪缓存行共享就是假如其它线程修改了缓存行中的一个值，然后其他线程也会重新强制加载该缓存行。这里假设有value1与value2共存在同一缓存行（这里前提是volatile修饰的变量）。A，B线程分别修改value1，value2的值。当A线程修改value1之后，会导致整个缓存行失效，然后B线程想修改value2的值的时候就会导致无法命中缓存，然后就会从L3甚至是从主内存中去重新加载value2的值。这一会使程序运行的效率大大降低。）共享，同步操作（所有的操作都做完之后）的记录和重放变得高效和可扩展。</p>
+<p>\3) The error detection mechanism is optimized to per- form memory comparisons of the replicas efficiently in user-space. 对错误检测机制进行了优化，以便在用户空间中高效地执行副本的内存比较。</p>
+<p>做什么？多核平台下的容错</p>
+<p>怎么做？基于软件，和上面的三条</p>
+<p>追求？高效（低代价） 保证确定性 高可扩展性</p>
+<p><strong>II. B ACKGROUND AND RELATED WORK</strong></p>
+<p>For error detection of software running on a single core, fault tolerant systems commonly employ redundant execution at different levels of abstraction, at instruction, process or virtual machine level对于运行在单个核心上的软件的错误检测，容错系统通常在不同的抽象级别(指令、进程或虚拟机级别)上使用冗余执行</p>
+<p>Schemes which work at instruction level have low error detection latencies, especially those which operate at hardware level. On the other hand, schemes which work at process and virtual machine level allow error to prop- agate before detecting it. 在指令级工作的方案具有较低的错误检测延迟，特别是在硬件级工作的方案。另一方面，在过程级和虚拟机级工作的方案允许错误在检测之前就存在。</p>
+<p>Another important issue in process level and virtual machine level systems is that they need to cater for non-deterministic events, such as interrupts and non- deterministic functions, such as time of the day. 进程级和虚拟机级系统的另一个重要问题是，它们需要顾及非确定性事件，如中断和非确定性函数，如时间。</p>
+<p>确定性：在使用特定的输入值集调用确定性函数的任何时候，它们总是返回相同的结果。</p>
+<p>非确定性：在每次使用特定的输入值集调用非确定性函数时，它们可能返回不同的结果。 函数是否为确定性函数或非确定性函数称为函数的确定性。</p>
+<p>比如：ABS 返回给定数字表达式的绝对值，每次输入相同的参数值，所得的结果都是相同的，所以它是确定函数；而 GETDATA 返回当前系统时间，每次调用的结果都不同，所以它是非确定函数。</p>
+<p>They need to make sure that execution of the replicas is deterministic with respect to each other. Such schemes usually use the concept of primary and backup replicas, where the primary is responsible for logging information about the non-deterministic events to be used by the backups. 他们需要确保副本的执行是相互确定的。这类方案通常使用主副本和备份副本的概念，其中主副本负责记录关于备份使用的非确定性事件的信息。</p>
+<p>For this purpose, non-deterministic events such asynchronous signals have to be executed at the same point in the code by the replicas. As an example, [16] defers asynchronous signal handling to known points in the code, such as function calls, system calls or backward branches. 为此目的，副本必须在代码的同一点执行非确定性事件(如异步信号)。作为一个例子,将异步信号处理延迟到代码中的已知点，如函数调用、系统调用或向后分支。</p>
+<p>In multithreaded programs running on multicore processors, there is one more source of non-determinism, which is shared memory accesses. These accesses are much more frequent than interrupts or signals. Therefore, efficient deterministic execution of replicas in such systems is much more difficult to achieve. 在多核处理器上运行的多线程程序中，还有一个非确定性的来源，那就是共享内存访问。这些访问比中断或信号要频繁得多。因此，在这样的系统中，副本的有效确定执行要困难得多。（会出现竞争条件）</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image010.jpg" alt="img"></p>
+<p>容错方案的数据流程图</p>
+<p>Lately, effort has been done to create deterministic languages, that ensure deterministic execution of a program. Examples of programming languages designed for deterministic</p>
+<p>parallel execution are StreamIt [8] and SHIM [3]. However porting programs written in traditional languages to deterministic languages is difficult as the learning curve is high for programmers used to programming in traditional languages. Therefore, deterministic execution at runtime is still the only viable solution to most users. 最近，人们致力于创建确定性语言，以确保程序的确定性执行。为确定的并行执行而设计的编程语言有StreamIt[8]和SHIM[3]。然而，将用传统语言编写的程序移植到确定性语言是很困难的，因为对于习惯于用传统语言编程的程序员来说，学习曲线很高。因此，对大多数用户来说，在运行时确定执行仍然是唯一可行的解决方案（也就是说不再追求确定性的语言）。</p>
+<p>One such method for runtime deterministic execution is CoreDet [1] that uses bulk synchronous quantas along with store buffers and relaxed memory model to achieve determinism. Since this method requires bulk syncrhonous quantas, it has a very high overhead (1-11x for 8 cores) and limited scalability. 其中一种用于运行时确定性执行的方法是CoreDet[1]，它使用批量同步单元量、存储缓冲区和宽松内存模型来实现确定性。由于这种方法需要批量同步单元量，因此开销非常高(8核1-11x)，且可伸缩性有限。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image012.jpg" alt="img"></p>
+<p>可伸缩性(可扩展性)是一种对软件系统计算处理能力的设计指标，高可伸缩性代表一种弹性，在系统扩展成长过程中，软件能够保证旺盛的生命力，通过很少的改动甚至只是硬件设备的添置，就能实现整个系统处理能力的线性增长，实现高吞吐量和低延迟高性能。</p>
+<p>Kendo [7] is a software approach that works only on programs without data races, that is, those that access shared memory only through synchronization objects. It executes threads deterministically and performs load balancing by only allowing a thread to complete a synchronization operation when its logical clock, which is used to perform deterministic execution, becomes less than those of the other threads. Since this method requires global communication among threads for reading clock values, it also has limited scalability. Kendo[7]是一种软件方法，它只在没有数据竞争的程序上工作，即那些只通过同步对象访问共享内存的程序。它确定性地执行线程，并且只允许一个线程在其用于执行确定性执行的逻辑时钟小于其他线程的逻辑时钟时完成同步操作，从而实现负载平衡。由于这种方法需要线程之间的全局通信来读取时钟值，因此它的可伸缩性也很有限。</p>
+<p>负载均衡，英文名称为Load Balance，其含义就是指将负载（工作任务）进行平衡、分摊到多个操作单元上进行运行，例如FTP服务器、Web服务器、企业核心应用服务器和其它主要任务服务器等，从而协同完成工作任务。</p>
+<p>负载均衡构建在原有网络结构之上，它提供了一种透明且廉价有效的方法扩展服务器和网络设备的带宽、加强网络数据处理能力、增加吞吐量、提高网络的可用性和灵活性。</p>
+<p>Respec [5] is a record/replay software approach that only logs synchronization objects rather than every shared memory access. If divergence is found between the replicas, it roll-backs and re-execute from a previous checkpoint. However, if divergence is found again on re-execution, a race condition is assumed. At that point, a stricter deterministic execution is performed. It uses producer-consumer queues. A queue is shared between a thread in the leader and its corresponding thread in the follower and is used to record logical clocks for mutexes. Each recorded operation atomically increments a clock. Since having a producer-consumer queue for each mutex will require a large memory, Respec only uses fixed number of clocks, that is, 512. The hash of the address of a mutex is used to point to its logical clock. A thread in the follower process only acquires a mutex when its logical clock matches that recorded by the corresponding thread of the leader. </p>
+<p>Respec[5]是一种记录/重放软件方法，它只记录同步对象，而不是每个共享内存访问。如果在副本之间发现差异，则回滚并从以前的检查点重新执行。但是，如果在重新执行时再次发现差异，则假定存在竞争条件。此时，将执行更严格的确定性执行。它使用生产者-消费者队列。队列在前导线程和跟随线程中的对应线程之间共享，用于为互斥锁记录逻辑时钟。每个记录的操作都自动增加一个时钟。因为为每个互斥锁设置一个生产者-消费者队列需要很大的内存，所以Respec只使用固定数量的时钟，即512。互斥锁地址的哈希值用于指向其逻辑时钟。跟随进程中的线程只有在其逻辑时钟与leader对应线程记录的时钟相匹配时才会获得互斥锁</p>
+<p>计算机运行过程中，并发、无序、大量的进程在使用有限、独占、不可抢占的资源，由于进程无限，资源有限，产生矛盾，这种矛盾称为竞争（Race）。</p>
+<p>由于两个或者多个进程竞争使用不能被同时访问的资源，使得这些进程有可能因为时间上推进的先后原因而出现问题，这叫做竞争条件（Race Condition）。</p>
+<p>竞争条件分为两类:</p>
+<p>-Mutex（互斥）：两个或多个进程彼此之间没有内在的制约关系，但是由于要抢占使用某个临界资源（不能被多个进程同时使用的资源，如打印机，变量）而产生制约关系。</p>
+<p>-Synchronization（同步）：两个或多个进程彼此之间存在内在的制约关系（前一个进程执行完，其他的进程才能执行），如严格轮转法。</p>
+<p>解决互斥方法：</p>
+<p>Busy Waiting(忙等待)：等着但是不停的检查测试，不睡觉，知道能进行为止</p>
+<p>Sleep and Wakeup(睡眠与唤醒)：引入Semapgore(信号量，包含整数和等待队列,为进程睡觉而设置)，唤醒由其他进程引发。</p>
+<p>临界区（Critical Region）：</p>
+<p>一段访问临界资源的代码。</p>
+<p>为了避免出现竞争条件，进入临界区要遵循四条原则：</p>
+<p>任何两个进程不能同时进入访问同一临界资源的临界区</p>
+<p>进程的个数，CPU个数性能等都是无序的，随机的</p>
+<p>临界区之外的进程不得阻塞其他进程进入临界区</p>
+<p>任何进程都不应被长期阻塞在临界区之外</p>
+<p>解决互斥的方法:</p>
+<p>• 禁用中断 Disabling interrupts</p>
+<p>• 锁变量 Lock variables （no）</p>
+<p>• 严格轮转 Strict alternation (no)</p>
+<p>• Peterson’s solution (yes)</p>
+<p>• The TSL instruction (yes)</p>
+<p>最重要的方法：信号量(Semaphore),见另一篇博文</p>
+<p><strong>III. F AULT TOLERANCE SCHEME</strong></p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image013.jpg" alt="img"></p>
+<p>Our fault tolerant scheme is intended to reduce probability of failures in the presence of transient faults. 我们的容错方案旨在降低出现暂态故障时的故障概率。The data flow diagram of our fault tolerance scheme is shown in Figure 1. Initially, the leader process (which is the original process highlighted in the figure) creates the watchdog and follower processes. The follower process is identical to the leader process and follows the same execution path. 最初，leader流程(图中突出显示的原始流程)创建watchdog和follower进程。Follower进程与leader进程相同，遵循相同的执行路径。 The execution is divided into time slices known as epochs. An epoch starts and ends at a program barrier. At the end of each epoch, the memories of the leader and follower processes are compared by the follower. 执行过程被划分为时间片，称为epoch。一个epoch在程序障碍处开始和结束。在每个epoch的末尾，由follower来比较leader和follower进程的内存。If no divergence is found, a checkpoint is taken and output to files or screen is committed. The previous checkpoint is also deleted. The checkpoint is basically a suspended process which is identical to the leader process at the time the checkpoint is taken. 如果结果没有差异，则创建一个checkpoint进程，并将输出到文件或显示到屏幕。前一个checkpoint也被删除。checkpoint基本上是一个挂起的进程，它基于checkpoint时的leader进程. If a divergence is found at the end of an epoch, the follower process signals an error to the leader process which in turn signals the checkpoint process to start and kills itself and its follower. This can also happen inside an epoch, if the follower sees that the parameters (of synchronization functions or system calls) logged by the leader do not match those read by the follower. 如果在一个epoch结束的时候发现一个差异，follower进程就会向leader进程发出一个错误信号，leader进程又会向checkpoint进程发出启动信号，并杀死它自己和它的followe进程。如果follower看到leader记录的参数(同步函数或系统调用的参数)与follower读取的参数不匹配，会在一个epoch里面发生这种情况。 When the checkpoint process starts, it becomes the leader and creates its own follower. It might also happen that the leader or follower processes are unable to reach the end of an epoch, due to some error which hangs them. In that case, the watchdog process detects those hangs by using timeouts and signals the checkpoint process to start. The watchdog process itself is less vulnerable to transient faults as it remains idle most of the time. 当checkpoint过程开始时，它成为leader并创建自己的follower。也可能发生leader或follower进程无法到达epoch的结束，因为一些错误挂起了它们。在这种情况下，watchdog进程通过使用计时器超时来检测这些挂起，并发出启动checkpoint进程的信号。watchdog进程本身不太容易出现瞬态故障，因为它大部分时间都处于空闲状态。</p>
+<p>At this moment, our fault tolerant scheme does not work with programs that use inter process communication (such as through pipes and shared memory). The only form of I/O allowed is disk I/O and screen output. Moreover, our scheme assumes that there are no data races in the program. Lastly, we have not added functionality to handle asynchronous signals. However, this functionality can be added for user space by handling asynchronous signals at synchronous points, such as system calls, as done by Scribe [17].</p>
+<p>目前，我们的容错方案不能用于使用进程间通信(例如通过管道和共享内存)的程序。唯一允许的I/O形式是磁盘I/O和屏幕输出。此外，我们的方案假设程序中没有<strong>数据竞争</strong>。最后，我们没有添加处理异步信号的功能。然而，这个功能可以通过在同步点处理异步信号来添加到用户空间，比如由Scribe[17]完成的系统调用。</p>
+<p>数据竞争（data race）是指在非线程安全的情况下，多线程对同一个地址空间进行写操作。 一般来说，我们都会通过线程同步方法来保证数据的安全，比如采用互斥量或者读写锁。 但是由于某些笔误或者设计的缺陷，还是存在data race的可能性的</p>
+<p>In Section III-A, we discuss how we allow deterministic</p>
+<p>execution of the replicas. This is followed by Section III-B</p>
+<p>which discusses error detection. Finally in Section III-C, we</p>
+<p>discuss our recovery mechanism.</p>
+<p>在第III-A节中，我们将讨论如何允许确定性的 执行副本。接下来是第三节- b ，其中讨论了错误检测。最后在第三- c节中，我们 讨论了我们的恢复机制</p>
+<p>接下来的内容。</p>
+<p>A.   Deterministic execution 确定地执行</p>
+<p>B.   Error detection 错误检测</p>
+<p>C.  Recovery 恢复</p>
+<p>a Replica creation 副本创建</p>
+<p>​    b Memory allocation 内存分配</p>
+<p>​    c Deterministic shared memory accesses 确定性地执行</p>
+<p>​    d System Calls 系统调用</p>
+<p>A.   Deterministic execution</p>
+<p>For deterministic execution, we need to ensure that replicas use the same memory addresses. We also need to ensure determinism in the presence of non-deterministic functions and shared memory accesses. Moreover, we need to make sure that the leader and follower processes use the same memory addresses. For this we need to have a deterministic memory allocation scheme. Finally we also need to make sure that we have deterministic I/O. Below we discuss how we handle these issues.</p>
+<p>对于确定性执行，我们需要确保副本使用相同的内存地址。我们还需要确保存在非确定性函数和共享内存访问时的确定性。此外，我们需要确保leader进程和follower进程使用相同的内存地址。为此，我们需要一个确定性的内存分配方案。最后，我们还需要确保我们有确定性的I/O。下面我们将讨论如何处理这些问题。</p>
+<p>\1)   Replica creation: Our library creates a follower from the leader process by using fork system call, at the beginning and also when a rollback is done. This is because at a rollback, the checkpoint process becomes the leader and creates its own follower, which uses the same memory addresses as the leader process. 1)副本创建:我们的库通过在开始和回滚时使用fork系统调用从leader进程创建一个follower。这是因为在回滚时，checkpoint进程成为leader并创建它自己的follower，它使用与leader进程相同的内存地址。We use our own version of pthread create function to make sure that the leader and follower processes use the same stack addresses for the threads. For this purpose, the leader process logs these addresses to be consumed by the follower. For thread identification, we use a thread local variable, so that we can relate a thread in the follower process with that in the leader process. 我们使用自己版本的pthread create函数来确保leader进程和follower进程对线程使用相同的堆栈地址。为了达到这个目的，leader进程记录这些地址供follower使用。对于线程标识，我们使用线程局部变量，这样我们就可以将follower进程中的线程与leader进程中的线程关联起来。</p>
+<p>回滚是指当程序或数据出错时，将程序或数据恢复到最近的一个正确版本的行为。</p>
+<p>\2)   Memory allocation: We implement our own memory allocation functions to allocate memory deterministically. In an operating system with Address Space Layout Randomization (ASLR), malloc can be non-deterministic. This is because malloc internally uses mmap for allocating memory blocks of large sizes and mmap can be non-deterministic. 内存分配:我们实现自己的内存分配函数来确定地分配内存。在具有地址空间布局随机化(ASLR)的操作系统中，malloc可能是非确定性的。这是因为malloc在内部使用mmap来分配大的内存块，而mmap可能是不确定的。</p>
+<p>Therefore, whenever the memory allocator uses mmap, we make sure the follower has the same address returned for mmap by calling mmap with MAP FIXED flag and the address returned by the leader process.We also make sure that threads of the leader and follower processes call the malloc function in the same order by internally using a mutex, which is locked and unlocked deterministically. 因此，每当内存分配器使用mmap时，我们通过调用带有MAP FIXED标志的mmap和由leader进程返回的地址来确保follower进程返回的地址与mmap相同。我们还通过在内部使用互斥锁来确保leader进程和follower进程的线程以相同的顺序调用malloc函数，互斥锁是确定地锁定和解锁的。</p>
+<p>The variables used by our library (not related to original program execution) to perform deterministic execution, may have different values for the leader and follower processes, for example, the flag used to distinguish the leader process from the follower process. For these variables, we use a separate memory, which is allocated with mmap. This memory is not compared for error detection. 我们库中用于执行确定性执行的变量(与原始程序执行无关)对于leader进程和follower进程可能有不同的值，例如，用于区分leader进程和follower进程的flag。对于这些变量，我们使用单独的内存，它是通过mmap分配的。此内存不用于错误检测的比较。</p>
+<p>\3)   Deterministic shared memory accesses: For redundant deterministic execution, it is necessary that the leader and follower processes perform shared memory accesses in the same order. For this purpose, a mutex is enclosed in a special data structure, which also contains a pointer to clocks for that mutex to aid in deterministic execution. Whenever a thread in the leader process acquires a mutex, it increments the mutex’s clock. A thread in the follower only acquires the same mutex in its execution, when its clock matches that for the corresponding thread in the leader. 3)确定性共享内存访问:对于冗余的确定性执行，需要leader进程和follower进程按照相同的顺序进行共享内存访问。为此，互斥锁被封装在一个特殊的数据结构中，该结构还包含一个指向该互斥锁的时钟指针，以帮助实现确定执行。每当leader进程中的一个线程获得一个互斥锁时，它就增加互斥锁的时钟。当follower中的线程的时钟与leader中相应线程的时钟相匹配时，它才会在执行过程中获得相同的互斥锁。</p>
+<p>We create our own deterministic versions of pthread’s synchronization functions, such as pthread mutex lock, pthread mutex unlock, pthread trylock, pthread cond wait, pthread broadcast, pthread barrier wait etc. Since pthread mutex lock is the mostly used and is also used in our implementation of other pthread synchronization functions, we discuss our pthread mutex lock algorithm here, which is shown in Algorithm 1. 我们为pthread的同步函数创建了自己的确定性版本，pthread mutex lock, pthread mutex unlock, pthread trylock, pthread cond wait, pthread broadcast, pthread barrier wait etc.由于pthread互斥锁是最常用的，我们在其他pthread同步函数的实现中也使用了pthread互斥锁，我们在这里讨论我们的pthread互斥锁算法，如算法1所示。</p>
+<p>We also have our own versions of data structures for representing the synchronization objects, for example, pthread mutex log t instead of pthread mutex t. Here m represents an object of pthread mutex log t structure which holds a mutex and its clocks. There is one such object for each mutex in the program. Therefore, deterministic access to a mutex is independent of other mutexes in the program, hence improving scalability. 我们也有自己版本的数据结构来表示同步对象，例如，pthread mutex log t而不是pthread mutex t。程序中的每个互斥锁都有一个这样的对象。因此，对互斥锁的确定性访问独立于程序中的其他互斥锁，从而提高了可伸缩性。</p>
+<p>When a leader thread acquires a mutex, it increments the leader’s clock for that mutex and also records that value in a circular queue, so that the follower can acquire the thread when its clock reaches one less than the same value. The communication between the leader and follower processes is shown in Figure 2. 当一个leader线程获得一个互斥锁时，它会为该互斥锁增加leader的时钟，并将该值记录在一个循环队列中，这样当它的时钟小于这个值时，跟随者就可以获得该线程。leader和follower之间的沟通过程如图2所示。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image015.jpg" alt="img"></p>
+<p>Leader和follower之间的沟通是确定执行的过程</p>
+<p>After acquiring the mutex, the follower also increments its clock for that mutex. Unlike Respec which uses a hash table of 512 entries to keep clocks for all the syncrhonization objects, we use a separate clock for each mutex. The benefit of this is that we can avoid using atomic variables for accessing the clocks, as clock can be incremented after acquiring the lock. 在获得互斥锁之后，follower也会为该互斥锁增加时钟。Respec使用一个包含512个条目的哈希表来为所有同步对象保存时钟，不同的是，我们为每个互斥锁使用单独的时钟。这样做的好处是我们可以避免使用原子变量来访问时钟，这样时钟可以在获取锁之后递增。</p>
+<p>原子操作：一个独立不可分割的操作。多线程编程需要保证线程安全，而线程安全一个很重要的特性就是原子性，即在同一时刻只有一个线程对原子进行操作，保证数据访问的互斥性。C++11提供了原子类型std::atomic，可以使用任意的类型作为模板参数。在多线程中如果使用了原子变量，其本身就保证了数据访问的互斥性，所以不需要使用互斥量来保护该变量了</p>
+<p>We also optimize the queue access by avoid using atomic variables and avoiding true and false sharing of cache lines. For that purpose, we use a lockless queue as shown by pushq and popq functions in Algorithm 1. This is unlike Respec which uses atomic operations if necessary to access the queue. 我们还通过避免使用原子变量和避免真假共享缓存行来优化队列访问。为此，我们使用了一个无锁队列，如算法1中的pushq和popq函数所示。这与Respec不同，Respec在必要时使用原子操作来访问队列。</p>
+<p>性能问题。</p>
+<p>Synchronized关键字会让没有得到锁资源的线程进入BLOCKED状态，而后在争夺到锁资源后恢复为RUNNABLE状态，这个过程中涉及到操作系统用户模式和内核模式的转换，代价比较高。<img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image017.jpg" alt="img"></p>
+<p>尽管Java1.6为Synchronized做了优化，增加了从偏向锁到轻量级锁再到重量级锁的过度，但是在最终转变为重量级锁之后，性能仍然较低。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image019.jpg" alt="img"></p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image021.jpg" alt="img"></p>
+<p>The typical method of using a lockless queue (which we call naïve in this paper) is to use shared tail and head indexes. Since in this method, producer and consumer read the head or tail indexes at the same time when the other is writing to it, this causes cache trashing. Hence it is a true sharing problem. 使用无锁队列(在文章中称为naïve)的典型方法是使用共享的尾和头索引。但是在这种方法中，生产者和消费者在另一个向其写入数据时同时读取头部或尾部索引，这将导致缓存垃圾化。因此，这是一个真正的共享问题。</p>
+<p> We avoid this by having local indexes for producer (leader) and consumer (follower). The check for emptiness and fullness is done by checking the data value instead. Producer only writes to the queue when all the fields of the queue element it is about to write to, are zero, while the consumer only reads when all the fields of the queue element are non-zero. 我们通过为生产者(领导者)和消费者(追随者)建立本地索引来避免这种情况。空和满的检查是通过检查数据值来完成的。生产者只在它要写入的队列元素的所有字段都为零时才写入队列，而消费者只在队列元素的所有字段都为非零时才读取。</p>
+<p> Here, since the value of r, which represents the result returned by a synchronization function can be zero, We add one to its value while pushing and subtract one from it when popping. We make sure that the indexes for leader and follower do not share the same cache line by having sufficient padding between them. This makes sure that we do not have the problem of false sharing. </p>
+<p>在这里，由于r的值(它表示同步函数返回的结果)可以为零，我们在push时将其值加1，在弹出时将其减去1。通过在leader和follower之间有足够的填充，我们确保它们的索引不会共享同一个缓存线。这确保了我们没有错误共享的问题。</p>
+<p>\4)   System Calls, Non-deterministic functions and I/O: We use LD PRELOAD to preload the system call wrappers found in glibc with our own version which perform logging. This is possible, because most of the system calls can be and are usually called through their user-space wrapper functions. 系统调用非确定性函数和I/O:我们使用LD PRELOAD来预加载在glibc中找到的系统调用包装器和我们自己的执行日志记录的版本。这是可能的，因为大多数系统调用都可以并且通常是通过它们的用户空间包装器函数调用的。</p>
+<p>This method will not work however, if for example, a system call is made without using the wrapper function, for example, by us- ing inline assembly. So, with our library, the programmer needs to make sure to not make a system call directly. Since the glibc library sometimes also make system calls directly, for example, by making the clone system call in pthread create function, we provide our version of pthread create. 但是，如果系统调用没有使用包装器函数，例如通过内联组装，则此方法将不起作用。因此，对于我们的库，程序员需要确保不直接进行系统调用。由于glibc库有时也会直接进行系统调用，例如，通过在pthread create函数中执行克隆系统调用，因此我们提供了pthread create的版本。</p>
+<p>We also provide our own version of non-deterministic functions such as get- timeofday and rand and preload them using LD PRELOAD. The leader performs logging of the parameters and output of these non-deterministic functions and system calls. The logged parameters are used by the follower to check for errors (by checking for discrepancies), whereas the logged output is just read by the follower. Furthermore, each non-deterministic function and system call is protected by a deterministic lock so that the leader and follower processes perform these calls in the same order. 我们还提供了自己版本的非确定性函数，如get- timeofday和rand，并使用LD PRELOAD预加载它们。leader执行这些非确定性函数和系统调用的参数和输出的日志记录。follower使用记录的参数检查错误(通过检查差异)，而记录的输出仅由follower读取。此外，每个非确定性函数和系统调用都被确定性锁保护，以便leader和follower进程以相同的顺序执行这些调用。</p>
+<p>For I/O, our library allows deterministic I/O for sequential file access and screen write. Write to a file or screen is only performed after making sure that no error occurred during an epoch. For that purpose, no output is committed during an epoch. Instead it is buffered. Our library overrides the write and read system call wrappers to allow buffering of the data. 对于I/O，我们的库允许对顺序文件访问和屏幕写入进行确定性的I/O。只有在确保在epoch期间没有发生错误之后，才会执行对文件或屏幕的写操作。出于这个目的，在一个epoch期间不会提交任何输出。相反，它被缓冲。我们的库覆盖了写和读系统调用包装器以允许数据缓冲。</p>
+<p>The buffers are committed at the end of an epoch after comparing the buffer contents of the leader and follower by using hash- sums. For this purpose, each file opened for writing is allocated a special buffer. It is important that addresses of these buffers are the same for the leader and follower process. For this purpose, we use a deterministic memory allocation scheme like the one described in Section III-A2. For sequential file reading, the file offset value is saved at the end of each epoch, so that the file can be rewinded to the previous value in case of rollback. 在使用哈希和比较leader和follower的缓冲区内容之后，在一个epoch结束时提交缓冲区。为此，为每个打开的用于写入的文件分配一个特殊的缓冲区。重要的是，这些缓冲区的地址对于leader和follower进程是相同的。为此目的，我们使用确定性内存分配方案，如第III-A2节所述。对于顺序读取文件，文件偏移值保存在每个epoch的末尾，以便在回滚时可以将文件倒回到前一个值。</p>
+<p>B.   Error detection</p>
+<p>At regular intervals of 1 second, known as epochs, dirtied memories of the leader and follower processes are compared. However, the epoch time is reduced to 100 ms if a file or screen output occurs during the epoch. Instead of comparing each memory one by one, the leader and follower processes calculate hash-sums of the dirtied (modified) memory pages, which are then compared. If a discrepancy is found, a fault is detected. The hash-sums are calculated much faster by using the CRC32 instruction of the SSE4.2 instruction set found on modern x86 processors.  每隔一秒钟，也就是所谓的“epochs”，就会比较leader和follower的脏内存过程。但是，如果在epoch期间有文件或屏幕输出，则epoch时间将减少到100毫秒。leader和follower进程不是逐个比较每个内存，而是计算脏(修改)内存页面的散列和，然后比较它们。如果发现不一致，则检测到故障。通过使用现代x86处理器上SSE4.2指令集的CRC32指令，可以更快地计算哈希和。</p>
+<p>脏内存实际是指在堆上反复 malloc 内存后所形成的碎片，因为这部分内存利用率极低，所以被称作脏内存（Dirty Memory）。</p>
+<p>The comparison is made even faster by assigning each thread to calculate hash-sum of different portions of the memory. Follower keeps its hash-sums in shared memory so that the leader can read it from there for comparison. We perform memory comparison at barriers which are already found in the program rather than stopping and creating a barrier. 通过给每个线程赋值来计算内存不同部分的哈希和，可以更快地进行比较。follower将它的散列和保存在共享内存中，这样leader就可以从那里读取它进行比较。我们在程序中已经找到的屏障处执行内存比较，而不是停止并创建屏障。This improves the performance, as threads already wait for each other at barriers. If insufficient barriers are found in the program, the programmer can insert calls to function potential barrier wait, which is provided by our library. This function creates a barrier only when required, that is at the end of an epoch. 这提高了性能，因为线程已经在屏障处互相等待。如果在程序中发现不足的屏障，程序员可以插入对函数潜在屏障等待的调用，这是由我们的库提供的。这个函数只在需要时创建一个屏障，也就是在epoch的末尾。</p>
+<p>Since our scheme runs at the user-space level, we cannot note down dirtied pages while handling page faults (from the kernel), the way Respec does, which is the most efficient method possible. We take special steps to improve its performance at user-space level. 由于我们的方案是在用户空间级别运行的，所以在处理(来自内核的)页面错误时，我们不能像Respec那样记录被修改页面（而这可能是最有效的方法）。我们采取特殊步骤在用户空间级别改进它的性能。</p>
+<p>At start of each epoch, we give only read access to allocated memory pages. Whenever a page is accessed for writing, the OS sends a signal to the accessing thread. In the signal handler, the address of the memory page is noted down and both read and write accesses are given to that memory page. 在每个时期开始时，我们只对已分配的内存页进行读访问。每当访问一个页面进行写操作时，操作系统就向访问线程发送一个信号。在信号处理程序中，内存页的地址被记录下来，读和写都被给予该内存页。In this way, we only need to compare the dirtied memory pages at the end of an epoch. Sending signals on each memory page access violation can slow down execution. Therefore, to reduce the number of such signals, we exploit the concept of spatial locality of data and segmented memory into multiple pages, as shown in Figure 3. 通过这种方式，我们只需要在一个epoch结束时比较被修改的内存页面。在每个内存页访问违规上发送信号会降低执行速度。因此，为了减少这种信号的数量，我们利用数据的空间局部性概念，将内存分段为多个页面，如图3所示。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image023.jpg" alt="img"></p>
+<p>Fig. 3. Memory pages can be grouped into segments to reduce the overhead</p>
+<p>of memory comparison for error detection图3所示。内存页可以分组成段，以减少错误检测时内存比较的开销</p>
+<p>A write on any part of a read protected segment of N pages is handled by giving write access to all the N pages in that segment. This improves the execution considerably, as discussed in Section IV, where we discuss the performance evaluation. 对N个页面的读保护段的任何部分的写操作都是通过对该段中所有N个页面的写访问来处理的。正如我们在讨论性能评价的第四节中讨论的那样，这大大改善了执行。</p>
+<p>Some functions, like that for comparing memories, change the stacks differently for the leader and follower threads. For those purposes, we switch to a temporary stack, so that the original stack remains unaltered from such functions. 有些函数，比如比较内存的函数，会对leader线程和follower线程的栈进行不同的更改。出于这些目的，我们切换到临时堆栈，这样原始堆栈就不会因这些函数而改变。</p>
+<p>The watchdog process is used to detect hangs and recover from them. At the end of each epoch, the leader process sends a signal to the watchdog process to signal that it is not hung. In that signal, the process ID of the checkpoint is also sent, so that the watchdog is able to start the checkpoint process in case it detects hang of leader or follower process. 看门狗进程用于检测挂起并从中恢复。在每个epoch结束时，leader进程向watchdog进程发送一个信号，表明它没有挂起。在该信号中，还发送了检查点的进程ID，以便看门狗在检测到leader或follower进程挂起时能够启动检查点进程</p>
+<p>Hangs are detected by using timeout. Besides sending the process ID of the checkpoint, the leader also sends process ID of itself and the follower process when it forks the follower, so that the watchdog process can kill the leader and follower processes before starting the checkpoint process. 通过使用超时来检测挂起。leader除了发送checkpoint的进程ID外，在分叉follower的时候也发送自己和follower进程的进程ID，这样看门狗进程就可以在启动checkpoint进程之前杀死leader和follower进程。</p>
+<p>C.  Recovery</p>
+<p>As discussed previously, for fault recovery, we use check-point/rollback. whenever the leader takes a checkpoint, it kills the previous checkpoint. If the leader process detects an error, or the Watchdog process detects a hang, a signal is sent to the last checkpoint process, so that the checkpoint process can start execution. The leader and its follower are killed at that point. 如前所述，对于恢复，我们使用checkpoint /回滚。每当leader获得一个checkpoint时，它就会杀死之前的checkpoint。如果leader进程检测到错误，或者Watchdog进程检测到挂起，则向最后一个checkpoint进程发送一个信号，以便checkpoint进程开始执行。leader和他的follower在那个时候被杀死。The checkpoint process then assumes the role of the leader and forks its own follower. It also creates a new checkpoint. Moreover, it resets the mutex clocks (which exist in shared memory), since they could have been corrupted by an error. Checkpoints are taken only at barrier points. For creating a multithreaded follower, we have implemented a special multithreaded fork function that replicates the leader process to create the follower. 然后，checkpoint过程扮演leade的角色，并fork它自己的follower。它还创建了一个新的checkpoint。此外，它会重置互斥时钟(存在于共享内存中)，因为它们可能被错误损坏。checkpoint只在barrier处设置。为了创建一个多线程的follower，我们实现了一个特殊的多线程fork函数，它复制leader进程来创建follower。</p>
+<p><strong>IV. P ERFORMANCE EVALUATION</strong></p>
+<p>We selected 8 benchmarks, two from the PARSEC [2] and six from the SPLASH-2 [11] benchmark sets. We ran all our benchmarks on an 8 core (dual socket with 2 quad cores), 2.67 GHz Intel Xeon processor with 32GB of RAM. All programs were compiled using gcc 4.4.4 with optimization level -O3. The results are shown in Table I.</p>
+<p>我们选择了8个基准测试，其中2个来自PARSEC[2]， 6个来自splash2[11]基准测试集。我们在8核(双插槽2四核)、2.67 GHz Intel Xeon处理器和32GB RAM上运行所有基准测试。所有程序都使用gcc 4.4.4编译，优化级别为-O3。结果如表一所示。</p>
+<p>For each benchmark, we show the results when the bench-mark runs for 2 and 4 threads. Number of epochs executed are shown in the third column, while number of synchronization operations performed by each process is shown in the fourth one. 对于每个基准测试，我们将显示基准测试为2个线程和4个线程运行时的结果。第三列显示执行的纪元数，第四列显示每个进程执行的同步操作数。This is followed by the number of barriers and total number of memory pages compared for error detection. Then the table shows the redundant execution time, which is the time to execute two instances of the same application. For redundant execution, each instance is executed on one of the two different quad core processors of the dual socket system. 紧随其后的是用于错误检测的屏障数量和内存页面总数的比较。然后，该表显示了冗余执行时间，即执行同一个应用程序的两个实例的时间。对于冗余执行，每个实例都在双套接字系统的两个不同的四核处理器之一上执行。 Next we show the time for deterministic execution scheme, which is execution without performing error detection and checkpointing but only deterministic locking and unlocking of the mutexes. This is followed by the overall execution (with error detection, checkpointing and Watchdog process). Next we show the overheads of the deterministic and overall execution with respect to the redundant time. For overall execution, the results are shown with memory grouping size of 4. 接下来我们展示确定性执行方案的时间，这种执行方案不执行错误检测和检查点，只执行对互斥锁的确定性锁定和解锁。接下来是整体执行(带有错误检测、检查点和Watchdog进程)。接下来，我们展示了与冗余时间相关的确定性和总体执行的开销。对于总体执行，结果显示的内存分组大小为4。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image025.jpg" alt="img"></p>
+<p>A. Results</p>
+<p>Figure 4 shows the improvement that we get by avoiding atomic variables and having an optimized queue. The left bars are obtained by running the benchmarks with 2 threads while right bars are obtained with 4 threads. The lower portion of the bar shows the overhead with our lockless queue and our method for keeping the clocks for mutexes, while the middle portion shows the additional overhead that we get when we use Respec’s method of using a Hash Table for mutex clocks. The upper most portion shows the additional overhead by using naive lockless queue. 图4显示了通过避免原子变量和优化队列所获得的成果。左边的栏是通过使用2个线程运行基准测试获得的，而右边的栏是通过使用4个线程获得的。柱形图的下方显示了无锁队列和为互斥对象保存时钟的方法的开销，而中间部分显示了使用Respec的方法为互斥对象时钟使用哈希表时的额外开销。最上面的部分显示了使用无锁队列的额外开销。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image027.jpg" alt="img"></p>
+<p>We can see that for fluidanimate, which has a high lock frequency, we have a significant improvement in performance of deterministic execution. Furthermore, our method of using separate clocks for each mutex is more scalable than Respec’smethod of using limited clocks and accessing them through a Hash table, that requires atomic operations. 我们可以看到，对于具有高锁定频率的fluidanimate，我们在确定性执行的性能上有了显著的改进。此外，我们为每个互斥锁使用单独的时钟的方法比Respec使用有限的时钟并通过Hash表访问它们的方法更具伸缩性，后者需要原子操作。 The scalability here can be assessed by the fact that for two threads, our scheme and Respec’s scheme perform similarly, while for four threads, our scheme performs far better. From this result, we can predict that our scheme will have even better results compared to Respec for larger number of cores. 这里的可伸缩性可以通过以下事实来评估:对于两个线程，我们的方案和Respec的方案的性能相似，而对于四个线程，我们的方案的性能要好得多。从这个结果，我们可以预测，我们的方案将有更好的结果比Respec在更多的核数。Furthermore, our lockless queue also shows much better scalability than a naive lockless queue due to avoiding true and false sharing of cache lines. Note that we do not get as much improvement for radiosity, which also has a high lock frequency, because it</p>
+<p>uses much fewer mutexes than fluidanimate, and hence fewer clocks, causing more contention in communication between the leader and follower threads. 此外，我们的无锁队列也显示出比无锁队列更好的可伸缩性，因为它避免了缓存线的真和假共享。请注意，我们没有得到那么多的改进，radiosity也有一个高的锁频率，因为它使用的fluidanimate少得多，因此更少的时钟，导致更多的争用在leader和follower线程之间的通信。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image029.jpg" alt="img"></p>
+<p>Figure 5 shows the improvement that we get from using the CRC32 instruction (as opposed to Respec which does not use that instruction) for calculating hash sums for error detection. The results are especially impressive for benchmarks which modify higher number of pages, such as fluidanimate, ocean and radix. 图5显示了使用CRC32指令(与Respec相反，Respec不使用该指令)计算哈希和以进行错误检测所得到的改进。对于修改更多页面(如fluidanimate、ocean和基数)的基准测试，结果尤其令人印象深刻。</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image031.jpg" alt="img"></p>
+<p>In Figure 6, we show the overall results in the form of bar graphs, with each factor shown separately. Due to the optimizations we discussed and reduction in epoch overhead, which will be discussed in the next section, the overhead never exceeds 18% for four threads and is negligible for benchmarks  with small memory usage and low lock frequencies. 在图6中，我们以柱状图的形式显示了总体结果，每个因素分别显示。由于我们讨论的优化和减少了epoch开销(这将在下一节中讨论)，对于4个线程来说，开销永远不会超过18%，并且对于使用小内存和低锁频率的基准测试来说可以忽略不计。</p>
+<p>B. Impact of Grouping Memory Pages</p>
+<p><img src="/2020/11/19/%E5%A4%9A%E6%A0%B8%E5%B9%B3%E5%8F%B0%E4%B8%8A%E5%9F%BA%E4%BA%8E%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%AB%98%E6%95%88%E5%AE%B9%E9%94%99%E6%96%B9%E6%B3%95%E8%AE%BA%E6%96%87%E6%91%98%E8%A6%81/clip_image033.jpg" alt="img"></p>
+<p>Figure 7 shows the impact of grouping memory pages (see Section III-B) on the performance. The overhead shown is the epoch overhead which mainly consists of the overhead of signals for noting down dirtied memory pages. We can see that for applications like ocean and radix which have high memory usage, we get significant performance gains using page grouping. 图7显示了分组内存页面(参见第III-B节)对性能的影响。所示的开销是epoch开销，它主要包括记录脏内存页面的信号开销。我们可以看到，对于ocean和基数这类内存使用率很高的应用程序，使用页面分组可以显著提高性能。However, it has to be noted that there is a limit to the number of pages which can be grouped for optimal performance, as grouping too many pages will cause the application to compare more pages which have not been actually modified by that application, thus creating unnecessary overhead. 然而，必须注意的是，为了获得最佳性能而分组的页面数量是有限制的，因为分组太多的页面将导致应用程序比较更多的未被该应用程序实际修改的页面，从而产生不必要的开销。</p>
+<p>V. C ONCLUSION</p>
+<p>In this paper, we described the design and implementation of a user-space level leader/follower based fault tolerance scheme for multithreaded applications running on multicore processors. We applied several optimizations to speedup the execution, like avoiding atomic variables, true and false sharing of cache lines for recording/replaying synchronization operations, reducing signals sent by the OS on page faults (used to note down dirtied pages) and using the CRC32 instruction from SSE4.2 instruction set to greatly improve error checking performance. 在本文中，我们描述了一个用户空间级的基于leader/follower的面向多核处理器上多线程应用的容错方案的设计和实现。我们应用了一些优化来加速执行，比如避免原子变量，为记录/重放同步操作而共享缓存线的真和假，减少操作系统在页面错误时发送的信号(用于记录脏页面)，并使用来自SSE4.2指令集的CRC32指令，极大地提高了错误检查性能。Empirical measurements on tested benchmarks show that the overhead does not exceeds 18% for four threads. We compared our results with Respec and showed that our scheme is more efficient in performing deterministic execution and comparing memories for error detection. Moreover, we showed that by grouping memory pages, we considerably reduced the overhead of signals used for noting modified memory pages. 对测试基准的经验度量表明，对于四个线程，开销不超过18%。我们将我们的结果与Respec进行比较，表明我们的方案在执行确定性执行和比较内存进行错误检测方面更有效。此外，通过对内存页进行分组，我们大大减少了用于记录修改内存页的信号开销。</p>
+<p>I. INTRODUCTION 引论</p>
+<p>II. BACKGROUND AND RELATED WORK 背景和相关的工作</p>
+<p>III. FAULT TOLERANCE SCHEME 容错方案</p>
+<p>D.  Deterministic execution 确定地执行</p>
+<p>E.   Error detection 错误检测</p>
+<p>F.   Recovery 恢复</p>
+<p>IV. PERFORMANCE EVALUATION  表现评估</p>
+<p>V. CONCLUSION 结论</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/04/%E5%A4%96%E5%A4%AA%E7%A9%BA%E6%B8%B8%E8%AE%B06%EF%BC%9A%E5%9B%9B%E5%A4%A7%E6%81%B6%E6%98%9F/" rel="prev" title="外太空游记<6>:四大恶星">
+      <i class="fa fa-chevron-left"></i> 外太空游记<6>:四大恶星
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/14/%E6%88%91%E7%9A%84%E5%8D%A7%E5%AE%A4%E4%B9%8B%E6%97%85/" rel="next" title="我的卧室之旅">
+      我的卧室之旅 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
