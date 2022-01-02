@@ -12,9 +12,18 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
+ <script> 
+   (function(){
+          if(''){
+              if (prompt('请输入文章密码') !== ''){
+                  alert('密码错误！');
+                  history.back();
+              }
+          }
+      })();
+  </script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
@@ -210,7 +219,6 @@
       
         <p>​        对于弥诺陶洛斯（<em>注</em>）来言，世界就是代达罗斯修筑的迷宫的岔口、围墙、十四个水槽、太阳和它本身，又或者，世界不过是一系列色块的垛叠（考虑到色盲的可能，也许是亮暗的垛堞）。没有任何证据表明弥诺陶洛斯生性残忍，每年进贡的七位童男童女，也有可能是迷失在错综复杂的迷宫里死去。牛本就是极为温顺的动物。我们有理由相信，弥诺陶洛斯并不理解死亡，忒休斯的剑，在它眼中可能是朋友带来的礼物。</p>
 <span id="more"></span>
-
 <p>​        世界在金鱼眼里是个庞大的椭球形，边界是一环坚硬冰冷的不可逾越的物质，能折射出有各种各样的颜色，但不能准确地反应外界事物的本质（我曾将鱼缸套在头上试验过，颜色会因玻璃的弧度而发生扭曲）。在某个时刻事物会自然地出现。它们可以凭借周身的空气在世界里飞来飞去，世界的最上方是一种稀薄的气体，往往不足以支持它们的呼吸。有时赖以呼吸的空气会被抽空，这种情形发生在换水或者它们不小心跃出鱼缸的时候。它们可能也崇尚博识而睿智，只是记忆力有待提高。</p>
 <p>​        猫（就拿我家这只），从来不愿意承认自己的短处，或许它早已很熟悉自己的世界：世界大概有几十个它的身长那样长，是由很多长方体拼凑而成的。最底层是一种坚硬洁白的物质。在这种物质的基础上，产生了各种地形（或许它已经给各种山和高原起了名字）。由于地形的高低不平，它可以很方便的借力，跳到高处。世界不是畅通无阻的，有种可旋转或平动的屏障会阻塞世界的某一部分。有种神秘而透明的物体，透过它们可以看见一些神奇的事物，令猫眼花缭乱，阳光会从这儿透进来。它很清楚，世界里还有另一种生物，高大而缓慢，像是移动的山峦，这种生物经常变化自己的外形，主要体现在颜色的差别上，它们可以把身上的颜色剥离，或者换上新的颜色，他们吃的东西，令猫作呕，这种生物会发出稀奇古怪的叫声——这可能是一种语言，如果真的是，那就太可怕了。世界往往昼短夜长，不过有时是昼夜平分，这取决于那种生物晚上是否在家。</p>
 <p><em>注：弥诺陶洛斯是克里特岛国王米诺陶之子，牛头人身的怪物。终身被困在代达罗斯的迷宫里，靠每年雅典进贡的七位童男童女过活，后被忒休斯杀死。</em></p>
@@ -309,7 +317,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -343,7 +351,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -400,6 +408,8 @@
 
 
 
+
+  
 
   
 

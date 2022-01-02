@@ -12,9 +12,18 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
+ <script> 
+   (function(){
+          if(''){
+              if (prompt('请输入文章密码') !== ''){
+                  alert('密码错误！');
+                  history.back();
+              }
+          }
+      })();
+  </script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
@@ -210,7 +219,6 @@
       
         <p>​        叔本华（《作为意志和表象的世界》，第一篇，第五十二节）说音乐带来的直觉不亚于世界本身。音乐本身并不会令我悸动，但它引起了我对其它事物的联想，可以肯定的是，旋律和音色与印象挂钩，这种挂钩就好比人看到红色会想起血。以我而例，la mi连音会让我想起海潮和“走下一级台阶，从阳光到阴影”，而blues通常降半调的mi si会给我雨天、素描、坏掉电视机的印象。贝朗德说，音乐的原理，即在短时间内给出纷杂的印象。</p>
 <span id="more"></span>
-
 <p>​        兰波的一首诗里提到过，元音A会让他想起“苍蝇身上的毛茸茸的黑背心 围着恶臭嗡嗡旋转 阴暗的海湾”，这种现象也可佐证音符带给人的类似印象。现代音乐把各种声音都编入音乐中：海潮、滴水、冰块和各类语言，这无疑是一种多元化，但就单曲而言，这类音色指代明确，往往只能挂钩特定的印象。钢琴相较弦乐能带来更多的印象，这种冷静、延音较短的音色适合印象的引发。</p>
 <p>​        音乐带给人的印象与数量有关的看法，是不确切的。单曲循环带给人的联想从不比列表循环弱。我时常在一段旋律之中发现音乐的全部（这种看法与神秘主义者宣称在一个符号里看到整个世界大致类同）。音符的跌宕让我们感到的感召，是可以无穷无尽的，换言之，一段旋律引起的印象是极为丰富的。在我看来，单曲循环就好像看一书橱的书，列表循环可以比作是看整个图书馆的书，无论哪种方式都毫不费力地，带给我们庞大而难以处理的印象。</p>
 <p>​        音乐给人的印象与音乐的种类关系密切。事实上，音符之间的间隙往往比旋律本身更能引人遐思（这种间隙可以看做是留白）。你看到画里的一顶水手帽，想起水手的胳膊、腿、然后不可避免地想起木船、船帆、想起伏加特和锚、旋涡、船的诞生于终结和水手故居院子角落里的菠萝头……在这点上，目前引领风潮的极简主义与后极简主义音乐做的很好，（它能轻而易举地让人联想整个世界）第二当推古典乐（它能让人想起一个故事），第三会是采样与摇滚（它除了让人联想一条街的喧嚷外很难联想其它的）……歌词大大削减音乐给人的联想。</p>
@@ -310,7 +318,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -344,7 +352,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -401,6 +409,8 @@
 
 
 
+
+  
 
   
 

@@ -12,9 +12,18 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
+ <script> 
+   (function(){
+          if(''){
+              if (prompt('请输入文章密码') !== ''){
+                  alert('密码错误！');
+                  history.back();
+              }
+          }
+      })();
+  </script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
@@ -211,7 +220,6 @@
         <p>……流的血变成一对飞马，珀伽索斯和克律隆俄耳……</p>
 <p>——奥维德 《变形记》（<em>Metamorphoses</em>4.770）</p>
   <span id="more"></span>
-
 <p> 我身上流淌着两部分血，它们在血管里并行不悖——左侧身体流出的血可以治愈任何疾病，右边的血可以让人解脱。世人都说我丑陋（这是不准确的），至少在曾经，任何人都不敢轻易忽视我的美貌；虽然现在有所变化，但也所差无几，我惊异于他们审美的剧变——事实上，正是舆论使我被迫来到这片幽阒的荒岛（这才是最适合我的）。我经常独自在海边闲逛，或者与两个姐妹，穿过礁岩、荒漠和嶙峋起伏的裸岩，乌烟瘴气的毒沼，这使我用不同的角度来观看所在的天地，虽然空间狭小，但往往换个位置就与众不同。植被几乎绝迹，唯一存在的是墨绿的苔藓（这让我想起曾经我头发的颜色），它们缺水后就会立刻枯死在海风里。我们不允许任何活物靠近这片岛屿，哪怕海鸟都要绕道飞，它们往往躲不过迅猛的石子，总是仓皇地逃窜，这让我想起人群——在那个我走出房间的黄昏，他们脸上凝固的惊恐，仍在风中微微颤抖的嘴唇。他们本来打算是从四面八方逃跑的(我对此表示抱歉)，因为他们的脚悬空地指向不同的方向，可是估计现在他们还没有走出村子。</p>
 <p> 这座岛屿是规程的圆形，从上方看去，曲线呈现一种完美的圆滑。我们都以为这是世界的中心，世界当初诞生时，是从这里向四周延伸出去的。它太不起眼了，四周都是无尽的水，方圆几千里内没有任何土壤，以至于它成了孤零零的存在。有时我们在岛屿最高耸的岩石上观察四周的景象，却又看不到任何活动的物体。</p>
 <p> 除了昼夜的变化，时间在这个海岛只是一个凝固的概念，就像海水一般，我分不清楚它的潮起潮落。的确，我总是改变自己的心跳，有时叫它一昼夜搏动一次，或者干脆不跳，唯一的衡量时间的工具也被破坏。在漫长的时间里，我们往往不说话，我们的过去彼此之间早已分晓，我也就逐渐地忘了原来的自己。遗忘，是一件非常快乐的事，若能够彻底地忘掉遗忘本身，才最为理想。我喜欢做一个关于遗忘的游戏，我把我的雕塑中最英俊的那个埋到地表之下（即使不埋也会被风化），待遗忘过后再去寻找他，这相当于捉迷藏的效果。不过有时遗忘的太过于彻底，不得不掘地三尺才找到。有的雕塑被完全地遗忘了(这或许是因为我挖向来相反的方向)，不过没关系，因为我也忘了英俊为何物了。</p>
@@ -311,7 +319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -345,7 +353,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -402,6 +410,8 @@
 
 
 
+
+  
 
   
 

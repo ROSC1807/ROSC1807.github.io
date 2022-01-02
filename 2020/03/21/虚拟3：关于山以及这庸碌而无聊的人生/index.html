@@ -12,9 +12,18 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=KaiTi:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
+ <script> 
+   (function(){
+          if(''){
+              if (prompt('请输入文章密码') !== ''){
+                  alert('密码错误！');
+                  history.back();
+              }
+          }
+      })();
+  </script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
@@ -210,7 +219,6 @@
       
         <p>​        故事之所以吸引人，不过是它略去了生活里的琐事。尽管我们看上去很忙，但大多数时候我们只是心不在焉，甚至什么都不想，这些连琐事都称不上的细节，恰恰是被故事所忽略的真实，是生活的主体。</p>
 <span id="more"></span>
-
 <p>​        你的房子，趴在山上。这样既免却了市区的纷扰。又避开了午后两点钟的燠热。在这样的房子里，可以将十座堰坝及它们扼住的颜色各异的河流、城西的工厂群甚至城南的那片狭小的内海，尽收眼底，最令你印象深刻的会是整座房子暴露在阳光里的情形。美中不足是，由于山坡的倾角不可避免，你的房子向南偏东倾斜了十几度，这样，你虽可以轻松地躺在床上看书，但这座房子并不适合走动。鱼缸有时会在重力的作用下摔个稀烂，灰尘沿着地板全部麇集到南部的地板，你只好为每件带腿的家具装上固定在地面上的吸盘。不过相较邻居的建在悬崖上的房子，你的情况要好的多。他们不得不将家具全都摆放在墙壁上，借助绳索或梯子穿梭于不同的房间。</p>
 <p>​        在某个或长或短阶段，你会感到人生的庸碌无聊。你在偌大的房间里不知如何是好，怀着迦南人在沙漠游荡的心情对各个房间展开巡视，或者走出门，好奇哪些土石瓦砾从未被移动过，而这颗沾染泥土和苔藓的玄武石，是以何种途径来到山上的；北面的牛皮纹玻璃倒映出的清晨，为什么总是显出木薯粉的颜色；为何这天的灯光显得格外黯淡，等等；这些毫无意义的事在此时此刻变得有意义，当然你不会思考这些问题的答案，你只是感到惊讶，原来是这样，随后沉寂到意识流里。这些问题的萌生就像蛙泳时的换气那样自然、必须、不连续。</p>
 <p>​        因为那时那刻你是如此无聊。如果一件事物不能让人感到快乐，它就会被人剖析，恰恰就像忽略掉喜欢的人的缺点，一旦变得不喜欢，就会剖析他的心理，用鸡蛋挑骨头的完美手段解剖掉他。</p>
@@ -311,7 +319,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -345,7 +353,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -402,6 +410,8 @@
 
 
 
+
+  
 
   
 
