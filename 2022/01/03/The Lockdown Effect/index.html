@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="摘要：疫情防控政策造成了互联网核心的流量转移。发现大概在一周内流量增长了15%——20%，但总体而言不大。互联网基础设施可以处理这些新的流量,因为大多数流量的切换在常规的峰值时间之外。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Lockdown Effect：疫情防控对互联网流量的影响notes">
+<meta property="og:url" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="摘要：疫情防控政策造成了互联网核心的流量转移。发现大概在一周内流量增长了15%——20%，但总体而言不大。互联网基础设施可以处理这些新的流量,因为大多数流量的切换在常规的峰值时间之外。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103192552144.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103200016454.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103202706619.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103202742028.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103202801202.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103212117494.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103212603582.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103212620615.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103213538803.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103213555113.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103214650540.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103221204376.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103221242795.png">
+<meta property="og:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103221734112.png">
+<meta property="article:published_time" content="2022-01-03T14:36:13.000Z">
+<meta property="article:modified_time" content="2022-01-03T14:40:59.578Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/03/The%20Lockdown%20Effect/image-20220103192552144.png">
+
+<link rel="canonical" href="http://example.com/2022/01/03/The%20Lockdown%20Effect/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>The Lockdown Effect：疫情防控对互联网流量的影响notes | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/03/The%20Lockdown%20Effect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Lockdown Effect：疫情防控对互联网流量的影响notes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-03 22:36:13 / 修改时间：22:40:59" itemprop="dateCreated datePublished" datetime="2022-01-03T22:36:13+08:00">2022-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103192552144.png" alt="image-20220103192552144" style="zoom:67%;"></p>
+<h3 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h3><p>疫情防控政策造成了互联网核心的流量转移。发现大概在一周内流量增长了15%——20%，但总体而言不大。互联网基础设施可以处理这些新的流量,因为大多数流量的切换在常规的峰值时间之外。</p>
+<span id="more"></span>
+<p>（Hypergiants是具有高出站流量比率的网络）虽然Hypergiant仍然占流量的很大一部分，但我们看到非Hypergiant的流量增加更高，人们在家使用的应用程序（如Web会议、VPN和游戏）的流量增加。虽然许多网络的流量需求增加，特别是那些为居民用户提供服务的网络，但学术网络的总体流量却大幅下降。然而，在这些网络中，当考虑与远程工作和授课相关的应用时，可以观察到大幅增长。</p>
+<p>CCS概念：</p>
+<p>网络→ 网络测量。</p>
+<p>关键词：</p>
+<p>互联网测量，互联网流量，COVID-19，流量变化。</p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>典型用户的宽带流量使用情况在互联网厂商那里是最重要的参数之一，过去的时候这些情况经常改变。因为新馆疫情下的疫情防控，很大一部分人口依靠网络学习工作，在此期间发达国家没有出现大规模停电和故障，因此我们可以可信地观察这期间的变化。</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103200016454.png" alt="image-20220103200016454" style="zoom:67%;"></p>
+<p><strong>COVID-19-induced weekly growth</strong>：从图中能看出来疫情防控开始后欧洲许多占优势的网络节点发生了明显流量变化。宽带连接的流量需求，正如在ISP，Central Europe以及IXP, Central Europe和IXP, South Europe中所观察到的，在疫情爆发之初，IXP增长缓慢，在封锁开始后，增长速度更快，超过20%。IXP, US East Coast的流量增长落后于封锁发生数周后的其他数据源。虽然我们在ISP和IXP的有利位置观察到这一现象，但它们之间的一个区别是，IXP的相对流量增长似乎持续时间更长，而ISP的流量需求在5月份快速下降。这与经济的首次部分开放相关，包括4月中旬该地区的商店重新开张，以及5月学校开张。</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103202706619.png" alt="image-20220103202706619" style="zoom: 33%;"></p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103202742028.png" alt="image-20220103202742028" style="zoom: 33%;"></p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103202801202.png" alt="image-20220103202801202" style="zoom: 33%;"></p>
+<p><strong>Drastic shift in usage patterns</strong>： 与网络运营更相关的是使用模式的变化，例如在白天或一周中的不同日子，因此选取了两个优势节点统计了上图。<strong>图a：</strong>互联网的正常工作日流量模式与周末流量模式有显著不同，在<strong>工作日</strong>，交通高峰<strong>集中在晚上</strong>，随着3月份流感大流行的封锁，这一工作日交通模式转变为连续的<strong>周末式模式</strong>（<strong>上午9点就开始高峰</strong>）。b和c图直观地显示了选取的两个节点的流量模式情况，发现疫情防控开始后几乎每天流量模式都变成了<strong>周末式模式</strong>。</p>
+<p>鉴于许多人出于各种目的呆在家里，可能造成网络流量模式的转变，比如，远程工作的需要可能意味着对VPN服务、视频会议系统、电子邮件和云服务的使用的需求增加。本文简而言之研究政府强制封锁对互联网的影响</p>
+<p>points：</p>
+<p>（1）相关流量变伴随用户正在改变的习惯</p>
+<p>（2）大多数交通增长发生在非传统的高峰时段。每天的交通模式正在向周末的模式转变</p>
+<p>（3）在线娱乐需求随着Hypergiant增加。然而远程工作要求使得VPN和相关工具使用量增加地更快</p>
+<p>（4）在流量交换点的层面，观测到端口利用率的增加。表示居民用户产生了巨大的流量需求</p>
+<p>（5）流量变化是多种多样的，有的增加有的减少，一些应用程序流量的转变会引起其它的相继转变。</p>
+<h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>SP-CE：网络由一家大型中欧ISP提供，该ISP向1500多万固定线路用户提供服务，并运营一个传输网络（第1层）。ISP不在其网络内托管内容交付服务器，但它已与多个地点的所有主要内容交付和云网络建立了大量对等协议。该ISP在所有边界路由器上使用NetFlow来支持其内部操作。</p>
+<p>IXPs：网络流量来自三大互联网交换点（IXP）的公共对等平台。第一个拥有900多个成员，位于中欧（IXP-CE），峰值流量超过8 TB。IXP-CE与ISP-CE位于同一国家/地区。第二个拥有170多个成员，位于南欧（IXP-SE），峰值流量约为500 Gbps。它覆盖了EDU网络的区域。第三个拥有250名成员，位于美国东海岸（IXP-US），峰值流量超过600 Gbps。在IXPs中，我们使用IPFIX数据</p>
+<p>IXPs：网络流量来自三大互联网交换点（IXP）的公共对等平台。第一个拥有900多个成员，位于中欧（IXP-CE），峰值流量超过8 TB。IXP-CE与ISP-CE位于同一国家/地区。第二个拥有170多个成员，位于南欧（IXP-SE），峰值流量约为500 Gbps。它覆盖了EDU网络的区域。第三个拥有250名成员，位于美国东海岸（IXP-US），峰值流量超过600 Gbps。在IXPs中，我们使用IPFIX数据</p>
+<p>时间框架：</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103212117494.png" alt="image-20220103212117494" style="zoom: 33%;"></p>
+<p>道德层面考虑：没有泄露隐私</p>
+<h3 id="总共流量变化"><a href="#总共流量变化" class="headerlink" title="总共流量变化"></a>总共流量变化</h3><h4 id="宏观分析："><a href="#宏观分析：" class="headerlink" title="宏观分析："></a>宏观分析：</h4><p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103212603582.png" alt="image-20220103212603582" style="zoom: 67%;"></p>
+<p>上以字节为单位绘制了ISP-CE、IXP-CE、IXP-US和IXP-SE在四个选定周内一小时粒度的聚合标准化通信量。在疫情封锁后，ISP-CE和IXP-SE/IXP-CE/IXP-US的总流量分别增加了20%和30%/12%/2%。一旦放松锁定措施，ISP-CE的增长开始下降，但IXP-CE和IXP-SE的增长持续。这些差异最有可能归因于以下事实：<strong>ISP-CE流量模式主要由最终用户和小型企业流量决定。</strong></p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103212620615.png" alt="image-20220103212620615" style="zoom:67%;"></p>
+<p>对于所有IXP，如上图，我们不仅看到峰值流量增加，还看到最低流量水平增加。这与许多IXP成员的链路容量升级相关，导致IXP-CE的总体增长率为3%，南欧IXP为12%，美国东海岸IXP为20%。IXP-US的流量在3月份几乎没有变化，只有在4月份才增加，否则显示出与其他IXP类似的效果。成交量的延迟增长可能是<strong>由于美国随后的封锁</strong>。总的来说，与其他两个IXP相比，该IXP的<strong>时间效应不太明显</strong>，因为它（a）服务于来自许多不同时区的客户，（b）成员多种多样。相比之下，<strong>IXP-SE互连更多的区域网络</strong>，因此流量模式更接近IXP-CE。</p>
+<h4 id="Hypergiant"><a href="#Hypergiant" class="headerlink" title="Hypergiant"></a>Hypergiant</h4><p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103213538803.png" alt="image-20220103213538803" style="zoom: 33%;"></p>
+<p>Hypergiants是具有高出站流量比率的网络，在占据优势的位置为数百万用户提供服务。</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103213555113.png" alt="image-20220103213555113" style="zoom:33%;"></p>
+<p>观察数据得到：在疫情防控开始之后，其他ASes的流量增长比Hypeigiants的增长地幅度更显著，特别是工作日的9点到17点。对于这一现象的解释是：人们被迫在家进行工作或者完成学业，对娱乐方面的需求则显示了Hypergiants方面流量的增加，当然，他们得先完成作业。</p>
+<h4 id="远程工作相关ASE"><a href="#远程工作相关ASE" class="headerlink" title="远程工作相关ASE"></a>远程工作相关ASE</h4><p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103214650540.png" alt="image-20220103214650540" style="zoom: 50%;"></p>
+<p>本图展示了与远程工作相关的IPX端口利用率在疫情防控开始后迅速上升</p>
+<h3 id="传输层分析"><a href="#传输层分析" class="headerlink" title="传输层分析"></a>传输层分析</h3><p>本节重点讨论原始传输端口协议分布的差异。</p>
+<p>从两个有利的角度分析了应用程序流量的变化，即中欧的ISP（ISP-CE）和中欧的IXP（IXP-CE，对于一天中的每一个小时，我们保存单独的流量统计数据，然后将这些数据与上个月的相应日期和时间进行比较。我们将一周中所有工作日的小时数聚合到一个子批次中，虽然两个网络共享相似的端口，但它们的分布以及这些分布随时间的变化是非常不同的。这反映了在这些有利位置出现的不同类型的客户</p>
+<p>下图描述了IXP-CE每个传输层端口的流量变化</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103221204376.png" alt="image-20220103221204376"></p>
+<p>下图则描述了ISP-CE每个传输层端口的流量变化</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103221242795.png" alt="image-20220103221242795"></p>
+<p>结论：一些流行的传输层端口在这两个有利位置的流量分布都发生了重大变化，突出了这几周人类行为的剧烈变化对流量分布的影响。我们看到与工作和娱乐相关的流量都在增加，这反映出人们不得不在家工作和学习。这一理由得到了工作日模式重大变化的支持</p>
+<h3 id="应用程序类"><a href="#应用程序类" class="headerlink" title="应用程序类"></a>应用程序类</h3><p>不同应用程序类别的流量在疫情防控前后的变化：</p>
+<p><img src="/2022/01/03/The%20Lockdown%20Effect/image-20220103221734112.png" alt="image-20220103221734112"></p>
+<p>与通信相关的应用程序：在所有有利位置，网络会议应用程序在营业时间大幅增加200%以上，在ISP-CE、IXP-SE和IXPU上也会在周末增加。</p>
+<p>娱乐相关应用：视频点播流媒体应用的使用率在欧洲IXP中显示出高达100%的高增长率。有趣的是，ISP-CE在封锁期间仅出现约10%的轻微增长，而在6月份，封锁结束后，通信量下降到2月份的水平。</p>
+<p>其他应用程序：教育网络和应用程序在所有有利位置的表现完全不同。在IXP-CE，他们的流量保持相对稳定，正如在家上课的学生所预期的那样，但在ISP-CE，流量却大幅增加了200%。这一增长可归因于一些提供视频会议解决方案的欧洲教育网络，现在ISP-CE的客户正在使用这些解决方案。</p>
+<p>总之，在工作时间，与通信相关的应用程序的使用有所增加，尤其是在网络会议中。与娱乐相关的应用程序，如游戏和视频点播，也会在一天中的任何时间被消费，因为在封锁期间，对视频点播的需求越来越大。社交媒体显示出强劲的初始增长，并随着时间的推移趋于平缓。这些结论补充和加强了第4节中的结论。它们共同证明了2019疫情起的人类行为的急剧变化对应用程序的巨大影响。</p>
+<p>看到一半发现同学写了同一团队一年以后几乎内容相同的论文。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wanjunshanlan/article/details/122289822?utm_source=app&amp;app_version=4.16.0&amp;code=app_1562916241&amp;uLinkId=usr1mkqgl919blen">A Year in Lockdown：How the Waves of COVID-19 Impact Internet Traffic论文笔记</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/01/%E5%BE%AE%E7%A7%AF%E5%88%86%E4%B8%8A%E5%A4%8D%E4%B9%A0/" rel="prev" title="微积分上复习">
+      <i class="fa fa-chevron-left"></i> 微积分上复习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E5%85%B1%E6%B5%81%E9%87%8F%E5%8F%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">总共流量变化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8F%E8%A7%82%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">宏观分析：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hypergiant"><span class="nav-number">4.2.</span> <span class="nav-text">Hypergiant</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3ASE"><span class="nav-number">4.3.</span> <span class="nav-text">远程工作相关ASE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">传输层分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">应用程序类</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
