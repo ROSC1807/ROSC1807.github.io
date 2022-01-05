@@ -193,28 +193,28 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Noto Serif SC', 'Noto Serif SC', "Noto Serif SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Arial', 'Noto Serif SC', "Noto Serif SC", "Microsoft YaHei", sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 20px 0 15px;
 }
 h1 {
-  font-size: 2.125em;
+  font-size: 2.85em;
 }
 h2 {
-  font-size: 2em;
+  font-size: 2.45em;
 }
 h3 {
-  font-size: 1.875em;
+  font-size: 2.05em;
 }
 h4 {
-  font-size: 1.75em;
+  font-size: 1.65em;
 }
 h5 {
-  font-size: 1.625em;
+  font-size: 1.25em;
 }
 h6 {
-  font-size: 1.5em;
+  font-size: 0.85em;
 }
 p {
   margin: 0 0 20px 0;
@@ -1175,7 +1175,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffff45;
+  background: #fe871b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2324,4 +2324,11 @@ body #footer > div > div {
 .main-inner {
   background: #fff;
   opacity: 0.95;
+}
+.post {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 50px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
