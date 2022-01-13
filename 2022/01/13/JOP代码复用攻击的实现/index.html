@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JOP代码复用攻击的实现实验目的（1）掌握 JOP 攻击的相关原理；  （2）能够熟练程序运行流程以及调试等工具的使用；  （3）能够自己动手设计 JOP 攻击并实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JOP代码复用攻击的实现">
+<meta property="og:url" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="JOP代码复用攻击的实现实验目的（1）掌握 JOP 攻击的相关原理；  （2）能够熟练程序运行流程以及调试等工具的使用；  （3）能够自己动手设计 JOP 攻击并实现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113192025589.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113193301222.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205548361.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113195143962.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113202158110.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205853540.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205628568.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113210853246.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113213150930.png">
+<meta property="og:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113213640034.png">
+<meta property="article:published_time" content="2022-01-13T14:12:24.000Z">
+<meta property="article:modified_time" content="2022-01-13T14:12:53.360Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113192025589.png">
+
+<link rel="canonical" href="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JOP代码复用攻击的实现 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JOP代码复用攻击的实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-13 22:12:24 / 修改时间：22:12:53" itemprop="dateCreated datePublished" datetime="2022-01-13T22:12:24+08:00">2022-01-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="JOP代码复用攻击的实现"><a href="#JOP代码复用攻击的实现" class="headerlink" title="JOP代码复用攻击的实现"></a>JOP代码复用攻击的实现</h3><h4 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h4><p>（1）掌握 JOP 攻击的相关原理； </p>
+<p>（2）能够熟练程序运行流程以及调试等工具的使用； </p>
+<p>（3）能够自己动手设计 JOP 攻击并实现。</p>
+<span id="more"></span>
+<h4 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h4><p>JOP 的全称为 Jump-oriented programming（跳转导向编程）,攻击与 ROP 攻击类似。它同样利用二进制可执行文件中已有的代码片段来进行攻击。 ROP 使用的是 ret 指令来改变程序的控制流，而 JOP 攻击利用的是程序间接接跳转和间接调用指令（间接 call 指令）来改变程序的控制流。当程序在执行间接 跳转或者是间接调用指令时，程序将从指定寄存器中获得其跳转的目的地址， 由于这些跳转目的地址被保存在寄存器中，而攻击者又能通过修改栈中的内容来修改寄存器内容，这使得程序中间接跳转和间接调用的目的地址能被攻击者 篡改。当攻击者篡改这些寄存器当中的内容时，攻击者就能够使程序跳转到攻击者所构建的 gadget 地址处，进而实施 JOP 攻击。一个典型的 JOP gadget 的形式如下： </p>
+<blockquote>
+<p>指令 </p>
+<p>指令 </p>
+<p>… </p>
+<p>间接跳转指令</p>
+</blockquote>
+<p>图 1 是一个 JOP 攻击的实例。在该实例中，攻击者的目的是<strong>执行系统调用 “int 0x80”来开启一个新的命令行窗口</strong>。</p>
+<p>为了达到此目的，攻击者需要在“int 0x80”被调用之前，将 eax 寄存器的内容修改为“0x0000000b”，将 ebx 寄存器的内容需要修改成字符串“/bin/sh” ，同时，ecx 和 edx 寄存器必须指向数值 “0x00000000”。假设在程序运行的时候，数值“0x0000000”和字符串“/bin/sh”都 能够在内存当中找到。攻击者需要自行构造数值“0x0000000b”。但是对于数值 “0x0000000b”而言，当攻击者通过缓冲区溢出的方式将数据保存到栈中时， “0x00”字节将会触发系统终止读取操作。该实例具体描述了攻击者如何利用程 序中已有的代码片段，将攻击者压入栈中 val 的值从“0xffffff0b”一步步修改成系统调用所需要的数值“0x0000000b”，从而实施 JOP 攻击。</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113192025589.png" alt="image-20220113192025589" style="zoom: 50%;"></p>
+<p>第一步：攻击者通过对程序的动态调试和静态分析，计算出图中 gadget 1、 gadget 2 和系统调用“int 0x80”的地址。之后，利用程序的缓冲区溢出漏洞向栈中填充设计好的各个寄存器中的数值。 </p>
+<p>第二步：程序执行 gadget 1，“popa”指令将对栈空间进行初始化。该指令使得栈中的数据出栈并将其分别保存进除 esp 寄存器之外的其他通用寄存器中。 “cmc”指令对栈不产生任何有意义的操作。此时，ebp 寄存器中保存了用于计算 gadget 2 起始地址的数据。当指令“jmp [ebp+0x62]”被执行时，程序跳转到gadget 2。 </p>
+<p>第三步：程序执行 gadget 2。bl 寄存器存储有数据“0x01”，与此同时， [esi+edi4-0xD]指向了数值“0xff”。“add [esi + edi4-0xD], bl”指令将[esi+edi4- 0xD]所指向的地址处的数值修改为“0x00”，该操作组成了 val 的第一个字节的内容。寄存器bl，esi，edi 和eax 通过第二步进行了初始化，其中eax 保存由gadget 1 的起始地址，程序执行“jmp eax”指令后，程序跳转到 dadget 1 处。 </p>
+<p>第四步：程序执行 gadget 1。该 gadget 中的指令使得栈中的数据依次出栈并 且将其保存在处 esp 寄存器之外的其他通用寄存器后，程序跳转到 gadget 2。 </p>
+<p>第五步：程序执行 gadget 2。bl 寄存器存储了数据“0x01”，同时，[esi+edi<em>4 -0xD]所指向的数据的值为“0xff”。指令“add [esi+edi</em>4-0xD], bl”使得 bl 寄存器中 的数值加上[esi+edi*4 -0xD]所指向的数据的数值，通过这一步，攻击者可以在 bl 寄存器中构造出 val 的第二个字节的数值“0x00”，然后，程序继续跳转到 gadget 1。 </p>
+<p>第六步：程序执行 gadget1。该 gadget 中的指令使得栈中的数据依次出栈并且 将其保存在处 esp 寄存器之外的其他通用寄存器中，随后程序跳转到 gadget 2。 </p>
+<p>第七步：程序执行 gadget 2。bl 寄存器存储了数据“0x01”，同时，[esi+edi<em>4 -0xD]所指向的数据的值为“0xff”。指令“add [esi+edi</em>4-0xD], bl”使得 bl 寄存器中 的数值加上[esi+edi*4 -0xD]所指向的数据的数值，通过这一步，攻击者可以构 造出来 val 的最后一个字节的数值“0x00”。“jmp eax”指令使程序继续跳转到 gadget 1。 </p>
+<p>第八步：程序执行 gadget 1。该 gadget 中的指令使得栈中的数据依次出栈并 且将其保存在处 esp 寄存器之外的其他通用寄存器中。然后，程序跳转到“int 0x80”系统调用的地址处。 </p>
+<p>第九步：程序执行系统调用“int 0x80”。 以上九个步骤，攻击者通过程序的内存溢出漏洞向栈中写入构造好的数据。 利用程序中的间接跳转，实现不同 gadget 之间的跳转。当所有 gadget 执行完其 对应功能后，攻击者将成功开启一个新的命令行窗口，完成 JOP 攻击。</p>
+<h4 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h4><p>实验之前关闭地址空间随机化</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113193301222.png" alt="image-20220113193301222"></p>
+<p>缓冲区漏洞程序：</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205548361.png" alt="image-20220113205548361"></p>
+<p>gdb 调试漏动程序得 system 函数地址、/bin/sh 地址和缓冲区偏移量</p>
+<p> 用 pwntool 找偏移量</p>
+<p>安装pwn</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113195143962.png" alt="image-20220113195143962" style="zoom: 67%;"></p>
+<p>但是python3好像不太支持pwn，于是干脆没有用</p>
+<p>调试得到 system 和 /bin/sh 的地址</p>
+<p>编译时加入编译选项-fno-stack-protector，防止缓冲区溢出攻击被系统监测</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113202158110.png" alt="image-20220113202158110"></p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205853540.png" alt="image-20220113205853540" style="zoom:80%;"></p>
+<p>用gdb调试得到</p>
+<p>addr(buff)=0x7fffffffdc00</p>
+<p>addr(rbp)=  0x7fffffffdc80</p>
+<p>addr(system())=0x40b710</p>
+<p>找 Gadget</p>
+<p>基本思路：利用rax寄存器，将system()的地址保存在里面；用rdi寄存器传递参数“/bin/sh”，找到jmp的代码片段，跳转实施system(“/bin/sh”)，最终实现攻击。</p>
+<p>所以gadget1需要含有pop rax指令</p>
+<p>gadget2需要含有pop和jmp</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113205628568.png" alt="image-20220113205628568" style="zoom: 80%;"></p>
+<p>发现对应地址addr（gadget1）=0X493560</p>
+<p>addr（gadget2）=0x418762</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113210853246.png" alt="image-20220113210853246"></p>
+<p>addr（/bin/sh）=0x4ad955</p>
+<p>编写脚本</p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113213150930.png" alt="image-20220113213150930"></p>
+<p><img src="/2022/01/13/JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0/image-20220113213640034.png" alt="image-20220113213640034"></p>
+<p>攻击成功</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/10/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" rel="prev" title="操作系统">
+      <i class="fa fa-chevron-left"></i> 操作系统
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JOP%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%94%A8%E6%94%BB%E5%87%BB%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">JOP代码复用攻击的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">实验原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实验过程</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

@@ -1,5 +1,5 @@
 /*样式一*/
-(function ($) {
+/*(function ($) {
     $.fn.snow = function (options) {
         var $flake = $('<div id="snowbox" />').css({
                 'position': 'absolute',
@@ -45,4 +45,4 @@ $(function () {
         /* 定义雪花最大尺寸 */
         newOn: 160 /* 定义密集程度，数字越小越密集 */
     });
-});
+});*/
