@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="实验内容1、把文件的逻辑结构转换成存储结构        2、设计便于顺序存取和直接存取的文件存储结构。 实验目的1、研究用户概念中的信息组织方式        2、理解文件的逻辑结构、存取结构、存取方式之间的联系        3、模拟设计文件的存储结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统：文件结构">
+<meta property="og:url" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="实验内容1、把文件的逻辑结构转换成存储结构        2、设计便于顺序存取和直接存取的文件存储结构。 实验目的1、研究用户概念中的信息组织方式        2、理解文件的逻辑结构、存取结构、存取方式之间的联系        3、模拟设计文件的存储结构">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084529092.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084511260.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084442899.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084614657.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220101058238.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220131205001.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220103809658.png">
+<meta property="og:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220131141084.png">
+<meta property="article:published_time" content="2021-12-12T13:29:43.000Z">
+<meta property="article:modified_time" content="2022-01-14T05:05:28.707Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084529092.png">
+
+<link rel="canonical" href="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>操作系统：文件结构 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          操作系统：文件结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-12 21:29:43" itemprop="dateCreated datePublished" datetime="2021-12-12T21:29:43+08:00">2021-12-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-14 13:05:28" itemprop="dateModified" datetime="2022-01-14T13:05:28+08:00">2022-01-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a><strong>实验内容</strong></h4><p>1、把文件的逻辑结构转换成存储结构<br>        2、设计便于顺序存取和直接存取的文件存储结构。</p>
+<h4 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a><strong>实验目的</strong></h4><p>1、研究用户概念中的信息组织方式<br>        2、理解文件的逻辑结构、存取结构、存取方式之间的联系<br>        3、模拟设计文件的存储结构</p>
+<span id="more"></span>
+<h4 id="实验题目及原理"><a href="#实验题目及原理" class="headerlink" title="实验题目及原理"></a>实验题目及原理</h4><p>本实验模拟在两种存储管理方式下的主存分配和回收。</p>
+<p><strong>（1）</strong>  <strong>第一题：模拟设计</strong>MS-DOS <strong>操作系统中磁盘文件的存储结构。</strong></p>
+<p>[提示]：</p>
+<p>\1)  当用户对记录式文件采用顺序存以方式时，用户总是依次地访问一个个逻辑记录，即当访问了第i 个记录后，下次总是访问第i+1 个记录。所以，当用户采用顺序存取方式访问文件时，只要给出访问要求(读或写)而无需再指出要访问的记录号。</p>
+<p>\2)  采用链接文件结构，只有读出一个物理块信息后才能从链接字中得知下一个物理块号。所以，当用户要在文件中插入一些信息时，文件系统必须多次地请求启动磁盘读出信息才能做插入工作。</p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084529092.png" alt="image-20211220084529092"></p>
+<p>MS-DOS 操作系统对链接文件结构作了改进，它是把所有的链接指针集中在一起，存放在文件定位表FAT 中。查找链接字时不必读出物理块信息可直接从FAT 中得到。</p>
+<p>其设计思想是: 假定磁盘上共有N 个物理块可供使用，FAT 就有N 项，初始化时为全“0”，表示对应的物理块均可使用，当要存放文件时，从FAT 中寻找为“0”的项，其对应的物理块用来存放文件信息，把文件的链接指针(指出物理块号)登记在FAT 中，文件第一块块号登记在文件目录中。</p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084511260.png" alt="image-20211220084511260" style="zoom: 33%;"></p>
+<p>\3)  假定磁盘存储空间共有32 个物理块，模拟设计文件定位表FAT。文件定位表可以用一个一维数组FAT[031]来定义，其中一个元素与一个物理块对应。当FAT[i]=0 时，表示第i 块为空闲块;当FAT[i]=FFF 时，表示链接文件到第i 块结束;当在0~FFF 时，其值指示链接文件中下一个物理块号。</p>
+<p>\4)  每个物理块只能存放一个逻辑记录，设计一个程序把文件的逻辑结构模拟转换成MS-DOS 的链接结构。要求保存一个已经在主存中的文件时，给出文件名和文件的逻辑记录长度及个数，对一个已经保存的文件，允许用户插入新记录。用键盘输入来模拟用户的要求，输入信息为:</p>
+<p>“存” 文件名逻辑记录长度逻辑记录个数</p>
+<p>“插入” 文件名逻辑记录号</p>
+<p>模拟程序的算法如下图所示:</p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084442899.png" alt="image-20211220084442899" style="zoom: 33%;"></p>
+<p>\5)  假设系统中已经有两个链接文件，其链接情况由FAT 表指出(链接情况学生自定)，现又要保存一个新文件，然后对已保存的文件插入一个新记录。运行你所设计的程序，观察其结果。</p>
+<p><strong>（2）</strong>  <strong>第二题：模拟便于直接存取的索引文件结构</strong></p>
+<p> [提示]</p>
+<p>\1)   索引文件像链接文件一样，文件的逻辑记录信息可存放在非连续的磁盘存储空间中。但这些存放逻辑记录的存储空间不是按链表的形式链接在一起的，而是采用索引表来指出逻辑记录存放的物理位置。</p>
+<p>文件目录与索引表的关系如下图所示:</p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220084614657.png" alt="image-20211220084614657" style="zoom:33%;"></p>
+<p>\2)   建立索引文件的过程是:寻找一些空闲物理块;逻辑记录存入这些物理块中; 把逻辑记录与物理块的对应关系登记在索引表中。</p>
+<h4 id="数据结构及说明"><a href="#数据结构及说明" class="headerlink" title="数据结构及说明"></a><strong>数据结构及说明</strong></h4><p><strong>（1）</strong>  <strong>第一题：模拟设计</strong>MS-DOS <strong>操作系统中磁盘文件的存储结构。</strong></p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220101058238.png" alt="image-20211220101058238" style="zoom: 80%;"></p>
+<p><strong>（2）</strong>  <strong>第二题：模拟便于直接存取的索引文件结构</strong></p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220131205001.png" alt="image-20211220131205001" style="zoom:67%;"></p>
+<h4 id="注释源码"><a href="#注释源码" class="headerlink" title="注释源码"></a>注释源码</h4><p><strong>（1）</strong>  <strong>第一题：模拟设计</strong>MS-DOS <strong>操作系统中磁盘文件的存储结构。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java001;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MS_DOS</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> Scanner input= <span class="keyword">new</span> Scanner(System.in);<span class="comment">//Scanner类对象</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> [] FAT = <span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">32</span>];	<span class="comment">//文件定位表</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> blockscount=<span class="number">32</span>;			<span class="comment">//磁盘剩余物理块的数量</span></span><br><span class="line">	<span class="keyword">static</span> String[] filename= <span class="keyword">new</span> String[<span class="number">32</span>];<span class="comment">//储存文件名</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> [] start=<span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">32</span>];	<span class="comment">//文件起始号，与文件名列表对应</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> filecount=<span class="number">0</span>;<span class="comment">//记录文件的数量</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">	        FAT[i] = <span class="number">0</span>;</span><br><span class="line">	    FAT[<span class="number">0</span>] = -<span class="number">2</span>;</span><br><span class="line">	    FAT[<span class="number">1</span>] = -<span class="number">1</span>;</span><br><span class="line">	    blockscount -= <span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findfile</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= filecount; i++) &#123;</span><br><span class="line">		      <span class="keyword">if</span>(filename[i].compareTo(name)==<span class="number">0</span>)<span class="keyword">return</span> i;</span><br><span class="line">		 &#125;</span><br><span class="line">		    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;输入文件名&quot;</span>);</span><br><span class="line">		String name=input.next();</span><br><span class="line">		 <span class="keyword">if</span>(findfile(name) != <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;存在同名文件，存操作失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;	</span><br><span class="line">		 System.out.println(<span class="string">&quot;逻辑记录个数:&quot;</span>); </span><br><span class="line">		 <span class="keyword">int</span> num=input.nextInt();</span><br><span class="line">		 <span class="comment">//检查剩余空间是否足够储存</span></span><br><span class="line">		 <span class="keyword">if</span>(num&gt;blockscount) &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;文件过大！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		 filecount++;</span><br><span class="line">		 filename[filecount]=name;</span><br><span class="line">		<span class="comment">//记录文件名称</span></span><br><span class="line">		 <span class="keyword">int</span> pos=<span class="number">0</span>,lastpos=<span class="number">0</span>;</span><br><span class="line">		 <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=num;i++) &#123;</span><br><span class="line">			 <span class="keyword">while</span>(FAT[pos]!=<span class="number">0</span>)</span><br><span class="line">				 pos=(pos+<span class="number">1</span>)%<span class="number">32</span>;<span class="comment">//直接存储下一个块的索引</span></span><br><span class="line">			 <span class="keyword">if</span>(i==<span class="number">1</span>)</span><br><span class="line">			 	start[filecount]=pos;<span class="comment">//上一个块的索引设置成当前的地址</span></span><br><span class="line">			 <span class="keyword">else</span></span><br><span class="line">			 	FAT[lastpos]=pos;</span><br><span class="line">			 <span class="comment">//记录当前地址，实际的复制内容由下一个块的地址决定</span></span><br><span class="line">			 lastpos=pos;</span><br><span class="line">			 pos++;</span><br><span class="line">			 blockscount--;</span><br><span class="line">		 &#125;</span><br><span class="line">		  <span class="comment">//将文件的结尾执行统一的结束符 FFF</span></span><br><span class="line">		 FAT[lastpos]=<span class="number">1</span>;</span><br><span class="line">		 System.out.println(<span class="string">&quot;储存成功&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//插入文件</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;输入文件名&quot;</span>);</span><br><span class="line">		String name=input.next();</span><br><span class="line">		<span class="keyword">int</span> pos=findfile(name);</span><br><span class="line">		 <span class="comment">//查找文件，如果有这个文件则记录</span></span><br><span class="line">		 <span class="keyword">if</span>(pos== <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;不存在同名文件，插入失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		 System.out.println(<span class="string">&quot;请输入逻辑记录号：&quot;</span>);</span><br><span class="line">		<span class="comment">//将这个块插入到文件的第 num 个位置</span></span><br><span class="line">		 <span class="keyword">int</span> num=input.nextInt();</span><br><span class="line">		<span class="comment">//判断是否有空间存储这个插入的块</span></span><br><span class="line">		 <span class="keyword">if</span>(blockscount==<span class="number">0</span>) &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;无空闲块，插入失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		 <span class="keyword">int</span> point=<span class="number">1</span>;</span><br><span class="line">		 <span class="keyword">while</span>(FAT[point]!=<span class="number">0</span>)</span><br><span class="line">			 point++;</span><br><span class="line">		 <span class="comment">//如果在第一个位置</span></span><br><span class="line">		 <span class="keyword">if</span>(num==<span class="number">1</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 FAT[point]=start[pos];</span><br><span class="line">			 start[pos]=point;</span><br><span class="line">		 &#125;</span><br><span class="line">		 <span class="keyword">else</span> &#123;</span><br><span class="line">			 <span class="keyword">int</span> temp=start[pos];</span><br><span class="line">			 <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;num-<span class="number">1</span>;i++)</span><br><span class="line">				 temp=FAT[temp];</span><br><span class="line">			 FAT[point]=FAT[temp];</span><br><span class="line">			 FAT[temp]=point;</span><br><span class="line">		 &#125;</span><br><span class="line">		 blockscount--;</span><br><span class="line">		 System.out.println(<span class="string">&quot;插入成功&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">info</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;文件目录：&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;文件名      起始块号&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= filecount; i++)</span><br><span class="line">			System.out.println(filename[i]+<span class="string">&quot;       &quot;</span>+start[i]);</span><br><span class="line">		System.out.println(<span class="string">&quot;文件定位表：&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;0         FDF&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;1         FFF&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">			System.out.println(i+<span class="string">&quot;         &quot;</span>+FAT[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		create();</span><br><span class="line">		<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;请选择：&quot;</span>);</span><br><span class="line">			System.out.println(<span class="string">&quot;1：存文件   2：指定的文件特定位置插入一个块   3：显示系统信息&quot;</span>);</span><br><span class="line">			<span class="keyword">int</span> a=input.nextInt();</span><br><span class="line">			<span class="keyword">switch</span>(a) &#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">					<span class="comment">//储存文件</span></span><br><span class="line">					save();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">					<span class="comment">//插入一个块</span></span><br><span class="line">					 insert();</span><br><span class="line">		             <span class="keyword">break</span>;</span><br><span class="line">		            </span><br><span class="line">				<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                    <span class="comment">//输出当前信息</span></span><br><span class="line">					 info();</span><br><span class="line">		             <span class="keyword">break</span>;	</span><br><span class="line">	              </span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>（2）</strong>  <strong>第二题：模拟便于直接存取的索引文件结构</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java001;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.LinkedList; <span class="comment">//链表</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Disk</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> Scanner input= <span class="keyword">new</span> Scanner(System.in);<span class="comment">//Scanner类对象</span></span><br><span class="line">	<span class="keyword">static</span> Boolean disk[]=<span class="keyword">new</span> Boolean [<span class="number">3000</span>];<span class="comment">//磁盘</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> spacecount=<span class="number">3000</span>;<span class="comment">//记录磁盘剩余空间</span></span><br><span class="line">	<span class="keyword">static</span> String user[]=<span class="keyword">new</span> String [<span class="number">20</span>];<span class="comment">//用户</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> filecount[]=<span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">20</span>];<span class="comment">//用户文件数量</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> usercount=<span class="number">0</span>;<span class="comment">//记录用户数量</span></span><br><span class="line"> 	<span class="keyword">static</span> <span class="keyword">int</span> fileblockcount[][]=<span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">20</span>][<span class="number">20</span>];<span class="comment">//每个文件占用的块的数量</span></span><br><span class="line"> 	<span class="keyword">static</span> String filename[][]=<span class="keyword">new</span> String [<span class="number">20</span>][<span class="number">20</span>];<span class="comment">//文件名</span></span><br><span class="line"> 	<span class="keyword">static</span> <span class="keyword">int</span> fileaddr [][][]=<span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">20</span>][<span class="number">20</span>][<span class="number">1000</span>];<span class="comment">//文件所存物理地址</span></span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3000</span>;i++)</span><br><span class="line"> 			disk[i]=<span class="keyword">false</span>;</span><br><span class="line"> 		usercount=<span class="number">0</span>;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;磁盘已重置&quot;</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createuser</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;输入用户名&quot;</span>);</span><br><span class="line">		String username=input.next();</span><br><span class="line">		 <span class="keyword">if</span>(finduser(username) != <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;存在同名用户，操作失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		 usercount++;</span><br><span class="line">		 user[usercount]=username;</span><br><span class="line">		 filecount[usercount]=<span class="number">0</span>;</span><br><span class="line">		 System.out.println(<span class="string">&quot;用户已创建&quot;</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">finduser</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line"> 		 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= usercount; i++) &#123;</span><br><span class="line"> 			 <span class="keyword">if</span>(user[i].compareTo(name)==<span class="number">0</span>)<span class="keyword">return</span> i;</span><br><span class="line">		 &#125;</span><br><span class="line">		 <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createfile</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;输入添加文件所属的的用户名&quot;</span>);</span><br><span class="line">		String username=input.next();</span><br><span class="line">		 <span class="keyword">if</span>(finduser(username) == <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;不存在该用户，操作失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;输入文件名&quot;</span>);</span><br><span class="line">		String name=input.next();</span><br><span class="line">			 <span class="keyword">if</span>(findfile(username,name) != <span class="number">0</span>)</span><br><span class="line">			 &#123;</span><br><span class="line">				 System.out.println(<span class="string">&quot;存在同名文件，操作失败！&quot;</span>);</span><br><span class="line">			     <span class="keyword">return</span>;</span><br><span class="line">			 &#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;输入文件的长度&quot;</span>);	 </span><br><span class="line">		<span class="keyword">int</span> len=input.nextInt();</span><br><span class="line">		<span class="keyword">if</span>(len&gt;spacecount)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;文件过大，创建失败&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> userpos = finduser(username);</span><br><span class="line">		filecount[usercount]++;</span><br><span class="line">		filename[userpos][filecount[usercount]]=name;</span><br><span class="line">		fileblockcount[userpos][filecount[usercount]]=len;</span><br><span class="line">		<span class="keyword">int</span> pos=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">while</span>(disk[pos] != <span class="keyword">false</span>)<span class="comment">//寻找一个空的磁盘块</span></span><br><span class="line">				pos++;</span><br><span class="line">			disk[pos] = <span class="keyword">true</span>;<span class="comment">//占用这个磁盘块</span></span><br><span class="line">			<span class="comment">//记录映射关系</span></span><br><span class="line">			fileaddr[userpos][filecount[userpos]][i] = pos;</span><br><span class="line">			spacecount-- ; <span class="comment">//更新剩余磁盘剩余块的数量</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;文件添加成功&quot;</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">findfile</span><span class="params">(String username,String name)</span> </span>&#123;</span><br><span class="line"> 		<span class="keyword">int</span> usr = finduser(username) ;</span><br><span class="line"> 		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= filecount[usr]; i++)</span><br><span class="line"> 			<span class="keyword">if</span>(filename[usr][i].compareTo(name)==<span class="number">0</span>)</span><br><span class="line"> 				<span class="keyword">return</span> i;</span><br><span class="line"> 		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deletefile</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;输入删除文件所属的用户名&quot;</span>);</span><br><span class="line">		String username=input.next();</span><br><span class="line">		 <span class="keyword">if</span>(finduser(username) == <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;不存在该用户，操作失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;输入要删除的文件名&quot;</span>);</span><br><span class="line">		String name=input.next();</span><br><span class="line">			 <span class="keyword">if</span>(findfile(username,name) == <span class="number">0</span>)</span><br><span class="line">			 &#123;</span><br><span class="line">				 System.out.println(<span class="string">&quot;没有这个文件，操作失败！&quot;</span>);</span><br><span class="line">			     <span class="keyword">return</span>;</span><br><span class="line">			 &#125;</span><br><span class="line">			 </span><br><span class="line">		<span class="keyword">int</span> userpos = finduser(username);</span><br><span class="line">		<span class="keyword">int</span> filepos = findfile(username, name);</span><br><span class="line">		<span class="comment">//释放这个文件占用的磁盘资源</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= fileblockcount[userpos][filepos]; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			disk[ fileaddr[userpos][filepos][i] ] = <span class="keyword">false</span>;</span><br><span class="line">			spacecount++;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//清空文件索引表中这个文件的记录</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = filepos; i &lt; filecount[userpos]; i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= fileblockcount[userpos][i+<span class="number">1</span>]; j++)</span><br><span class="line">				fileaddr[userpos][i][j] = fileaddr[userpos][i+<span class="number">1</span>][j];</span><br><span class="line">		<span class="comment">//清空这个文件的块数量记录</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = filepos; i &lt; filecount[userpos]; i++)</span><br><span class="line">			fileblockcount[userpos][i] = fileblockcount [userpos][i+<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//在文件目录中删除这个文件</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = filepos; i &lt; filecount[userpos]; i++)</span><br><span class="line">			filename[userpos][i] = filename[userpos][i+<span class="number">1</span>];</span><br><span class="line">		<span class="comment">//文件数量减一</span></span><br><span class="line">		filecount[userpos]-- ;</span><br><span class="line">		System.out.println(<span class="string">&quot;文件删除成功&quot;</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteuser</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;输入要删除的用户名&quot;</span>);</span><br><span class="line">		String username=input.next();</span><br><span class="line">		 <span class="keyword">if</span>(finduser(username) == <span class="number">0</span>)</span><br><span class="line">		 &#123;</span><br><span class="line">			 System.out.println(<span class="string">&quot;不存在该用户，操作失败！&quot;</span>);</span><br><span class="line">		     <span class="keyword">return</span>;</span><br><span class="line">		 &#125;</span><br><span class="line">		 <span class="keyword">int</span> userpos = finduser (username);</span><br><span class="line">		<span class="comment">//释放这个用户占用的所有磁盘资源</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= filecount[userpos]; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= fileblockcount[userpos][i]; j++)</span><br><span class="line">				&#123;</span><br><span class="line">					disk[ fileaddr[userpos][i][j] ] = <span class="keyword">false</span>;</span><br><span class="line">					spacecount++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//删除这个用户所有文件的块映射记录</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = userpos; i &lt; usercount; i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= filecount[i+<span class="number">1</span>]; j++)</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= fileblockcount[i+<span class="number">1</span>][j]; k++)</span><br><span class="line">						fileaddr[i][j][k] = fileaddr[i+<span class="number">1</span>][j][k];</span><br><span class="line">			<span class="comment">//删除这个用户的文件目录</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = userpos; i &lt; usercount; i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= filecount[i+<span class="number">1</span>]; j++)</span><br><span class="line">					filename[i][j] = filename[i+<span class="number">1</span>][j];</span><br><span class="line">			<span class="comment">//删除这个用户的每个文件的文件块数量</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = userpos; i &lt; usercount; i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= filecount[i+<span class="number">1</span>]; j++)</span><br><span class="line">					fileblockcount[i][j] = fileblockcount[i+<span class="number">1</span>][j];</span><br><span class="line">			<span class="comment">//用户文件数量中删除这个用户的记录</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = userpos; i &lt; usercount; i++)</span><br><span class="line">				filecount[i] = filecount[i+<span class="number">1</span>];</span><br><span class="line">			<span class="comment">//在用户列表里面删除这个用户的记录</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = userpos; i &lt; usercount; i++)</span><br><span class="line">				user[i] = user[i+<span class="number">1</span>];</span><br><span class="line">			<span class="comment">//更新删除以后用户的数量</span></span><br><span class="line">			usercount--;</span><br><span class="line">			System.out.println(<span class="string">&quot;用户删除成功&quot;</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		System.out.println(<span class="string">&quot;当前的剩余磁盘空间：&quot;</span>+spacecount);</span><br><span class="line"> 		System.out.println(<span class="string">&quot;----------------------------------------&quot;</span>);</span><br><span class="line"> 		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= usercount; i++) &#123;</span><br><span class="line"> 			System.out.print(<span class="string">&quot;用户&quot;</span>+i+<span class="string">&quot;: &quot;</span>+user[i]);</span><br><span class="line"> 			System.out.println(<span class="string">&quot;文件数量&quot;</span>+filecount[i]);</span><br><span class="line"> 			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=filecount[i];j++)&#123;</span><br><span class="line"> 				System.out.print(<span class="string">&quot;文件&quot;</span>+i+<span class="string">&quot;: &quot;</span>+filename[i][j]+<span class="string">&quot;  占用的内存块：&quot;</span>);</span><br><span class="line"> 				<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=fileblockcount[i][j];k++)</span><br><span class="line"> 					System.out.print(fileaddr[i][j][k]+<span class="string">&quot; &quot;</span>);</span><br><span class="line"> 				System.out.println();</span><br><span class="line"> 			&#125;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Init();</span><br><span class="line">		System.out.println(<span class="string">&quot;请选择：&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;1：重置   2：添加新用户   3：添加文件   4：删除文件   5：删除用户   6：输出磁盘信息&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span>(;;) &#123;</span><br><span class="line">			<span class="keyword">int</span> a=input.nextInt();</span><br><span class="line">			<span class="keyword">switch</span>(a) &#123;</span><br><span class="line">				<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">					Init();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">					 <span class="comment">//重置</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">					 createuser();</span><br><span class="line">		             <span class="keyword">break</span>;</span><br><span class="line">		             <span class="comment">//添加新用户</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">					 createfile();</span><br><span class="line">		             <span class="keyword">break</span>;	</span><br><span class="line">		             <span class="comment">//添加文件</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">					 deletefile();</span><br><span class="line">	                 <span class="keyword">break</span>;</span><br><span class="line">	                 <span class="comment">//删除文件</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">					deleteuser();</span><br><span class="line">	                 <span class="keyword">break</span>;</span><br><span class="line">	                 <span class="comment">//删除用户</span></span><br><span class="line">				<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">					 print();</span><br><span class="line">					 <span class="keyword">break</span>;</span><br><span class="line">					 <span class="comment">//输出磁盘信息</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="初值和运行结果"><a href="#初值和运行结果" class="headerlink" title="初值和运行结果"></a>初值和运行结果</h4><p><strong>（1）</strong>  <strong>第一题：模拟设计</strong>MS-DOS <strong>操作系统中磁盘文件的存储结构。</strong></p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220103809658.png" alt="image-20211220103809658" style="zoom: 67%;"></p>
+<p><strong>（2）</strong>  <strong>第二题：模拟便于直接存取的索引文件结构</strong></p>
+<p><img src="/2021/12/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/image-20211220131141084.png" alt="image-20211220131141084" style="zoom: 67%;"></p>
+<h4 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h4><p>链表文件结构和索引文件结构各自的优缺点是什么?</p>
+<p>链式结构</p>
+<p>优点:</p>
+<p>1.提高了磁盘空间的利用率，不需要为每个文件预留物理块；</p>
+<p>2.有利于文件插入和删除；</p>
+<p>3.有利于文件动态补充。</p>
+<p>缺点:</p>
+<p>1.存取速度慢，不适于随机存取;</p>
+<p>2.当物理块间的连接指针出错时，数据丢失;</p>
+<p>3.更多的寻道次数和寻道时间;</p>
+<p>4.链接指针占用一定的空间，降低了空间利用率。</p>
+<p>索引结构</p>
+<p>优点:</p>
+<p>1.不需要为每个文件预留物理块。</p>
+<p>2.既能顺序存取，又能随机存取。</p>
+<p>3.足了文件动态增长、插入删除的要求。</p>
+<p>缺点:</p>
+<p>1.较多的寻道次数和寻道时间。</p>
+<p>2.索引表本身带来了系统开销。如:内外存空间，存取时间等。</p>
+<p>当文件较大时，使得索引表也较大，如果索引表的大小超过了一个物理块，如何进行索引表的存取?</p>
+<p>如果索引表的大小超过了一个物理块，可以采用间接索引(多重索引)的方式来解决，也就是在索引表所指的物理块中存放的不是文件信息，而是装有这些信息的物理块地址，这样就对索引表的长度没有限制了，但是同时也会增加很多空间上的开销。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/10/%E5%85%AD%E7%BA%A7%E5%8D%95%E8%AF%8D%E5%A4%8D%E4%B9%A0/" rel="prev" title="六级单词复习">
+      <i class="fa fa-chevron-left"></i> 六级单词复习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/23/docker/" rel="next" title="Dirtycow Docker escape 原理和实现">
+      Dirtycow Docker escape 原理和实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-number">1.</span> <span class="nav-text">实验内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E9%A2%98%E7%9B%AE%E5%8F%8A%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">实验题目及原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">数据结构及说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A%E6%BA%90%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">注释源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%80%BC%E5%92%8C%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">6.</span> <span class="nav-text">初值和运行结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>
