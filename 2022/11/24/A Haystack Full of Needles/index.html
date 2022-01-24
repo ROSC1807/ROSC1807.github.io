@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Scalable Detection of IOT Devices in the Wild">
+<meta property="og:url" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220121184123325.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124135932047.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124142558046.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124120854225.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124120345725.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124121330827.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124121411095.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124122224320.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124134635549.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124143050045.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124174939901.png">
+<meta property="og:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124175101452.png">
+<meta property="article:published_time" content="2022-11-24T09:58:13.000Z">
+<meta property="article:modified_time" content="2022-01-24T10:01:03.751Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220121184123325.png">
+
+<link rel="canonical" href="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Scalable Detection of IOT Devices in the Wild | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/24/A%20Haystack%20Full%20of%20Needles/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scalable Detection of IOT Devices in the Wild
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-24 17:58:13" itemprop="dateCreated datePublished" datetime="2022-11-24T17:58:13+08:00">2022-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-24 18:01:03" itemprop="dateModified" datetime="2022-01-24T18:01:03+08:00">2022-01-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220121184123325.png" alt="image-20220121184123325"></p>
+<span id="more"></span>
+<h4 id="ABSTRACT大意："><a href="#ABSTRACT大意：" class="headerlink" title="ABSTRACT大意："></a>ABSTRACT大意：</h4><p>物联网设备非常流行，但也面临严重的隐私安全风险。大规模的全球协同攻击扰乱了大型服务提供商。最重要的第一步是获悉各种物联网设备在网络中的位置。然而，对于ISP来说，利用抽样网络数据高效跟踪数百万用户的物联网设备活动是一项挑战</p>
+<p>在本文中，我们开发和评估了一种可度量的方法，以在有限的、高度采样的野外数据下准确地检测和监控用户线路上的物联网设备。我们的研究结果表明，使用被动的、稀疏采样的网络流头，数百万的物联网设备可以在数小时内被检测和识别，无论是在主要的ISP还是IXP。我们的方法能够检测超过77%的被研究物联网制造商的设备，包括智能音箱等流行设备。虽然我们的方法有效地提供了网络分析，但它也强调了重大的隐私后果</p>
+<h4 id="INTRODAUCTION"><a href="#INTRODAUCTION" class="headerlink" title="INTRODAUCTION"></a>INTRODAUCTION</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/JxufeCarol/article/details/82194513">什么是ISP和IXP？</a></p>
+<p>We build on the insight that IoT devices typically rely on backend infrastructure hosted on the cloud to offer their services. While contacting such infrastructure, they expose information, including their traffic destinations, even when a device is not in use.</p>
+<p><strong>difficulty1</strong>: poor availability and low granularity of data sources.</p>
+<p><strong>solution</strong>: we need a methodology that <strong>(a) does not rely on payload and (b) handles sparsely sampled data.</strong></p>
+<p><strong>difficulty2</strong>: traffic patterns diversity, across IoT devices and their services.</p>
+<p><strong>solution</strong>: we need a methodology that <strong>identifies which IoT services are detectable from the traffic</strong> and then <strong>identifies a unique traffic pattern</strong> for each IoT device and associated services.</p>
+<p>Our <strong>key insight</strong> is that we can address these challenges by focusing our analysis only on the types of destinations contacted by IoT devices. Even with sparsely sampled data, the set of servers contacted by an IoT device over time can form a reasonably unique signature that is revealed in as little as a few hours. However, this approach has limitations, for example we cannot use it to detect devices or services that use a shared infrastructure with unrelated services (e.g., CDNs).</p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124135932047.png" alt="image-20220124135932047" style="zoom:67%;"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52362950">什么是CDN？</a></p>
+<p><strong>What they do？</strong></p>
+<p>1）<strong>controlled experiments</strong>: Tunnel the traffic of two IoT testbeds with 96 IoT devices to an ISP, which provides us with ground truth IoT traffic within this ISP</p>
+<p>2）<strong>confirm the visibility of the ground truth IoT traffic</strong>: use NetFlow ISP data</p>
+<p>3）<strong>identity backend infrastructures form many IoT services</strong></p>
+<p>4）<strong>augment base information</strong>: with the data form DNS queries,web certificates and banners</p>
+<p>5）<strong>use the traffic signatures to identify broadband subscriber lines using IoT services</strong></p>
+<p>6）<strong>discuss results, significance and limitations.</strong></p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124142558046.png" alt="image-20220124142558046" style="zoom: 50%;"></p>
+<p><strong>main contributions</strong>:</p>
+<p>1）develop <strong>a methodology for identifying IoT devices</strong></p>
+<p>2）even if the device is <strong>idle</strong>,  it <strong>is possible to detect</strong> the presence of IoT devices at subscriber lines</p>
+<p>3 ）technique s<strong>cales</strong>, <strong>is</strong> <strong>accurate,</strong> and can identify millions of IoT devices <strong>within minutes</strong>, <strong>in a non-intrusive way</strong> from <strong>passive, sampled data.</strong></p>
+<p><a target="_blank" rel="noopener" href="https://kb.cnblogs.com/page/71531/">what is passive data?</a></p>
+<h4 id="1）controlled-experiments"><a href="#1）controlled-experiments" class="headerlink" title="1）controlled experiments"></a>1）<strong>controlled experiments</strong></h4><blockquote>
+<p>We need ground truth traffic from IoT devices, as observed both in a testbed and in the wild, for developing and testing our methodology. In this section, we describe our <strong>data collection strategy</strong>.</p>
+</blockquote>
+<h5 id="Network-Setting"><a href="#Network-Setting" class="headerlink" title="Network Setting"></a>Network Setting</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/JxufeCarol/article/details/82194513">什么是ISP和IXP？</a></p>
+<p><strong>ISP(ISP-VP):</strong></p>
+<p>a large residential ISP, use Netflow</p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124120854225.png" alt="image-20220124120854225" style="zoom:50%;"></p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124120345725.png" alt="image-20220124120345725" style="zoom:50%;"></p>
+<p><strong>IXP(IXP-XP):</strong></p>
+<p>facilitates traffic exchange between its members, uses IPFIX</p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124121330827.png" alt="image-20220124121330827" style="zoom: 50%;"></p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124121411095.png" alt="image-20220124121411095" style="zoom:50%;"></p>
+<p><strong>analyse:</strong></p>
+<p>1）Neither the ISP nor the IXP flow data contain any payload data, thus no user information</p>
+<p>2）In order to ingest ground truth traffic into the network, we need privileged access to a home subscriber line.</p>
+<p>3）the analysis in this paper only considers traffic explicitly ingested by the ground truth experiments and does not involve any user-generated traffic.</p>
+<h5 id="Ground-Truth-Traffic-Setting"><a href="#Ground-Truth-Traffic-Setting" class="headerlink" title="Ground Truth Traffic Setting"></a>Ground Truth Traffic Setting</h5><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22464082">what is ground truth？</a></p>
+<p>IoT testbeds： 96 devices from 40 vendors</p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124122224320.png" alt="image-20220124122224320" style="zoom: 67%;"></p>
+<h5 id="Active-and-Idle-IoT-Experiments"><a href="#Active-and-Idle-IoT-Experiments" class="headerlink" title="Active and Idle IoT Experiments"></a>Active and Idle IoT Experiments</h5><p><strong>Idle experiments</strong>: We define as idle the experiments during which the <strong>devices are just connected to the Internet without being actively used</strong>. </p>
+<p><strong>Active experiments</strong>: We define as active the experiments <strong>involving automated interactions</strong>.</p>
+<blockquote>
+<p>two types of automated interactions:</p>
+<p>(i): power interactions</p>
+<p>(ii): functional interactions</p>
+</blockquote>
+<h4 id="2）confirm-the-visibility-of-the-ground-truth-IoT-traffic"><a href="#2）confirm-the-visibility-of-the-ground-truth-IoT-traffic" class="headerlink" title="2）confirm the visibility of the ground truth IoT traffic"></a>2）<strong>confirm the visibility of the ground truth IoT traffic</strong></h4><blockquote>
+<p>In this section, we aim to understand </p>
+<p>(i) to which extent the IoT related traffic of a single subscriber line reaches a diverse set of servers in the Internet</p>
+<p>在何种程度上，单一用户线路的物联网相关流量可以到达Internet中不同的服务器集合</p>
+<p>(ii) whether the low sampling rate of NetFlow limits the subscriber/device visibility</p>
+<p>NetFlow的低采样率是否限制了用户/设备的可见性</p>
+</blockquote>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124134635549.png" alt="image-20220124134635549" style="zoom: 67%;"></p>
+<p>In summary, our analysis of the ground truth IoT traffic shows that, <strong>despite the low sampling of NetFlow, popular domains, service IPs, and ports of a single subscriber line (the Home-VP) are visible at the ISP.</strong></p>
+<p>尽管NetFlow的采样很低，但ISP上可以看到流行的域、服务ip和单个用户线路(Home-VP)的端口。</p>
+<h4 id="3）identify-backend-infrastructures-form-many-IoT-services"><a href="#3）identify-backend-infrastructures-form-many-IoT-services" class="headerlink" title="3）identify backend infrastructures form many IoT services"></a>3）identify backend infrastructures form many IoT services</h4><blockquote>
+<p>In this section, we outline our methodology for the detection of IoT devices in-the-wild. IoT services typically rely on a backend support infrastructure.</p>
+</blockquote>
+<p><strong>A naive approach</strong> for identifying the backend infrastructure would be to use the ground truth traffic to identify which domains, and as a consequence, which service IPs are being contacted by each device.</p>
+<p> However this is <strong>not sufficient</strong> for the following reasons</p>
+<blockquote>
+<p>Limited relevance of some domains</p>
+<p>Limited visibility of IP addresses</p>
+<p>Usage of shared infrastructure</p>
+<p>Churn</p>
+<p>Common programming APIs</p>
+</blockquote>
+<p>solution:</p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124143050045.png" alt="image-20220124143050045" style="zoom:67%;"></p>
+<p>Three methods:</p>
+<p>1)Classifying IoT Domains //对物联网域进行分类</p>
+<p>2)Identifying Dedicated Infrastructures //确定专用的基础设施</p>
+<p>3)Device Detection Rules //确立设备检测规则</p>
+<p><strong>Detection Rules</strong> are divided into <strong>three levels</strong></p>
+<p>(i) Platform-level  //平台级别</p>
+<p>(ii) Manufacturer-level  //制造商级别</p>
+<p>(iii) Product-level  /产品级别</p>
+<h4 id="4）METHODOLOGY-CROSSCHECK"><a href="#4）METHODOLOGY-CROSSCHECK" class="headerlink" title="4）METHODOLOGY: CROSSCHECK"></a>4）METHODOLOGY: CROSSCHECK</h4><blockquote>
+<p>We use our ground truth dataset to check how long it takes for our methodology</p>
+<p>我们使用真实数据集来检查我们的方法需要多长时间</p>
+</blockquote>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124174939901.png" alt="image-20220124174939901" style="zoom: 80%;"></p>
+<p><img src="/2022/11/24/A%20Haystack%20Full%20of%20Needles/image-20220124175101452.png" alt="image-20220124175101452"></p>
+<p>简单地说，很快</p>
+<h4 id="5）use-the-traffic-signatures-to-identify-broadband-subscriber-lines-using-IoT-services"><a href="#5）use-the-traffic-signatures-to-identify-broadband-subscriber-lines-using-IoT-services" class="headerlink" title="5）use the traffic signatures to identify broadband subscriber lines using IoT services"></a>5）use the traffic signatures to identify broadband subscriber lines using IoT services</h4><blockquote>
+<p>In this section, we apply our methodology for detecting IoT activity in the ISP and IXP data</p>
+<p>应用我们的方法来检测ISP和IXP数据中的物联网活动（in the wild）</p>
+</blockquote>
+<p>仅仅是分析数据没什么好说的</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/20/%E8%8B%B1%E8%AF%AD%E5%A4%96%E5%88%8A%E9%98%85%E8%AF%BB/" rel="prev" title="英语外刊阅读">
+      <i class="fa fa-chevron-left"></i> 英语外刊阅读
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ABSTRACT%E5%A4%A7%E6%84%8F%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">ABSTRACT大意：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#INTRODAUCTION"><span class="nav-number">2.</span> <span class="nav-text">INTRODAUCTION</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1%EF%BC%89controlled-experiments"><span class="nav-number">3.</span> <span class="nav-text">1）controlled experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Network-Setting"><span class="nav-number">3.1.</span> <span class="nav-text">Network Setting</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ground-Truth-Traffic-Setting"><span class="nav-number">3.2.</span> <span class="nav-text">Ground Truth Traffic Setting</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Active-and-Idle-IoT-Experiments"><span class="nav-number">3.3.</span> <span class="nav-text">Active and Idle IoT Experiments</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%EF%BC%89confirm-the-visibility-of-the-ground-truth-IoT-traffic"><span class="nav-number">4.</span> <span class="nav-text">2）confirm the visibility of the ground truth IoT traffic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%EF%BC%89identify-backend-infrastructures-form-many-IoT-services"><span class="nav-number">5.</span> <span class="nav-text">3）identify backend infrastructures form many IoT services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%EF%BC%89METHODOLOGY-CROSSCHECK"><span class="nav-number">6.</span> <span class="nav-text">4）METHODOLOGY: CROSSCHECK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%EF%BC%89use-the-traffic-signatures-to-identify-broadband-subscriber-lines-using-IoT-services"><span class="nav-number">7.</span> <span class="nav-text">5）use the traffic signatures to identify broadband subscriber lines using IoT services</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>
