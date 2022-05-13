@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一元函数微分学">
+<meta property="og:url" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102105737518.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102111349774.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102111555634.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102123637347.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102124843905.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102124801193.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220223164300195.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132409670.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132510845.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132542452.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102143718860.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102144245201.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/-16524549395061.svg+xml">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151112314.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102144513327.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151216014.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151458774.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102153025560.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102160233313.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102161031615.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102161348147.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102204805522.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102205040666.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228094904834.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211557348.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211621672.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211652123.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103005408211.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228095939326.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103005853812.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-86caf2d1574f1d744fc4be6cf02c6b7a_1440w.jpg">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-ead1afcb5379a52acdd775bc5d4986d7_1440w.jpg">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103012129412.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103093929156.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103094248194.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103095344628.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103095406962.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103101224852.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103101333415.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228103658008.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102620261.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102756718.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102809276.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102942700.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103103838355.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104018390.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104242493.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104453973.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105608429.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105657917.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227124136954.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220226101451553.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105743650.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227135455477.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227131316214.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305105009249.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302213946580.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302214017505.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302214136522.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302215139218.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220709193.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220734841.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220852457.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-ab2b40b43fc509c05957215e772ed01a_1440w.jpg">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152053261.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152118085.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152509996.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152539795.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161223095.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161601872.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161958751.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423185554985.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301152325934.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423111442809.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153400354.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153419304.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153700500.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301154018353.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301154636985.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220331205345648.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224111623257.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224181117872.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224112201217.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224112416068.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224211308850.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227190019959.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227190538988.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227191354614.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220327222845459.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220331215933691.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402162703359.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402162739760.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164051632.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164830004.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164851670.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305101534785.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305102251807.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305102325415.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305112238042.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402192440344.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402192502504.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423185554985.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423190939911.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161601872.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423193002221.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423200915347.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423222931323.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423222949577.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423213258236.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423213328277.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423220424163.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423220526404.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423221431428.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423221449355.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423224226020.png">
+<meta property="og:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423224239708.png">
+<meta property="article:published_time" content="2022-03-01T02:43:15.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:27:05.937Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102105737518.png">
+
+<link rel="canonical" href="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一元函数微分学 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一元函数微分学
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-01 10:43:15" itemprop="dateCreated datePublished" datetime="2022-03-01T10:43:15+08:00">2022-03-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:27:05" itemprop="dateModified" datetime="2022-05-13T23:27:05+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>-</p>
+<span id="more"></span>
+<h3 id="导数与微分"><a href="#导数与微分" class="headerlink" title="导数与微分"></a>导数与微分</h3><h4 id="导数的概念和基本求导法则"><a href="#导数的概念和基本求导法则" class="headerlink" title="导数的概念和基本求导法则"></a>导数的概念和基本求导法则</h4><h5 id="导数的概念"><a href="#导数的概念" class="headerlink" title="导数的概念"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AF%BC%E6%95%B0/579188">导数的概念</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102105737518.png" alt="image-20220102105737518" style="zoom:50%;"></p>
+<p>导数的定义显得十分复杂。本质来看导数就是y的变化量和x变化量之比$\frac{\Delta y}{\Delta x}$的极限值（是通过极限的概念对函数进行局部的线性逼近)。不妨直接用曲线切线的斜率图来理解</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102111349774.png" alt="image-20220102111349774" style="zoom:50%;"></p>
+<p>左右导数就是$\Delta x$从不同的方向逼近于0所对应的导数</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102111555634.png" alt="image-20220102111555634" style="zoom: 50%;"></p>
+<p>f(x)在$x_0$处可导的充要条件是<strong>左右导数存在且相等。</strong></p>
+<p>不是所有的函数都有导数，一个函数也不一定在所有的点上都有导数。若某函数在某一点导数存在，则称其在这一点<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/可导/11034968">可导</a>，否则称为不可导。然而，可导的函数一定<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/连续/6532794">连续</a>；不连续的函数一定不可导。</p>
+<p>如果函数f(x)在<strong>开区间（a,b）内可导</strong>，且区间端点a处存在右导数，区间端点b处存在左导数，那么就说f(x)在<strong>闭区间[a,b]上可导</strong>。</p>
+<p>可以通过导数的定义来计算函数y=f(x)在x处的导数，分为三个步骤：</p>
+<blockquote>
+<p>（1）求增量：对自变量x在x处给以增量$\Delta x$，求出$\Delta y=f(x+\Delta x)-f(x)$;</p>
+<p>（2）算比值：$\frac{\Delta y}{\Delta x}$；</p>
+<p>（3）求$\Delta x \rightarrow 0$情况下$\frac{\Delta y}{\Delta x}$的极限</p>
+</blockquote>
+<h5 id="导数的几何意义"><a href="#导数的几何意义" class="headerlink" title="导数的几何意义"></a>导数的几何意义</h5><p>函数y=f（x）在$x_0$点的导数f’（$x_0$）的几何意义：表示函数曲线在点$P_0$（$x_0$,f（$x_0$））处的切线的斜率（导数的几何意义是该函数曲线在这一点上的切线斜率）。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102123637347.png" alt="image-20220102123637347" style="zoom:50%;"></p>
+<h5 id="可导和连续的关系"><a href="#可导和连续的关系" class="headerlink" title="可导和连续的关系"></a>可导和连续的关系</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102124843905.png" alt="image-20220102124843905" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102124801193.png" alt="image-20220102124801193" style="zoom:50%;"></p>
+<p>由此可以看出，<strong>可导一定连续</strong>，但<strong>连续不一定可导</strong>（如上图2-4，<strong>导数不存在</strong>，或者2-5，虽然连续但是<strong>函数不光滑</strong>）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220223164300195.png" alt="image-20220223164300195" style="zoom:67%;"></p>
+<h5 id="导数的四则运算法则"><a href="#导数的四则运算法则" class="headerlink" title="导数的四则运算法则"></a><a target="_blank" rel="noopener" href="https://sxyd.sdut.edu.cn/_upload/tpl/02/32/562/template562/onlineLearning/gaodengshuxueshang/lesson/2.2%20%20hanshudehecha.htm">导数的四则运算法则</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132409670.png" alt="image-20220102132409670" style="zoom:50%;"></p>
+<h5 id="反函数的求导法则"><a href="#反函数的求导法则" class="headerlink" title="反函数的求导法则"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/baishuiniyaonulia/article/details/79052350">反函数的求导法则</a></h5><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/351886546/answer/873559568">理清反函数的概念</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132510845.png" alt="image-20220102132510845" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102132542452.png" alt="image-20220102132542452" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102143718860.png" alt="image-20220102143718860" style="zoom:50%;"></p>
+<h5 id="复合函数的求导法则"><a href="#复合函数的求导法则" class="headerlink" title="复合函数的求导法则"></a>复合函数的求导法则</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102144245201.png" alt="image-20220102144245201" style="zoom:50%;"></p>
+<h5 id="隐函数的求导法则"><a href="#隐函数的求导法则" class="headerlink" title="隐函数的求导法则"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%9A%90%E5%87%BD%E6%95%B0/6988840?fr=aladdin">隐函数</a>的求导法则</h5><p>等号左边是因变量的符号，等号右边是含有自变量的式子，这样的函数叫做<strong>显函数</strong>；自变量和因变量混杂在一起的函数叫做<strong>隐函数</strong>。把一个隐函数化成显函数叫做<strong>隐函数的显化</strong>。有的时候隐函数的显化很困难，因此应用隐函数独有的求导法则对隐函数进行求导。</p>
+<p>方法一：左右两边同时就x求导，把y看作x的函数</p>
+<p>方法二：当遇到<strong>幂指函数</strong>（比如$y=x^{sinx}$）这类不易求导的函数时,就两边取对数，再采用方法一对隐函数求导。</p>
+<p>方法三：<a target="_blank" rel="noopener" href="http://netedu.xauat.edu.cn/jpkc/netedu/jpkc/gdsx/homepage/5jxsd/51/513/5308/530805.htm">隐函数求导公式</a>。比较复杂，点开链接去看。</p>
+<h5 id="由参数方程确定的函数的求导法则"><a href="#由参数方程确定的函数的求导法则" class="headerlink" title="由参数方程确定的函数的求导法则"></a>由参数方程确定的函数的求导法则</h5><p>以二元函数为例：</p>
+<p>参数方程如下所示：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/-16524549395061.svg+xml" alt="[公式]"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151112314.png" alt="image-20220102151112314" style="zoom: 33%;"></p>
+<h5 id="导数公式"><a href="#导数公式" class="headerlink" title="导数公式"></a>导数公式</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102144513327.png" alt="image-20220102144513327" style="zoom: 67%;"></p>
+<h4 id="高阶导数"><a href="#高阶导数" class="headerlink" title="高阶导数"></a>高阶导数</h4><p>求高阶导数的几种方法：</p>
+<blockquote>
+<p>1）归纳法（一般不需用数学归纳法严格证明）</p>
+<p>2）莱布尼兹公式（见到两个函数乘积的高阶导数，一般用莱布尼兹公式即可）</p>
+<p>3）泰勒公式</p>
+</blockquote>
+<h5 id="高阶导数表"><a href="#高阶导数表" class="headerlink" title="高阶导数表"></a>高阶导数表</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151216014.png" alt="image-20220102151216014" style="zoom: 80%;"></p>
+<h5 id="莱布尼兹公式"><a href="#莱布尼兹公式" class="headerlink" title="莱布尼兹公式"></a>莱布尼兹公式</h5><p>注意区分<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%89%9B%E9%A1%BF-%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%85%AC%E5%BC%8F/7451942">牛顿-莱布尼兹公式</a>和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%8E%B1%E5%B8%83%E5%B0%BC%E8%8C%A8%E5%85%AC%E5%BC%8F/8779293?fr=aladdin">莱布尼兹公式</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102151458774.png" alt="image-20220102151458774" style="zoom: 50%;"></p>
+<h4 id="微分"><a href="#微分" class="headerlink" title="微分"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E5%88%86/317988">微分</a></h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102153025560.png" alt="image-20220102153025560" style="zoom:50%;"></p>
+<p>定义： 设函数$y=f(x)$在某区间内有定义，$x_0$及$x_0+\Delta x$在这区间内，如果函数的增量：$\Delta y=f(x_0+\Delta x)-f(x_0)$可表示为$\Delta y=A \Delta x+o(\Delta x)$，其中<strong>A是不依赖$\Delta x$的常数</strong>，那么称函数$y=f(x)$在点$x_0$是<strong>可微</strong>的，<strong>而$A \Delta x$叫做函数$y=f(x)$在点相应于自变量增量$\Delta x$的微分</strong>，记作<strong>$d y$</strong>，即$dy=A\Delta x$.</p>
+<p>A=$\Delta x \rightarrow 0$情况下$\frac{\Delta y}{\Delta x}$的极限,即$f’(x_0)$.</p>
+<p><strong>可微一定可导，可导一定可微。</strong></p>
+<p>由于$o(\Delta x)$<strong>很小</strong>，所以微分$dy(也就是A\Delta x)$构成了$\Delta y$的<strong>主要部分</strong>，函数又是<strong>线性</strong>的，所以微分$dy(也就是A\Delta x)$叫做$\Delta y$的<strong>线性主部</strong>，误差是$o(\Delta x)$，在$\Delta x \rightarrow 0$的情况下，可知：$\Delta y \approx dy$.</p>
+<blockquote>
+<p>$\Delta y \approx dy$  ，$\Delta y=A \Delta x+o(\Delta x)$， $\Delta y$是<strong>因变量的变化量</strong></p>
+<p>$dy=A \Delta x$, $dy$是<strong>微分</strong>、又称<strong>线性主部</strong></p>
+<p>$\Delta x$是<strong>自变量的变化量</strong>，o($\Delta x$)是误差</p>
+<p>$dx=\Delta x$，被叫做<strong>自变量的微分</strong></p>
+</blockquote>
+<p><strong>可微的判别</strong></p>
+<blockquote>
+<p>（1）写增量 $\Delta y=f(x_0+\Delta x)-f(x_0)$</p>
+<p>（2）写线性增量 $A \Delta x=f’(x_0)\Delta x$</p>
+<p>（3）作极限 $\large \lim \limits_{\Delta x \rightarrow 0}\frac{\Delta y-A\Delta x}{\Delta x}$</p>
+<p>若该极限等于0，则$y=f(x)$在点$x_0$处可微，否则不可微</p>
+</blockquote>
+<h5 id="微分的几何意义"><a href="#微分的几何意义" class="headerlink" title="微分的几何意义"></a>微分的几何意义</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102160233313.png" alt="image-20220102160233313" style="zoom:50%;"></p>
+<h5 id="微分表"><a href="#微分表" class="headerlink" title="微分表"></a>微分表</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pipisorry/article/details/52200140">微积分：常用公式、微分方程、级数</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102161031615.png" alt="image-20220102161031615" style="zoom:50%;"></p>
+<h4 id="微分中值定理"><a href="#微分中值定理" class="headerlink" title="微分中值定理"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/8812652">微分中值定理</a></h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/47436090">如何理解三大微分中值定理？</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&amp;q=%E5%BE%AE%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86">微分中值定理习题集</a></p>
+<h5 id="费马引理"><a href="#费马引理" class="headerlink" title="费马引理"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%B4%B9%E9%A9%AC%E5%BC%95%E7%90%86/8693863?fr=aladdin">费马引理</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102161348147.png" alt="image-20220102161348147" style="zoom:50%;"></p>
+<p>通过证明<strong>可导函数的每一个可导的极值点都是驻点</strong>（函数的导数在该点为零），该定理给出了一个求出<strong>可微函数的最大值和最小值</strong>的方法。因此，利用费马引理，求函数的极值的问题便化为解方程的问题。需要注意的是，费马引理仅仅给出了函数在某个点为极值的<strong>必要条件</strong>。也就是说，<strong>有些驻点可以不是极值点，它们是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/拐点/10380876">拐点</a></strong>。要想知道一个驻点是不是极值点，并进一步区分极大值点和极小值点，我们需要分析二阶导数（如果它存在）。<strong>当该点的二阶导数大于零时，该点为极小值点；当该点的二阶导数小于零时，该点为极大值点</strong>。<strong>若二阶导数为零，则无法用该法判断，需列表判断。</strong></p>
+<p>二阶导数为0的点，不一定是拐点，但拐点处一定二阶导数为0（拐点的定义是<strong>连续曲线</strong>凸弧和凹弧的分界点）</p>
+<p>驻点不一定是极值点（可能是拐点），但极值点一定是驻点。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102204805522.png" alt="image-20220102204805522" style="zoom:50%;"></p>
+<p>费马定理可由驻点左右导数分别$\leq 0$或者$\geq 0$得到该点导数值=0来证明</p>
+<h5 id="罗尔中值定理"><a href="#罗尔中值定理" class="headerlink" title="罗尔中值定理"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%97%E5%B0%94%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/1876399">罗尔中值定理</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102205040666.png" alt="image-20220102205040666" style="zoom:50%;"></p>
+<p>证明方法：由<strong>费马引理</strong>很容易对<strong>罗尔中值定理</strong>进行证明。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228094904834.png" alt="image-20220228094904834" style="zoom:50%;"></p>
+<p>几何上，罗尔中值定理条件表示，曲线弧 （方程为 ）是一条连续的曲线弧 ，除端点外处处有不垂直于x轴的切线，且两端点的纵坐标相等。而定理结论表明：<strong>弧上至少有一点 ，曲线在该点切线是水平的。</strong></p>
+<blockquote>
+<p>证明某点导数为0：</p>
+<p>1）构造辅助函数使用<strong>罗尔定理</strong></p>
+<p>2）<strong>费马引理</strong>（只需要说明<strong>可导函数的最值在区间内部取到</strong>）</p>
+</blockquote>
+<h5 id="拉格朗日中值定理"><a href="#拉格朗日中值定理" class="headerlink" title="拉格朗日中值定理"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/1876030">拉格朗日中值定理</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211557348.png" alt="image-20220102211557348" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211621672.png" alt="image-20220102211621672" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220102211652123.png" alt="image-20220102211652123" style="zoom:50%;"></p>
+<p>其他中值定理都是拉格朗日中值定理的特殊情况或推广</p>
+<p>拉格朗日中值定理反映了可导函数在闭区间上的整体的平均变化率与区间内某点的局部变化率的关系。拉格朗日中值定理是罗尔中值定理的推广，同时也是柯西中值定理的特殊情形，是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/泰勒公式/7681487">泰勒公式</a>的弱形式（一阶展开）。</p>
+<p>证明方法：利用<strong>罗尔中值定理</strong>来证明，但是拉格朗日中值定理不一定具备f(a)=f(b)的条件，因此构造<strong>辅助函数</strong>（辅助函数的构造与f(x)密切相关，旨在将情形转化为罗尔中值定理适用的情形）。</p>
+<p>辅助函数从拉格朗日中值定理的几何解释中寻找，连接f(x)在区间端点处的坐标值，得到直线L(x),则构造辅助函数：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103005408211.png" alt="image-20220103005408211" style="zoom: 50%;"></p>
+<p>应用罗尔中值定理可直接证明</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228095939326.png" alt="image-20220228095939326" style="zoom: 50%;"></p>
+<p>由拉格朗日中值定理证明了一个<strong>定理</strong>：如果函数f(x)在区间I上连续，I内可导且导数恒为零，那么f(x)在区间I上是一个常数</p>
+<p>·</p>
+<h5 id="柯西中值定理"><a href="#柯西中值定理" class="headerlink" title="柯西中值定理"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9F%AF%E8%A5%BF%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/7588018">柯西中值定理</a></h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103005853812.png" alt="image-20220103005853812" style="zoom:50%;"></p>
+<p>证明方式：类似拉格朗日中值定理的证明，构造函数转化为拉格朗日中值定理再转化为罗尔中值定理。</p>
+<p>几何意义为，<strong>用参数方程表示的曲线上至少有一点，它的切线平行于两端点所在的弦</strong>。该定理可以视作在<strong>参数方程下拉格朗日中值定理的表达形式。</strong></p>
+<blockquote>
+<p>三大微分中值定理为何都要求在闭区间[a,b]上连续，在开区间(a,b)上可导？</p>
+<p>严谨证明：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/37423489">链接</a></p>
+<p>为什么不是要求在[a,b]上可导呢？因为可导必连续，这样三个定理岂不是简介很多吗？或者为什么不是别的形式</p>
+<p>答：答案其实很简单，因为这正是让三个定理成立的最强结论，也就是说相对地包含了更多地情况（这样端点处不必可导）。</p>
+<p>要求在闭区间[a,b]上连续保证了<strong>闭区间上没有间断点</strong>，在开区间(a,b)上可导保证了<strong>在开区间上函数是光滑的</strong>，<strong>但是端点处可以是不光滑的（无所谓）</strong></p>
+<p>如果是开区间（a,b）上连续，在开区间(a,b)上可导：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-86caf2d1574f1d744fc4be6cf02c6b7a_1440w.jpg" alt="img" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-ead1afcb5379a52acdd775bc5d4986d7_1440w.jpg" alt="img" style="zoom:67%;"></p>
+</blockquote>
+<h5 id="洛必达法则"><a href="#洛必达法则" class="headerlink" title="洛必达法则"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99/7646700">洛必达法则</a></h5><p>$\frac{0}{0}$和$\frac{\infty}{\infty}$形式的极限可能存在也可能不存在，称为<strong>未定式</strong></p>
+<p>着重讨论$x \rightarrow a$时未定式$\frac{0}{0}$的情形，有洛必达法则：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103012129412.png" alt="image-20220103012129412" style="zoom:50%;"></p>
+<p>证明方式：<strong>柯西中值定理</strong>，取极限。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103093929156.png" alt="image-20220103093929156" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103094248194.png" alt="image-20220103094248194" style="zoom:50%;"></p>
+<blockquote>
+<p>$\lim \limits_{n\rightarrow a}\frac{f’(x)}{F’(x)}$不存在也不为$\infty$,不能推出$\lim \limits_{n\rightarrow a}\frac{f(x)}{F(x)}$，也就是说</p>
+<p>对于$\lim \limits_{n\rightarrow a}\frac{f(x)}{F(x)}=\lim \limits_{n\rightarrow a}\frac{f’(x)}{F’(x)}$,”<strong>右存在，则左存在，而左存在，并不一定意味着右存在</strong>“</p>
+<p>比如说，极限$\lim \limits_{n\rightarrow 0}\frac{x^2·\sin {\frac{1}{x}}}{x}=\lim \limits_{x\rightarrow 0} x·\sin \frac{1}{x}=0$存在</p>
+<p>而应用洛必达法则得到$\lim \limits_{n\rightarrow 0}\frac{x^2·\sin {\frac{1}{x}}}{x}=\lim \limits_{x \rightarrow 0}(2x·\sin \frac{1}{x}-\cos \frac{1}{x})$,这个极限不存在</p>
+</blockquote>
+<h5 id="泰勒公式"><a href="#泰勒公式" class="headerlink" title="泰勒公式"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F/7681487?fr=aladdin">泰勒公式</a></h5><p>泰勒公式，是一个用函数在某点的信息描述其附近取值的公式。如果函数满足一定的条件，泰勒公式可以<strong>用函数在某一点的各阶导数值做系数构建一个多项式</strong>来<strong>近似表示这个函数</strong>。</p>
+<p>诞生原因：等价无穷小（往往是一次多项式）近似表达函数的精度不高。</p>
+<p><strong>公式构建的思路</strong>：如果要在某一点构建出近似f(x)的n阶多项式$P_n(x)$，那么为了保证精密性，会确保f(x)和$P_n(x)$在该点的函数值直至n阶导数值全部相等，仅留下一个比$(x-x_0)^n$更高阶的无穷小余项留有误差，以此为依据即可求出$P_n(x)$的各项系数。</p>
+<p>带<strong>佩亚诺余项</strong>的泰勒公式：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103095344628.png" alt="image-20220103095344628" style="zoom:50%;"></p>
+<p>可以通过<strong>洛必达法则</strong>证明<strong>佩亚诺余项</strong>是比$(x-x_0)^n$更高阶的无穷小</p>
+<p>带<strong>拉格朗日余项</strong>的泰勒公式：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103095406962.png" alt="image-20220103095406962" style="zoom:50%;"></p>
+<p>可以通过<strong>柯西中值定理</strong>证明<strong>拉格朗日余项</strong>是比$(x-x_0)^n$更高阶的无穷小</p>
+<p>当n=0时，带拉格朗日余项的泰勒公式变为拉格朗日中值公式，因此泰勒公式是拉格朗日中值定理的推广。</p>
+<p>令$x_0=0$,那么泰勒公式转变为麦克劳林公式</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103101224852.png" alt="image-20220103101224852" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103101333415.png" alt="image-20220103101333415" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220228103658008.png" alt="image-20220228103658008" style="zoom: 67%;">a</p>
+<h4 id="单调性、凹凸性、极值和最值"><a href="#单调性、凹凸性、极值和最值" class="headerlink" title="单调性、凹凸性、极值和最值"></a>单调性、凹凸性、极值和最值</h4><p><strong>“三点，两性，一线”</strong></p>
+<p>三点：极值点、最值点、拐点</p>
+<p>两性：单调性、凹凸性</p>
+<p>一线：渐近线</p>
+<h5 id="单调性"><a href="#单调性" class="headerlink" title="单调性"></a>单调性</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102620261.png" alt="image-20220103102620261" style="zoom:50%;"></p>
+<p>易由拉格朗日中值定理得出函数的单调性与函数的导数有关，不再赘述。</p>
+<h5 id="凹凸性与拐点"><a href="#凹凸性与拐点" class="headerlink" title="凹凸性与拐点"></a>凹凸性与拐点</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102756718.png" alt="image-20220103102756718" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102809276.png" alt="image-20220103102809276" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103102942700.png" alt="image-20220103102942700" style="zoom:50%;"></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%90%B4%E7%94%9F%E4%B8%8D%E7%AD%89%E5%BC%8F/397409">琴生不等式</a></p>
+<p>函数的凹凸性改变的点是<strong>拐点</strong>(拐点处二阶导函数左右异号)</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103103838355.png" alt="image-20220103103838355" style="zoom:50%;"></p>
+<h5 id="极值"><a href="#极值" class="headerlink" title="极值"></a>极值</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104018390.png" alt="image-20220103104018390" style="zoom:50%;"></p>
+<p>函数的极大值和极小值统称为<strong>函数的极值</strong>，使函数取得极值的点称为<strong>极值点</strong>。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104242493.png" alt="image-20220103104242493" style="zoom:50%;"></p>
+<p>定理1是说：可导函数的极值点必定是它的驻点，但是函数的驻点不一定是极值点，可能是拐点。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103104453973.png" alt="image-20220103104453973" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105608429.png" alt="image-20220103105608429" style="zoom:50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105657917.png" alt="image-20220103105657917" style="zoom:50%;"></p>
+<p>上述第二充分条件可以推广为<strong>第三充分条件</strong>：</p>
+<blockquote>
+<p>设$f(x)$在$x_0$处$n$阶可导，且$f^{(m)}(x_0)=0(m=1,2,···,n-1),f^{(n)}(x_0)\neq0(n\geq 2)$，则</p>
+<p>(a)    当$n$为偶数且$f^{(n)}(x_0)&lt;0$时，$f(x)$在$x_0$处取得极大值</p>
+<p>(b)    当$n$为偶数且$f^{(n)}(x_0)&gt;0$时，$f(x)$在$x_0$处取得极小值</p>
+</blockquote>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227124136954.png" alt="image-20220227124136954" style="zoom: 50%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220226101451553.png" alt="image-20220226101451553" style="zoom: 67%;"></p>
+<h5 id="最大值和最小值"><a href="#最大值和最小值" class="headerlink" title="最大值和最小值"></a>最大值和最小值</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220103105743650.png" alt="image-20220103105743650" style="zoom:50%;"></p>
+<p>最值点不一定是极值点（如果最值点在定义域的边缘，则其去心邻域有一半没有定义）</p>
+<p>如果$f(x)$在区间$I$上有最值点$x_0$，并且此最值点$x_0$不是区间$I$的端点而是$I$内部的点，那么此$x_0$必是$f(x)$的一个极值点</p>
+<h5 id="渐近线"><a href="#渐近线" class="headerlink" title="渐近线"></a>渐近线</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227135455477.png" alt="image-20220227135455477" style="zoom:45%;"></p>
+<h5 id="做函数图形"><a href="#做函数图形" class="headerlink" title="做函数图形"></a>做函数图形</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227131316214.png" alt="image-20220227131316214" style="zoom: 47%;"></p>
+<p>例题：作函数$y=\frac{6}{x^2-2x+4}$的图形</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305105009249.png" alt="image-20220305105009249" style="zoom:50%;"></p>
+<h4 id="曲率"><a href="#曲率" class="headerlink" title="曲率"></a>曲率</h4><h5 id="弧微分"><a href="#弧微分" class="headerlink" title="弧微分"></a>弧微分</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302213946580.png" alt="image-20220302213946580" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302214017505.png" alt="image-20220302214017505" style="zoom:67%;"></p>
+<h5 id="曲率及其计算公式"><a href="#曲率及其计算公式" class="headerlink" title="曲率及其计算公式"></a>曲率及其计算公式</h5><blockquote>
+<p>曲线弯曲的程度与<strong>曲线的长度</strong>和<strong>曲线弯曲的角度</strong>两个因素有关</p>
+<p>曲率就反映了这个现象</p>
+</blockquote>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302214136522.png" alt="image-20220302214136522" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302215139218.png" alt="image-20220302215139218" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220709193.png" alt="image-20220302220709193" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220734841.png" alt="image-20220302220734841" style="zoom:67%;"></p>
+<h5 id="曲率圆与曲率半径"><a href="#曲率圆与曲率半径" class="headerlink" title="曲率圆与曲率半径"></a>曲率圆与曲率半径</h5><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220302220852457.png" alt="image-20220302220852457" style="zoom:67%;"></p>
+<h4 id="零点问题与微分不等式"><a href="#零点问题与微分不等式" class="headerlink" title="零点问题与微分不等式"></a>零点问题与微分不等式</h4><blockquote>
+<p>我没有从考纲上发现这一部分的内容，但是这一部分应该是考的</p>
+</blockquote>
+<h5 id="零点问题"><a href="#零点问题" class="headerlink" title="零点问题"></a>零点问题</h5><p>（1）零点定理：用来证明根的存在性</p>
+<p>（2）单调性：用来证明根的唯一性</p>
+<p>（3）罗尔原话：若$f^{(n)}(x)=0$至多有$k$个根，则$f(x)=0$至多有$k+n$个根，这是罗尔定理的推论，联想罗尔定理很容易想到证法</p>
+<p>（4）实系数奇次方程，至少有一个实根</p>
+<h5 id="微分不等式"><a href="#微分不等式" class="headerlink" title="微分不等式"></a>微分不等式</h5><p>（1）用函数形态（包括单调性、凹凸性和最值等）证明不等式</p>
+<p>（2）用常量变量化证明不等式</p>
+<p>（3）用中值定理证明不等式</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="函数各种性质之间的关系"><a href="#函数各种性质之间的关系" class="headerlink" title="函数各种性质之间的关系"></a>函数各种性质之间的关系</h5><p><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/2272189074530685188.html">可微、可导、连续、偏导存在、极限存在之间的关系是什么？</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/v2-ab2b40b43fc509c05957215e772ed01a_1440w.jpg" alt="极限存在、连续、有界、可积、可导/可微之间的关系" style="zoom: 50%;"></p>
+<p>连续一定有界（前提是闭区间）</p>
+<blockquote>
+<p>如上图所示，连续处在中心位置，是关键。</p>
+</blockquote>
+<p>按照课本中各个概念出现的顺序我们来整理各个概念之间的关系</p>
+<p><strong>（1）函数在$x_0$处有极限</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152053261.png" alt="image-20220402152053261" style="zoom:67%;"></p>
+<p>​        极限存在的充要条件1：左右极限各自存在且相等</p>
+<p>​        极限存在的充要条件2：$f(x)=A+\alpha$,其中$\alpha$是无穷小</p>
+<p><strong>（2）函数在$\infty$处有极限</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152118085.png" alt="image-20220402152118085" style="zoom:67%;"></p>
+<p>​        在无穷处有极限的充要条件是正负无穷处极限都存在且相等</p>
+<p><strong>（3）函数在$x_0$连续</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152509996.png" alt="image-20220402152509996" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402152539795.png" alt="image-20220402152539795" style="zoom:67%;"></p>
+<p>​        函数在$x_0$处连续的充要条件是满足左连续与右连续。（左极限=右极限=$f(x_0)$）</p>
+<p>​        也就是说，在该点不能有两类四种间断点。</p>
+<blockquote>
+<p>​        注意，函数在$x_0$点连续，并不能说明函数在$x_0$附近的一段范围连续。即便是很小的范围。</p>
+<p>​        若$f(x)$在$x_0$处连续，则存在$\delta &gt;0$，使得$f(x)$在$|x-x_0|&lt;\delta$内连续</p>
+<p>举个例子：$f(x)=\begin{cases} 0\qquad x\in Q \\  x^2 \qquad x\in R/Q \end{cases}$</p>
+<p>对$\forall x_0 \neq 0$，$\lim \limits_{x\rightarrow x_0}f(x)$都不存在，也就当然在它附近的区间不连续了。</p>
+</blockquote>
+<p><strong>（4）函数在一定范围内连续</strong></p>
+<p>​        <strong>基本初等函数在他们的定义域内都是连续的。</strong></p>
+<p>​        函数在一定范围连续，课本上称之为，在一定区间连续。</p>
+<p>​        要证明它，就需要证明函数在区间内的每个点都连续。</p>
+<p><strong>（5）函数一致连续</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161223095.png" alt="image-20220402161223095" style="zoom:67%;"></p>
+<p>​        函数一致连续和在一定范围连续不是一回事。</p>
+<p>​        一致连续是说，对于区间上所有的$x$，$\delta$是一致的。</p>
+<p>​        半开区间的连续函数不一定一致连续，但是闭区间的连续函数一定一致连续</p>
+<p><strong>（6）函数在$x_0$可导</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161601872.png" alt="image-20220402161601872" style="zoom:67%;"></p>
+<p>​        函数在$x_0$可导的充要条件是在该点左右导数相等。</p>
+<p>​        可导一定连续，但连续不一定可导。</p>
+<p>​        如下图两种情况：</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161958751.png" alt="image-20220402161958751" style="zoom:67%;"></p>
+<p>​        与函数在$x_0$点连续类似，函数在$x_0$可导，同样不能反映到它周围的邻域的导数上，因为<strong>连续函数的导函数不一定连续</strong>。这里举一个例子，解答写在了下面的习题集里</p>
+<p>​        </p>
+<p>（7）<strong>函数在一定范围可导</strong></p>
+<p>​        函数在一定范围可导，需要证明在其区间的每一点都可导。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423185554985.png" alt="image-20220423185554985" style="zoom:67%;"></p>
+<h3 id="题目集"><a href="#题目集" class="headerlink" title="题目集"></a>题目集</h3><h4 id="0-中值定理大专题"><a href="#0-中值定理大专题" class="headerlink" title="0 中值定理大专题"></a>0 中值定理大专题</h4><p><em>中值定理证明题一定要花大量的时间，相比计算题这种题目往往会让人一筹莫展</em></p>
+<h5 id="与之相关的十大定理"><a href="#与之相关的十大定理" class="headerlink" title="与之相关的十大定理"></a>与之相关的十大定理</h5><p>可分为涉及<strong>函数</strong>的中值定理和涉及<strong>导数</strong>的中值定理，要通过判断题目所要求证明的结论中<strong>是否包含导数、包含几阶导数</strong>来选取定理</p>
+<p>涉及<strong>函数</strong>的中值定理：(普遍要求闭区间$[a,b]$连续，不需要可导)</p>
+<p>1）有界与最值定理</p>
+<p>2）介值定理</p>
+<p>3）平均值定理</p>
+<p>4）零点定理</p>
+<p>涉及<strong>导数</strong>的中值定理</p>
+<p>1）费马引理</p>
+<p>2）罗尔定理</p>
+<p>3）拉格朗日中值定理</p>
+<p>4）柯西中值定理</p>
+<p>5）泰勒公式</p>
+<p>6）积分中值定理$\int_a^bf(x)dx=f(\xi)(b-a)$</p>
+<h5 id="a）-有界与最值定理-介值定理"><a href="#a）-有界与最值定理-介值定理" class="headerlink" title="a） 有界与最值定理+介值定理"></a>a） 有界与最值定理+介值定理</h5><p>应用十分广泛的组合</p>
+<p>有界与最值定理</p>
+<blockquote>
+<p>设$f(x)$在$[a,b]$上连续，则$m \leq f(x) \leq M$</p>
+</blockquote>
+<p>介值定理</p>
+<blockquote>
+<p>设$f(x)$在$[a,b]$上连续，当$m \leq \mu \leq M$时，存在$\xi \in [a,b]$，使得$f(\xi)=\mu$</p>
+</blockquote>
+<p>应用有界和最值定理可以为介值定理创造出条件，因为介值定理要求当$m \leq \mu \leq M$，所以这两个定理时常一起出现</p>
+<p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301152325934.png" alt="image-20220301152325934" style="zoom: 50%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423111442809.png" alt="image-20220423111442809" style="zoom:67%;"></p>
+<p>​        由介值定理可知$f’(\xi)=2\int_0^1f(x)dx.$</p>
+<h5 id="b）罗尔定理和费马引理"><a href="#b）罗尔定理和费马引理" class="headerlink" title="b）罗尔定理和费马引理"></a>b）罗尔定理和费马引理</h5><blockquote>
+<p>证明某点导数为0：</p>
+<p>1）构造辅助函数使用<strong>罗尔定理</strong></p>
+<p>2）<strong>费马引理</strong>（只需要说明<strong>可导函数的最值在区间内部取到</strong>）</p>
+</blockquote>
+<p>罗尔定理通常需要<strong>构造辅助函数</strong>。通过构造函数$F(x)$使得端点处$F(a)=F(b)$，进而使得$F(\xi)=0$求出所证式子</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/zvideo/1382321186785865728">中值定理如何快速还原函数？？？</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153400354.png" alt="image-20220301153400354" style="zoom:47%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153419304.png" alt="image-20220301153419304" style="zoom:61%;"></p>
+<p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301153700500.png" alt="image-20220301153700500" style="zoom: 50%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301154018353.png" alt="image-20220301154018353" style="zoom: 50%;"></p>
+<p>（3）$f’(\xi)=-f(\xi)\cot \xi$.</p>
+<p>​        $F(x)=f(x)\sin x$,罗尔</p>
+<p>（4）$ae^b-be^a=(a-b)(1-\xi)e^{\xi}$</p>
+<p>​        $F(x)=\frac{e^x}{x},G(x)=\frac1x$，柯西</p>
+<h5 id="c）拉格朗日中值定理"><a href="#c）拉格朗日中值定理" class="headerlink" title="c）拉格朗日中值定理"></a>c）拉格朗日中值定理</h5><p>在题目中，可能会遇到两个$\xi$，比如要求证明$\frac{1}{f’(\xi_1)}+\frac{1}{f’(\xi_2)}=2$，我们可以将一个给定的区间分割成两部分，然后用两次拉格朗日中值定理。因为拉格朗日中值定理不要求$f(a)=f(b)$，较为灵活</p>
+<p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220301154636985.png" alt="image-20220301154636985" style="zoom: 50%;"></p>
+<h4 id="1-用泰勒公式求高阶导数"><a href="#1-用泰勒公式求高阶导数" class="headerlink" title="1 用泰勒公式求高阶导数"></a>1 用泰勒公式求高阶导数</h4><p>步骤：先写出$y=f(x)$的泰勒公式或者麦克劳林公式，再通过比较系数来获得$f^{(n)}(x_0)$</p>
+<blockquote>
+<p>1）任何一个无穷阶可导的函数（在收敛的情况下）都可写成$\large y=f(x)=\sum \limits_{n=0}^{\infty}\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$或者$\large y=f(x)=\sum \limits_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^n$</p>
+<p>2）把题目给出的无穷可导函数，通过已知公式展开为幂指级</p>
+<p>3）根据函数展开式的唯一性，比较1）和2）中$x_n$项的系数，就可以构建等式解出$f^{(n)}(x_0)$</p>
+</blockquote>
+<p>（1）设$y=x^3 \sin x$,求$y^{(6)}(0)$</p>
+<p>​    解：按照三个步骤：</p>
+<p>​    a)该函数无穷阶可导，可以抽象展开为$\large y=\sum\limits_{n=0}^{\infty}\frac{y^{(n)}(0)}{n!}x^n$</p>
+<p>​    b)$y=x^3 \sin x=x^3(x-\frac16x^3+···)=x^4-\frac16x^6+···$</p>
+<p>​    c)可知$\large \frac{y^{(6)}(0)}{6!}x^6=-\frac16 x^6$</p>
+<p>​    解得$y^{(6)}(0)=-120$</p>
+<h4 id="2-反函数求导"><a href="#2-反函数求导" class="headerlink" title="2 反函数求导"></a>2 反函数求导</h4><p>反函数本质是逆映射，它强调的是<strong>这种映射关系</strong>，<strong>不需要纠结$x$和$y$谁是谁的函数</strong></p>
+<p>让我们重新回溯反函数的概念，让我们回到映射中去。</p>
+<p>原像不同，像不同，即<strong>单射</strong>。于此同时，值域中任何元素都是定义域中某元素的像，即<strong>满射</strong>。单射+满射就是<strong>一一映射</strong>，又叫<strong>全射</strong>。</p>
+<p><strong>逆映射</strong>，即$f^{-1}$，无需赘言。我们能从下面反函数的定义中发现它。</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220331205345648.png" alt="image-20220331205345648" style="zoom:50%;"></p>
+<p><strong>只有单射才有逆映射</strong>，与之对应，存在反函数的函数保证对任意$x_1,x_2$，满足$f(x_1)\neq f(x_2)$。因此，可以通过做平行于x轴的射线判断与函数曲线的交点个数来判断是否含有反函数，含有一个交点以上，即存在反函数。</p>
+<p>在初中，高中的时候，老师教我们$y=\sin x$和$y = \arcsin x$互为反函数，$y=e^x$和$y=\ln x$互为反函数。如果我们在同一个坐标系中，画这样的一对反函数，我们会发现两个函数图像关于$y=x$对称。这无需赘述。这个时候，我们习惯把$y$写到左边，那么右边的表达式，则直接地反映了映射方式$f$，比如对$y=\sin x$来说，$f$就是$\sin$,那么$f^{-1}$就是$\arcsin$。</p>
+<p>但是看上面的式子。我们会感觉反直觉，为什么呢？因为$x=f(y)$和$y=f^{-1}(x)$的图像根本上是<strong>重合</strong>的。所以，按照常规理解，这两个函数实际上就是一个函数，只是一个把$x$放到左边，一个把$y$放到左边。即：$y=\sin x$和$x =\arcsin y$，<strong>实际上就是一个函数，是完全可以等值变化的</strong>。但按照我们之前说的，<strong>反函数本质是逆映射</strong>，所以他们也叫“反函数”，课本上反函数的求导法则就是这样的，所以你看，$\Large \frac{dy}{dx}=\frac{1}{\frac{dx}{dy}}$,这个式子，不是对任何函数都成立吗？（取倒数而已）。</p>
+<p>我们遇到这样一个题：$y=\arcsin x$的导数是多少？</p>
+<p>我们都知道，要利用这个公式，我们需要用大学的定义，而不是高中的定义。也就是说，对于$y=\arcsin x$的求导，我们不能借助$y=\sin x$，这是高中的反函数，不适用大学的理论，我们要借助$x=\sin y$，然后直接算$\frac{dx}{dy}=\cos y=\sqrt{1-x^2}$,答案就出来了。</p>
+<p>类似的，对$y=e^x$来说，先写出反函数$x=\ln y$，知道$\frac{dx}{dy}=\frac{1}{y}=\frac{1}{e^x}$</p>
+<blockquote>
+<p>所以给出一个函数$y=f(x)$，利它的反函数求它的导数的步骤如下：</p>
+<p>（a）写出$x=f^{-1}(y)$，对它求$\frac{dx}{dy}$</p>
+<p>（b）因为是对y求导，所以求出来是带着$y$的，我们需要将$y$变成$x$，这里的思路是这样的，借助$y=f(x)$和$x=f^{-1}(y)$都行，因为上面已经论述过，这对反函数是等值变化来的。</p>
+<p>上述的(a)(b)是借助$x=f^{-1}(y)$来求$y=f(x)$的反函数，因此我们需要先求出$x=f^{-1}(y)$，有时候，题目给了$y=f(x)$的表达式，要我们求$x=f^{-1}(y)$或者说$\frac{dx}{dy}$我们就只需要直接用给定的$y=f(x)$就行了。</p>
+</blockquote>
+<p><em>注</em>：如果题目中出现，$y=f(x)$和它的反函数$x=\phi (y)$，$\phi$实际上就是$f^{-1}$</p>
+<p><strong>反函数的二阶导数</strong>：</p>
+<p>二阶导数同样是<strong>借助</strong>的思想。只是我们要求到二阶。</p>
+<p>因为$\Large\frac{d^2x}{dy^2}=\frac{d(\frac{dx}{dy})}{dy}=\frac{d[\frac{1}{f’(x)}]}{dx}·\frac{dx}{dy}=-\frac{f’’(x)}{[f’(x)]^3}$</p>
+<p><strong>（1）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224111623257.png" alt="image-20220224111623257" style="zoom:67%;"></p>
+<p><strong>（2）</strong>已知$f’(x)=Ae^x$，（$A$为正常数），求$f(x)$的反函数的二阶导数.</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224181117872.png" alt="image-20220224181117872" style="zoom:67%;"></p>
+<p><strong>（3）</strong>设$y=f(x)$二阶可导且$f’(x)\neq 0$，又$f(0)=1,f’(0)=-1,f’’(0)=2$，则$\frac{d^2x}{dy^2}|_{y=1}=?$</p>
+<p>​    按照上面的思想来，这个题要借助$y=f(x)$来求$x=f^{-1}(y)$的二阶导数，已知$y=f(x)$，直接带入公式$-\frac{f’’(x)}{[f’(x)]^3}$，知道答案是2</p>
+<p><strong>（4）</strong>设$f(x)$是单调可微函数，$g(x)$和$f(x)$互为反函数，且$f(2)=4,f’(2)=\sqrt5,f’(4)=6,$则$g’(4)=?$</p>
+<p>​    这里提出了两个函数$g(x)$和$f(x)$，因为反函数重要的是映射关系，所以$g$里面是$x$不重要，这里看成$g(y)$也一样，我们可以给他翻译一下：</p>
+<p>​    设$f(x)$是单调可微函数，$f^{-1}(y)$和$f(x)$互为反函数，且$f(2)=4,f’(2)=\sqrt5,f’(4)=6,$则$f^{-1’}(4)=?$</p>
+<p>​    借助已给出的$y=f(x)$求$x=f^{-1}(y)$的导数，知道$f^{-1}{’}(y)=\frac{1}{f’(x)}$，又知道$f(2)=4$，我们就知道$f^{-1}(4)=f(2)$，所以$f^{-1}{‘}(4)=\frac{1}{f’(2)}=\frac{1}{\sqrt5}$</p>
+<h4 id="3-微分在近似计算中的应用"><a href="#3-微分在近似计算中的应用" class="headerlink" title="3 微分在近似计算中的应用"></a>3 微分在近似计算中的应用</h4><p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224112201217.png" alt="image-20220224112201217" style="zoom:50%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224112416068.png" alt="image-20220224112416068" style="zoom:67%;"></p>
+<h4 id="4-对数求导法"><a href="#4-对数求导法" class="headerlink" title="4 对数求导法"></a>4 对数求导法</h4><p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220224211308850.png" alt="image-20220224211308850" style="zoom:67%;"></p>
+<p>（2）设$f(x)=(e^x-1)(e^{2x}-2)···(e^{10x}-10)$，则$f’(x)=?$</p>
+<p>​    <strong>错误解</strong>：观察到连乘形式，于是用对数求导法</p>
+<p>​        $\ln f(x)=\ln(e^x-1)+\ln(e^{2x}-2)+···+\ln(e^{10x}-10)$</p>
+<p>​    求导得到：</p>
+<p>​        $\large \frac{1}{f(x)}f’(x)=\frac{e^x}{e^x-1}+···$</p>
+<p>​    由于$f(0)=0$,可知$f’(0)=0$</p>
+<p>​    这里忽略了对数求导法的要求：取对数时必须保证函数是大于0的数</p>
+<p>​    <strong>正确解法</strong>：不使用对数求导法，直接用定义</p>
+<p>​    $f’(0)=\lim \limits_{x \rightarrow 0}\frac{f(x)-(0)}{x}=\lim \limits_{x \rightarrow 0}\frac{e^x-1}{x}·(e^{2x}-2)···(e^{10x}-10)=(-1)(-2)···(-9)=-9!$</p>
+<h4 id="5-导数的概念"><a href="#5-导数的概念" class="headerlink" title="5 导数的概念"></a>5 导数的概念</h4><p><strong>（1）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227190019959.png" alt="image-20220227190019959" style="zoom: 50%;"></p>
+<p><strong>（2）</strong>设$f(x)$连续，且对任意的$x,y\in(-\infty,+\infty)$有$f(x+y)=f(x)+f(y)+2xy,f’(0)=1$,求$f(x)$.</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227190538988.png" alt="image-20220227190538988" style="zoom:50%;"></p>
+<p><strong>（3）</strong>设$f(x)$在$(- \infty,+\infty)$上连续，$f’(0)=1$,且对任意的$x,y\in(-\infty,+ \infty)$有$f(x+y)=f(x)f(y)$，求$f(x)$.</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220227191354614.png" alt="image-20220227191354614" style="zoom:50%;"></p>
+<p><strong>（4）</strong></p>
+<p>设$f(x)$在$x=a$的邻域内二阶可导且$f’(a)\neq0$，则$\large\lim \limits_{x \rightarrow a}[\frac{1}{(x-a)f’(a)}-\frac{1}{f(x)-f(a)}]$=？</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220327222845459.png" alt="image-20220327222845459" style="zoom:60%;"></p>
+<p>​    错误做法：根据导数的定义$f’(x)=\lim \limits_{x \rightarrow a}\frac{f(x)-f(a)}{x-a}$,带入原式，算出答案是0</p>
+<p>​    这里要注意，导数的定义取极限时，忽略了无穷小。因此不能这样简单地计算。按照拉格朗日中值公式，$f(x+\Delta x)-f(x)=f’(x+\theta \Delta x)·\Delta x,(0&lt;\theta&lt;1)$,这里是不能忽略误差的。</p>
+<p><strong>（5）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220331215933691.png" alt="image-20220331215933691" style="zoom: 70%;"></p>
+<p><strong>（6）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402162703359.png" alt="image-20220402162703359" style="zoom:68%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402162739760.png" alt="image-20220402162739760" style="zoom:67%;"></p>
+<p><strong>（7）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164051632.png" alt="image-20220402164051632" style="zoom:67%;"></p>
+<p>这种题，要顾及两个方面，一个是既要确保右导数存在，也要确保左导数存在；另一个就是确保函数在该点必须是连续的。</p>
+<p><strong>（8）</strong></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164830004.png" alt="image-20220402164830004" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402164851670.png" alt="image-20220402164851670" style="zoom:67%;"></p>
+<p>注意选项$A$</p>
+<h4 id="6-积分上限函数的导数"><a href="#6-积分上限函数的导数" class="headerlink" title="6 积分上限函数的导数"></a>6 积分上限函数的导数</h4><p><strong>（1）</strong>设$f(x)$连续，且$f(0)=0,f’(0)=4,$则$\large \lim \limits_{x \rightarrow 0}\frac{\int_o^xf(x-t)dt}{x^2}=?$</p>
+<p>​    答案：2</p>
+<p><strong>（2）</strong>设$\large \phi(x)=\int _0 ^{x^2}(x^2-t)f(t)dt$，其中$t$连续，则$\phi’’(x)=?$</p>
+<p>​    答案：$2 \int_0^{x^2}f(t)dt+4x^2f(x^2)$</p>
+<h4 id="7-求曲线的渐近线"><a href="#7-求曲线的渐近线" class="headerlink" title="7 求曲线的渐近线"></a>7 求曲线的渐近线</h4><p>（1）求曲线$y=  2x \arctan x$的斜渐近线.</p>
+<blockquote>
+<p>注意：求斜渐近线这类问题有时候会出现两个答案</p>
+</blockquote>
+<p>答案：$y=-\pi x-2$和$y= \pi x+2$</p>
+<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p>设$f(x)=\ln(1+x)$，对$a&gt;0，f(a)=f’(a\theta)a$，则$\lim \limits_{a\rightarrow 0^+}\theta$=？</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305101534785.png" alt="image-20220305101534785" style="zoom:47%;"></p>
+<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305102251807.png" alt="image-20220305102251807" style="zoom:48%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305102325415.png" alt="image-20220305102325415" style="zoom: 45%;"></p>
+<p>$\lim \limits_{x \rightarrow 0}x^2\sin \frac1{x}=0$</p>
+<p>$\lim \limits_{x \rightarrow 0}x\sin \frac1{x}=0$</p>
+<p>$\lim \limits_{x \rightarrow 0}\sin \frac1{x}$不存在，事实上$\sin  \frac1x$是课本上举例的典型震荡间断点</p>
+<h4 id="10-微分不等式"><a href="#10-微分不等式" class="headerlink" title="10 微分不等式"></a>10 微分不等式</h4><p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220305112238042.png" alt="image-20220305112238042" style="zoom: 56%;"></p>
+<h4 id="11-中值定理求导数极限"><a href="#11-中值定理求导数极限" class="headerlink" title="11 中值定理求导数极限"></a>11 中值定理求导数极限</h4><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402192440344.png" alt="image-20220402192440344" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402192502504.png" alt="image-20220402192502504" style="zoom:67%;"></p>
+<h4 id="12"><a href="#12" class="headerlink" title="12"></a>12</h4><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423185554985.png" alt="image-20220423185554985" style="zoom:67%;"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/133138325?ivk_sa=1024320u">答案解析</a></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423190939911.png" alt="image-20220423190939911" style="zoom: 74%;"></p>
+<p>这道题体现了函数在某区域可导和函数在某点可导的定义区别。即，函数在某点可导和它附近的导函数如何没关系，和它邻域的导函数也没关系。因为<strong>函数在$x_0$点的导数（包括左右导数）不是由它邻域的导数决定的，而是由它邻域的原函数决定的。</strong></p>
+<p>我们都知道，函数在某点连续的充分必要条件是左导数等于右导数。关于左导数和右导数怎么求，一般来说，是利用函数在某点导数的定义$f’(x_0)=\lim \limits_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}$。又时候，我也喜欢用函数在某点的左右区间的导数来逼近，得到左右导数。比如说，求$f^{‘}_{+}(x_0)$,我会先求出$x&gt;x_0$时的$f’(x)$，再求$\lim\limits_{x \rightarrow x_0^+}f’(x)$。但其实，后一种错误有时候是错误的。因为导函数有时候在$x_0$可能是不连续的。</p>
+<p>可能想问，$x_0$不连续的导数，那么用定义结果就不同吗？$f’(x_0)=\lim \limits_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}$</p>
+<p>再摆出导数的定义</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220402161601872.png" alt="image-20220402161601872" style="zoom:67%;"></p>
+<p>我们注意到，它是由$x_0$邻域的原函数决定的，而不是$x_0$邻域的导函数决定的。</p>
+<p>也就是说， 某点的导函数存不存在，其实和它邻域的导函数没什么关系，比如</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423193002221.png" alt="image-20220423193002221" style="zoom:67%;"></p>
+<p>它是连续的</p>
+<p>但是它的导函数在$x_0$不连续，在$x_0$的去心处邻域，它的导函数是震荡的，但是在$x_0$处，它可导并且导数是个确定的大于0的值。</p>
+<p>这一点也不矛盾。</p>
+<p>为何用函数在某点的左右区间的导数来逼近得到左右导数不行呢。因为你看，在某点的导数是用邻域来确定的，我们套用$f’(x_0)=\lim \limits_{x\rightarrow x_0}\frac{f(x)-f(x_0)}{x-x_0}$公式时，直接得到了想要的邻域，但是对于上述的震荡间断点的例子来说，我们逼近时会发现，一直在震荡，找不到想要的邻域。</p>
+<h4 id="13-零点问题"><a href="#13-零点问题" class="headerlink" title="13 零点问题"></a>13 零点问题</h4><blockquote>
+<p>（1）零点定理：用来证明根的存在性</p>
+<p>（2）单调性：用来证明根的唯一性</p>
+<p>（3）罗尔原话：若$f^{(n)}(x)=0$至多有$k$个根，则$f(x)=0$至多有$k+n$个根，这是罗尔定理的推论，联想罗尔定理很容易想到证法</p>
+<p>（4）实系数奇次方程，至少有一个实根</p>
+</blockquote>
+<p>​    （1）证明方程$e^x=-x^2+ax+b$不可能有三个不同的根</p>
+<blockquote>
+<p>​        求二阶导数，发现无解，由罗尔原话，至多有2个根。证明用罗尔定理证。</p>
+</blockquote>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423200915347.png" alt="image-20220423200915347" style="zoom:67%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423222931323.png" alt="image-20220423222931323" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423222949577.png" alt="image-20220423222949577" style="zoom:67%;"></p>
+<h4 id="14-复杂的凑函数"><a href="#14-复杂的凑函数" class="headerlink" title="14 复杂的凑函数"></a>14 复杂的凑函数</h4><p>（1）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423213258236.png" alt="image-20220423213258236" style="zoom:59%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423213328277.png" alt="image-20220423213328277" style="zoom:62%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423220424163.png" alt="image-20220423220424163" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423220526404.png" alt="image-20220423220526404" style="zoom:67%;"></p>
+<p>（3）</p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423221431428.png" alt="image-20220423221431428" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423221449355.png" alt="image-20220423221449355" style="zoom:67%;"></p>
+<h4 id="15-泰勒公式"><a href="#15-泰勒公式" class="headerlink" title="15 泰勒公式"></a>15 泰勒公式</h4><p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423224226020.png" alt="image-20220423224226020" style="zoom:67%;"></p>
+<p><img src="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/image-20220423224239708.png" alt="image-20220423224239708" style="zoom:67%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/28/%E5%87%BD%E6%95%B0%E6%9E%81%E9%99%90%E8%BF%9E%E7%BB%AD/" rel="prev" title="函数、极限、连续">
+      <i class="fa fa-chevron-left"></i> 函数、极限、连续
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/" rel="next" title="一元函数积分学">
+      一元函数积分学 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E4%B8%8E%E5%BE%AE%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">导数与微分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">导数的概念和基本求导法则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">导数的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">导数的几何意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E5%AF%BC%E5%92%8C%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.3.</span> <span class="nav-text">可导和连续的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E6%B3%95%E5%88%99"><span class="nav-number">1.1.4.</span> <span class="nav-text">导数的四则运算法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8D%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.1.5.</span> <span class="nav-text">反函数的求导法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.1.6.</span> <span class="nav-text">复合函数的求导法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.1.7.</span> <span class="nav-text">隐函数的求导法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%B1%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E7%A1%AE%E5%AE%9A%E7%9A%84%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.1.8.</span> <span class="nav-text">由参数方程确定的函数的求导法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E6%95%B0%E5%85%AC%E5%BC%8F"><span class="nav-number">1.1.9.</span> <span class="nav-text">导数公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%AF%BC%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">高阶导数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%AF%BC%E6%95%B0%E8%A1%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">高阶导数表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%8E%B1%E5%B8%83%E5%B0%BC%E5%85%B9%E5%85%AC%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">莱布尼兹公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">微分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">微分的几何意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E8%A1%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">微分表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">微分中值定理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%B9%E9%A9%AC%E5%BC%95%E7%90%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">费马引理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%97%E5%B0%94%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">罗尔中值定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">拉格朗日中值定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%AF%E8%A5%BF%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">1.4.4.</span> <span class="nav-text">柯西中值定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B4%9B%E5%BF%85%E8%BE%BE%E6%B3%95%E5%88%99"><span class="nav-number">1.4.5.</span> <span class="nav-text">洛必达法则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F"><span class="nav-number">1.4.6.</span> <span class="nav-text">泰勒公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%80%A7%E3%80%81%E5%87%B9%E5%87%B8%E6%80%A7%E3%80%81%E6%9E%81%E5%80%BC%E5%92%8C%E6%9C%80%E5%80%BC"><span class="nav-number">1.5.</span> <span class="nav-text">单调性、凹凸性、极值和最值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%80%A7"><span class="nav-number">1.5.1.</span> <span class="nav-text">单调性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%B9%E5%87%B8%E6%80%A7%E4%B8%8E%E6%8B%90%E7%82%B9"><span class="nav-number">1.5.2.</span> <span class="nav-text">凹凸性与拐点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%81%E5%80%BC"><span class="nav-number">1.5.3.</span> <span class="nav-text">极值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="nav-number">1.5.4.</span> <span class="nav-text">最大值和最小值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">1.5.5.</span> <span class="nav-text">渐近线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%81%9A%E5%87%BD%E6%95%B0%E5%9B%BE%E5%BD%A2"><span class="nav-number">1.5.6.</span> <span class="nav-text">做函数图形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B2%E7%8E%87"><span class="nav-number">1.6.</span> <span class="nav-text">曲率</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%A7%E5%BE%AE%E5%88%86"><span class="nav-number">1.6.1.</span> <span class="nav-text">弧微分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B2%E7%8E%87%E5%8F%8A%E5%85%B6%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-number">1.6.2.</span> <span class="nav-text">曲率及其计算公式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B2%E7%8E%87%E5%9C%86%E4%B8%8E%E6%9B%B2%E7%8E%87%E5%8D%8A%E5%BE%84"><span class="nav-number">1.6.3.</span> <span class="nav-text">曲率圆与曲率半径</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%B6%E7%82%B9%E9%97%AE%E9%A2%98%E4%B8%8E%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">零点问题与微分不等式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9B%B6%E7%82%B9%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.1.</span> <span class="nav-text">零点问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.7.2.</span> <span class="nav-text">微分不等式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%90%84%E7%A7%8D%E6%80%A7%E8%B4%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.8.1.</span> <span class="nav-text">函数各种性质之间的关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">题目集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E5%A4%A7%E4%B8%93%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">0 中值定理大专题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8E%E4%B9%8B%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8D%81%E5%A4%A7%E5%AE%9A%E7%90%86"><span class="nav-number">2.1.1.</span> <span class="nav-text">与之相关的十大定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a%EF%BC%89-%E6%9C%89%E7%95%8C%E4%B8%8E%E6%9C%80%E5%80%BC%E5%AE%9A%E7%90%86-%E4%BB%8B%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">2.1.2.</span> <span class="nav-text">a） 有界与最值定理+介值定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b%EF%BC%89%E7%BD%97%E5%B0%94%E5%AE%9A%E7%90%86%E5%92%8C%E8%B4%B9%E9%A9%AC%E5%BC%95%E7%90%86"><span class="nav-number">2.1.3.</span> <span class="nav-text">b）罗尔定理和费马引理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c%EF%BC%89%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-number">2.1.4.</span> <span class="nav-text">c）拉格朗日中值定理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%94%A8%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F%E6%B1%82%E9%AB%98%E9%98%B6%E5%AF%BC%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">1 用泰勒公式求高阶导数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%8F%8D%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC"><span class="nav-number">2.3.</span> <span class="nav-text">2 反函数求导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BE%AE%E5%88%86%E5%9C%A8%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.4.</span> <span class="nav-text">3 微分在近似计算中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AF%B9%E6%95%B0%E6%B1%82%E5%AF%BC%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">4 对数求导法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AF%BC%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">2.6.</span> <span class="nav-text">5 导数的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E7%A7%AF%E5%88%86%E4%B8%8A%E9%99%90%E5%87%BD%E6%95%B0%E7%9A%84%E5%AF%BC%E6%95%B0"><span class="nav-number">2.7.</span> <span class="nav-text">6 积分上限函数的导数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E6%B1%82%E6%9B%B2%E7%BA%BF%E7%9A%84%E6%B8%90%E8%BF%91%E7%BA%BF"><span class="nav-number">2.8.</span> <span class="nav-text">7 求曲线的渐近线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8"><span class="nav-number">2.9.</span> <span class="nav-text">8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9"><span class="nav-number">2.10.</span> <span class="nav-text">9</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E5%BE%AE%E5%88%86%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">2.11.</span> <span class="nav-text">10 微分不等式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E6%B1%82%E5%AF%BC%E6%95%B0%E6%9E%81%E9%99%90"><span class="nav-number">2.12.</span> <span class="nav-text">11 中值定理求导数极限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12"><span class="nav-number">2.13.</span> <span class="nav-text">12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E9%9B%B6%E7%82%B9%E9%97%AE%E9%A2%98"><span class="nav-number">2.14.</span> <span class="nav-text">13 零点问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E5%A4%8D%E6%9D%82%E7%9A%84%E5%87%91%E5%87%BD%E6%95%B0"><span class="nav-number">2.15.</span> <span class="nav-text">14 复杂的凑函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F"><span class="nav-number">2.16.</span> <span class="nav-text">15 泰勒公式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

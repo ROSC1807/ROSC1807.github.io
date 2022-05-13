@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一元函数积分学">
+<meta property="og:url" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103111605731.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103111644607.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103112118873.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150600788.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150730028.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150821308.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150851596.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501143702506.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124359267.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124634112.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124725226.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124939213.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125333187.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125424538.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125520717.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125537997.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125613003.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125644067.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306142133228.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103145718030.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150006528.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150113379.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150145697.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150324605.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150426126.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103151115503.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103151146133.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103161922692.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103155704405.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163530394.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163542735.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163608838.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103164021126.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103165505591.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103165527255.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170058681.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170209070.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170246963.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170344794.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171110117.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171218865.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171245116.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171255689.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171312005.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171331519.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172102475.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172121194.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172851974.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172915793.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103173918490.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174002430.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174308059.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174331438.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174549008.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174557904.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103175118279.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103175040792.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104010542942.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104110305423.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104110716693.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111124650.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111143258.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111400868.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112210871.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112239403.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112257339.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112613996.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104113638821.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104113945536.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104114056786.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104114254741.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164459857.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164535589.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164643331.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164801453.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165059754.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165413832.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165445337.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165501290.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170119377.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170209769.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170228387.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170244052.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170306255.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220318231515078.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194338705.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194512713.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194540513.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104195836610.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104195909857.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104221039091.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104221052910.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311210151566.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311210929305.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501150557906.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501151920938.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501162635755.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501163242044.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306193846321.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501161527408.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501164146669.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320154639648.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311171937512.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501140643485.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311171218535.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220308093343569.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311165954655.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311170920367.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311172631399.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311193130745.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311194000193.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320144058943.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501153338403.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501155243942.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501155307990.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311201214377.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311204252786.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311204358593.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311234935621.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311190557872.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320144740071.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503161555371.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320133106537.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320135542031.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320151952422.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220506170828577.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320160813769.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163320497.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163349273.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163621448.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163645249.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306184849957.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306193846321.png">
+<meta property="og:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306205641196.png">
+<meta property="article:published_time" content="2022-03-06T00:23:49.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:27:16.820Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103111605731.png">
+
+<link rel="canonical" href="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一元函数积分学 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一元函数积分学
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-06 08:23:49" itemprop="dateCreated datePublished" datetime="2022-03-06T08:23:49+08:00">2022-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:27:16" itemprop="dateModified" datetime="2022-05-13T23:27:16+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>-</p>
+<span id="more"></span>
+<h3 id="不定积分"><a href="#不定积分" class="headerlink" title="不定积分"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/6082893">不定积分</a></h3><h4 id="概念和性质"><a href="#概念和性质" class="headerlink" title="概念和性质"></a>概念和性质</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>求导和积分是一对互逆的操作，它们都是微积分学中最为基础的概念。</p>
+<p> <img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103111605731.png" alt="image-20220103111605731" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103111644607.png" alt="image-20220103111644607" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103112118873.png" alt="image-20220103112118873" style="zoom:50%;"></p>
+<p>不定积分是求原函数过程求出来的通解。</p>
+<h5 id="基本积分表"><a href="#基本积分表" class="headerlink" title="基本积分表"></a>基本积分表</h5><p><a target="_blank" rel="noopener" href="https://wuli.wiki//online/ITable.html">积分表</a></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150600788.png" alt="image-20220103150600788" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150730028.png" alt="image-20220103150730028" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150821308.png" alt="image-20220103150821308" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150851596.png" alt="image-20220103150851596" style="zoom:50%;"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33047747">72道不定积分题目</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$F(x)$</th>
+<th style="text-align:center">$f(x)$</th>
+<th style="text-align:center">$f’(x)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$-\ln</td>
+<td style="text-align:center">\cos x</td>
+<td style="text-align:center">$</td>
+<td>$\tan x$</td>
+<td>$\sec^2 x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\sin x</td>
+<td style="text-align:center">$</td>
+<td>$\cot x$</td>
+<td>$-\csc^2 x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\sec x+\tan x</td>
+<td style="text-align:center">$</td>
+<td>$\sec x$</td>
+<td>$\sec x\tan x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\csc x-\cot x</td>
+<td style="text-align:center">$</td>
+<td>$\csc x$</td>
+<td>$-\csc x\cot x$</td>
+</tr>
+<tr>
+<td style="text-align:center">基本形式$\ln</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">$</td>
+<td>一次式</td>
+<td>二次式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501143702506.png" alt="image-20220501143702506" style="zoom:67%;"></p>
+<h5 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h5><p>性质1：设f(x)和g(x)的原函数存在，则$\int [f(x)+g(x)]dx=\int f(x)dx+ \int g(x)dx$，对有限个函数都是成立的</p>
+<p>性质2：设函数f(x)的原函数存在，k是非零常数，则$\int kf(x)dx=k\int f(x)dx$</p>
+<p>检验积分结果是否正确，只需要对结果求导，看看它的导数是不是等于被积函数。</p>
+<h4 id="换元积分法"><a href="#换元积分法" class="headerlink" title="换元积分法"></a>换元积分法</h4><h5 id="第一类换元法"><a href="#第一类换元法" class="headerlink" title="第一类换元法"></a>第一类换元法</h5><p>第一类换元法的实质就是<strong>凑微分</strong>，变换被积函数值，提取出必要的部分与dx组合凑成</p>
+<p>第一类换元法又可以理解为“<strong>积两步</strong>”，即连续进行两次积分，第一步是构造u，即首先计算$du=\int \phi’(x)dx=d(\phi(x))$，用du替换掉dx之后，再积一次</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124359267.png" alt="image-20220103124359267" style="zoom:50%;"></p>
+<p>重要例题：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124634112.png" alt="image-20220103124634112" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124725226.png" alt="image-20220103124725226" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103124939213.png" alt="image-20220103124939213" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125333187.png" alt="image-20220103125333187" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125424538.png" alt="image-20220103125424538" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125520717.png" alt="image-20220103125520717" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125537997.png" alt="image-20220103125537997" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125613003.png" alt="image-20220103125613003" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103125644067.png" alt="image-20220103125644067" style="zoom:50%;"></p>
+<p>$\int \tan^2x\sec x dx=?$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306142133228.png" alt="image-20220306142133228" style="zoom:67%;"></p>
+<h5 id="第二类换元法"><a href="#第二类换元法" class="headerlink" title="第二类换元法"></a>第二类换元法</h5><p>第二类换元法就是直接换元</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103145718030.png" alt="image-20220103145718030" style="zoom:50%;"></p>
+<p>重要例题：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150006528.png" alt="image-20220103150006528" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150113379.png" alt="image-20220103150113379" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150145697.png" alt="image-20220103150145697" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150324605.png" alt="image-20220103150324605" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103150426126.png" alt="image-20220103150426126" style="zoom:50%;"></p>
+<p>倒代换：消去被积函数的分母中的变量因子x</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103151115503.png" alt="image-20220103151115503" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103151146133.png" alt="image-20220103151146133" style="zoom:50%;"></p>
+<h4 id="分部积分法"><a href="#分部积分法" class="headerlink" title="分部积分法"></a>分部积分法</h4><p><strong>分部积分公式</strong>：$\int uv’dx=uv-\int u’vdx$;</p>
+<p>或者$\int udv=uv-\int vdu$</p>
+<p>选取u和dv要考虑两点：(1)<strong>v要更容易求得</strong>；(2)<strong>$\int vdu$要比$\int\ udv$更容易积出</strong></p>
+<p>学好<strong>分部积分法</strong>的关键！！！：<strong>所有的初等基本函数都抢着当v’，了解清楚他们的优先级。</strong></p>
+<blockquote>
+<p><strong>牢记</strong>：第一类换元法要凑u的微分，但是分部积分法一开始是要凑v的微分。</p>
+<p><strong>要区分u和v‘：应用分部积分时，首先将所及函数f(x)分为两部分u和v‘</strong>，其中</p>
+<p><strong>v’</strong>:是导数，要对它进行积分，所以必须容易<strong>积分</strong></p>
+<p><strong>u</strong>:我们要对它进行求导，不需要对它进行积分，所以它必须<strong>难积</strong>（如果它好积的话，为什么还要分部呢？直接求不就好了）</p>
+<p><strong>vu‘</strong>:是v’的原函数和u的导函数的积。它必须容易<strong>积分</strong>！！</p>
+<p><strong>总而言之</strong>（傻瓜做法，错分u，v没关系）：</p>
+<p>（0）如果一开始有<strong>负号</strong>，<strong>先画一个大括号，把它隔离开来，最后记得处理</strong>（！防止积分求导时出来负号进行干扰）</p>
+<p>（1）<strong>分析！！</strong>先将f(x)分成<strong>两部分</strong>，<strong>一部分好积，给它积分</strong>；另一部分<strong>难积，先不管</strong>。</p>
+<p>（2）积出来的那部分和难积的那部分做<strong>乘积</strong>,画一个<strong>减号</strong>（不要管外面的符号，积出来是负的也做减号）。</p>
+<p>（3）把<strong>难积的求导</strong>，把<strong>积出来的那部分（带着符号）和导函数相乘</strong>，给它们<strong>对x积分</strong>。</p>
+<p>（4）把结果写到减号后面，把大括号外面的符号加进来，化简。</p>
+<p>思路：分部积分公式，特别是<strong>第二种形式</strong>，和<strong>第一类换元法（积两步凑积分</strong>）的公式是非常相似的。<strong>区别是，凑积分法凑出微分$du$之后，所积函数还剩余包含$u$的容易积分形式。但是分部积分法凑出$dv$之后，剩下的部分却不容易积，所以必须分成两部。</strong></p>
+<p><strong>遇到不会的</strong>：先试一下凑积分（第一类换元法），如果发现凑出来不好积，再试分部积分，最后是第二类换元法</p>
+</blockquote>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103161922692.png" alt="image-20220103161922692" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103155704405.png" alt="image-20220103155704405" style="zoom:50%;"></p>
+<p>因为$a^{bx}$这类<strong>指数函数</strong>无论是求导还是积分都<strong>只产生常数</strong>（除此之外保持不变），所以它们当v’的优先级很高（好积啊）；$a\sin bx或者a\cos bx$这种<strong>正余弦函数</strong>无论是求导还是积分，都是相互转化，产生对应的互补函数和常数（求两次的话只产生常数），所以它们当v’的优先级也比较高；$ax^n$这类<strong>幂函数</strong>相对来说来说求导会<strong>降次</strong>，积分会<strong>升次</strong>，我们的想法是把它变成0次，所以它们做v‘的优先级没有前两者那么高。</p>
+<p>指数函数$a^{bx}$&gt;正余弦函数$a\sin bx$或者$a\cos bx$&gt;幂函数$ax^n$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163530394.png" alt="image-20220103163530394" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163542735.png" alt="image-20220103163542735" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103163608838.png" alt="image-20220103163608838" style="zoom:50%;"></p>
+<p>对于对数函数和反三角函数，它们是很难积分的，所以他们的优先级还要在幂函数之下</p>
+<p>指数函数$a^{bx}$&gt;正余弦函数$a\sin bx$或者$a\cos bx$&gt;幂函数$ax^n$&gt;对数函数和反三角函数</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103164021126.png" alt="image-20220103164021126" style="zoom:50%;"></p>
+<h4 id="有理函数的积分"><a href="#有理函数的积分" class="headerlink" title="有理函数的积分"></a>有理函数的积分</h4><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103165505591.png" alt="image-20220103165505591" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103165527255.png" alt="image-20220103165527255" style="zoom:50%;"></p>
+<h5 id="有理函数积分"><a href="#有理函数积分" class="headerlink" title="有理函数积分"></a>有理函数积分</h5><p>将真分式拆解为两个子真分式之和后，如何设定<strong>分子的待定系数形式</strong>？</p>
+<p>（1）确保两个<strong>子真分式</strong>分子分母<strong>交错相乘得到的两个多项式的次数相同</strong>。</p>
+<p>（2）在确保（1）的情况下，根据<strong>原真分式分子的次数</strong>确定，尽量为两个子真分式分子选择<strong>次数较小</strong>的待定系数形式。</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170058681.png" alt="image-20220103170058681" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170209070.png" alt="image-20220103170209070" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170246963.png" alt="image-20220103170246963" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103170344794.png" alt="image-20220103170344794" style="zoom:50%;"></p>
+<h5 id="可化为有理函数的积分举例"><a href="#可化为有理函数的积分举例" class="headerlink" title="可化为有理函数的积分举例"></a>可化为有理函数的积分举例</h5><p>高中就已经接触的做法：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171110117.png" alt="image-20220103171110117" style="zoom:50%;"></p>
+<p>丢掉根号：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171218865.png" alt="image-20220103171218865" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171245116.png" alt="image-20220103171245116" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171255689.png" alt="image-20220103171255689" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171312005.png" alt="image-20220103171312005" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103171331519.png" alt="image-20220103171331519" style="zoom:50%;"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>不定积分详细分类</p>
+<p>（1）<strong>凑微分</strong></p>
+<p>​    $\int f[g(x)]g’(x)dx=\int f[g(x)]d[g(x)]=\int f(u)du$</p>
+<p>（2）<strong>简单三角函数代换</strong></p>
+<p>（3）<strong>恒等变形后作三角函数代换</strong></p>
+<p>​    含有$\sqrt{ax^2+bx+c}$时，先化为$\sqrt{\phi^2(x)+k^2}$等形式，再应用简单三角函数代换</p>
+<p>（4）<strong>根式代换</strong></p>
+<p>被积函数含有$^n\sqrt{ax+b},\sqrt{\frac{ax+b}{cx+d}},\sqrt{ae^{bx}+c}$的时候，很难凑成平方</p>
+<p>（5）<strong>倒代换</strong></p>
+<p>当被积函数的分母幂次比分子<strong>高两次以及两次以上</strong>时，作倒代换</p>
+<p>（6）<strong>复杂函数的直接代换</strong></p>
+<p>（7）<strong>分部积分</strong></p>
+<p>（8）<strong>n重分部推广</strong></p>
+<p>（9）<strong>有理函数的积分</strong></p>
+<p>（10）<strong>复杂三角函数变换</strong></p>
+<p>（11）<strong>包含$e^x$的问题</strong></p>
+<p>（12）<strong>不连续问题</strong></p>
+<h3 id="定积分"><a href="#定积分" class="headerlink" title="定积分"></a>定积分</h3><h4 id="定义和性质"><a href="#定义和性质" class="headerlink" title="定义和性质"></a>定义和性质</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172102475.png" alt="image-20220103172102475" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172121194.png" alt="image-20220103172121194" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172851974.png" alt="image-20220103172851974" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103172915793.png" alt="image-20220103172915793" style="zoom:50%;"></p>
+<p>简而言之：泰勒公式用多项式逼近函数值，定积分用n个细长方形条来逼近函数与x轴所夹面积。</p>
+<p>定理1：设f(x)在区间[a,b]上<strong>连续</strong>，则f(x)在[a,b]上<strong>可积</strong>。</p>
+<p>定理2：设f(x)在区间[a,b]上<strong>有界</strong>，且只有<strong>有限个间断点</strong>，则f(x)在[a,b]上<strong>可积</strong>。</p>
+<p><em>狄利克雷函数有界，但是有无限个间断点，也很明显不可积</em></p>
+<h5 id="性质-1"><a href="#性质-1" class="headerlink" title="性质"></a>性质</h5><blockquote>
+<p>简而言之  没必要看证明</p>
+<p>性质1：多项式的定积分可以拆分</p>
+<p>性质2：相同被积函数在两个相连区间的定积分和可以合并</p>
+<p>性质3：如果被积函数恒为1，那么积分结果是区间长度</p>
+<p>性质4：非负函数的定积分非负</p>
+<p>性质4推论1：在相同区间，相对值恒小的函数定积分小，相对值恒大的函数定积分大。</p>
+<p>性质4推论2：微积分的绝对值小于等于绝对值的微积分</p>
+<p>性质5：定积分大于等于被积函数最小值×区间长度，小于等于被积函数最大值×区间长度</p>
+<p>性质6：如果被积函数连续，理应在积分区间找到一个点，该点对应函数值，与区间长度形成的矩形面积等价于该定积分划出的面积。</p>
+</blockquote>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103173918490.png" alt="image-20220103173918490" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174002430.png" alt="image-20220103174002430" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174308059.png" alt="image-20220103174308059" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174331438.png" alt="image-20220103174331438" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174549008.png" alt="image-20220103174549008" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103174557904.png" alt="image-20220103174557904" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103175118279.png" alt="image-20220103175118279" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220103175040792.png" alt="image-20220103175040792" style="zoom:50%;"></p>
+<h4 id="微积分基本公式"><a href="#微积分基本公式" class="headerlink" title="微积分基本公式"></a>微积分基本公式</h4><h5 id="积分上限函数"><a href="#积分上限函数" class="headerlink" title="积分上限函数"></a>积分上限函数</h5><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/385477333">进一步理解积分上下限函数的导数公式</a></p>
+<p>定理 1 如果函数f(x)在区间[a,b]上连续，那么积分上限的函数$\phi(x)=\int_a^xf(t)dt $在[a,b]上可导，并且它的导数$\phi’(x)=\frac{d}{dx}\int_a^xf(t)dt=f(x),(a\leqslant x\leqslant b).$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104010542942.png" alt="image-20220104010542942" style="zoom:50%;"></p>
+<p>积分上限函数$\phi(x)=\int_a^xf(t)dt $的本质是函数f(x)和x轴，定轴x=a和变轴x=x四条线围成的面积。其导数$\phi’(x)$的意义即在x处<strong>面积的变化率</strong>。而在$\Delta x \rightarrow 0$的情况下，面积变化率只跟函数值f(x)有关，因此$\phi’(x)=f(x)$</p>
+<p>定理1结论：<strong>连续函数f(x)取变上限x的定积分然后求导，其结果还原为f(x)本身</strong>。因此，$\phi(x)$就是f(x)的一个原函数</p>
+<p>定理2：如果函数f(x)在区间[a,b]上连续，那么函数$\phi(x)=\int_a^xf(t)dt$就是f(x)在[a,b]上的一个原函数。</p>
+<p>重要意义：肯定了连续函数的原函数是存在的（就是连续可积分），初步解释了积分学中的定积分与原函数之间的联系，因此可以通过原函数来计算定积分，引出下面的牛顿-莱布尼兹公式。</p>
+<blockquote>
+<p>变限积分的性质</p>
+<p>（1）函数$f(x)$在$[a,b]$上可积，则函数$F(x)=\int_a^xf(t)dt$在$[a,b]$上连续</p>
+<p>（2）函数$f(x)$在$[a,b]$上连续，则函数$F(x)=\int_a^xf(t)dt$在$[a,b]$上可导</p>
+<p><em>如果$f(x)$在$[a,b]$上存在间断点，则可能出现间断点处左右导数不相等的情况</em></p>
+<p>因此对于变限积分$F(x)=\int_a^xf(t)dt$来说，只要它存在，就一定是连续的</p>
+</blockquote>
+<h5 id="牛顿-莱布尼兹公式"><a href="#牛顿-莱布尼兹公式" class="headerlink" title="牛顿-莱布尼兹公式"></a>牛顿-莱布尼兹公式</h5><p><strong>微积分基本定理  如果函数F(x)是连续函数f(x)在区间[a,b]上的一个原函数，那么$\int_a^bf(x)dx=F(b)-F(a).$</strong></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104110305423.png" alt="image-20220104110305423" style="zoom:50%;"></p>
+<h4 id="定积分的换元法和分部积分法"><a href="#定积分的换元法和分部积分法" class="headerlink" title="定积分的换元法和分部积分法"></a>定积分的换元法和分部积分法</h4><h5 id="定积分的换元法"><a href="#定积分的换元法" class="headerlink" title="定积分的换元法"></a>定积分的换元法</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104110716693.png" alt="image-20220104110716693" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111124650.png" alt="image-20220104111124650" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111143258.png" alt="image-20220104111143258" style="zoom:50%;"></p>
+<h5 id="定积分的分部积分法"><a href="#定积分的分部积分法" class="headerlink" title="定积分的分部积分法"></a>定积分的分部积分法</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104111400868.png" alt="image-20220104111400868" style="zoom:50%;"></p>
+<p>区间再现公式：$\int _a^bf(x)dx=\int_a^bf(a+b-x)dx$</p>
+<h4 id="反常积分"><a href="#反常积分" class="headerlink" title="反常积分"></a>反常积分</h4><p>在一些实际问题中，经常会遇到<strong>积分区间为无穷区间</strong>，或者<strong>被积函数为无界函数</strong>的积分，形成了<strong>反常积分</strong>的概念。</p>
+<blockquote>
+<p>两个重要结论：</p>
+<p>无穷区间的反常积分$\int_1^{+\infty}\frac{dx}{x^p}$：在$p&gt;1$时收敛，在$p \leq 1$时发散</p>
+<p>无界函数的反常积分$\int_0^1\frac{dx}{x^p}$：在$0&lt;p&lt;1$时收敛，在$p \geq 1$时发散</p>
+</blockquote>
+<h5 id="无穷限的反常积分"><a href="#无穷限的反常积分" class="headerlink" title="无穷限的反常积分"></a>无穷限的反常积分</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112210871.png" alt="image-20220104112210871" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112239403.png" alt="image-20220104112239403" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112257339.png" alt="image-20220104112257339" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104112613996.png" alt="image-20220104112613996" style="zoom:50%;"></p>
+<h5 id="无界函数的反常积分"><a href="#无界函数的反常积分" class="headerlink" title="无界函数的反常积分"></a>无界函数的反常积分</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104113638821.png" alt="image-20220104113638821" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104113945536.png" alt="image-20220104113945536" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104114056786.png" alt="image-20220104114056786" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104114254741.png" alt="image-20220104114254741" style="zoom:50%;"></p>
+<h4 id="反常积分的审敛法"><a href="#反常积分的审敛法" class="headerlink" title="反常积分的审敛法"></a>反常积分的审敛法</h4><h5 id="无穷限反常积分的审敛法"><a href="#无穷限反常积分的审敛法" class="headerlink" title="无穷限反常积分的审敛法"></a>无穷限反常积分的审敛法</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164459857.png" alt="image-20220104164459857" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164535589.png" alt="image-20220104164535589" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164643331.png" alt="image-20220104164643331" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104164801453.png" alt="image-20220104164801453" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165059754.png" alt="image-20220104165059754" style="zoom:50%;"></p>
+<p>定理5可以简单地表达为：绝对收敛的反常积分$\int_a^{+\infty}f(x)dx$必定收敛</p>
+<h5 id="无界函数的反常积分的审敛法"><a href="#无界函数的反常积分的审敛法" class="headerlink" title="无界函数的反常积分的审敛法"></a>无界函数的反常积分的审敛法</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165413832.png" alt="image-20220104165413832" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165445337.png" alt="image-20220104165445337" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104165501290.png" alt="image-20220104165501290" style="zoom:50%;"></p>
+<h5 id="Gamma函数"><a href="#Gamma函数" class="headerlink" title="$\Gamma函数$"></a>$\Gamma函数$</h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170119377.png" alt="image-20220104170119377" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170209769.png" alt="image-20220104170209769" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170228387.png" alt="image-20220104170228387" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170244052.png" alt="image-20220104170244052" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104170306255.png" alt="image-20220104170306255" style="zoom:50%;"></p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><h5 id="不定积分和定积分的联系"><a href="#不定积分和定积分的联系" class="headerlink" title="不定积分和定积分的联系"></a>不定积分和定积分的联系</h5><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/29210349/answer/166107034">不定积分和定积分有什么区别</a></p>
+<p>定积分和不定积分之间有什么联系呢?</p>
+<p>实际上这两种积分之间<strong>没有任何关系</strong>。不定积分是<strong>求导的逆运算</strong>，求出的是<strong>函数n个原函数的表达式</strong>。而定积分由解决函数面积问题而引入，是<strong>借助不定积分来解决实际问题的工具</strong>，算出的一个<strong>数值</strong>。一个函数存在不定积分和定积分之间不存在绝对关系。</p>
+<p>定积分是不定积分的概念之后，由实际问题借助面积问题引出积分上限函数，再引出<strong>牛顿·莱布尼兹公式</strong>这个工具，成为解决问题的一个算法。事实上，牛顿莱布尼兹公式也仅仅有着一个用途，是工具而已。</p>
+<p>因此不定积分存在定理和定积分存在定理的条件也截然不同。</p>
+<p>原函数（<strong>不定积分</strong>）存在的情况：</p>
+<p>1）连续函数</p>
+<p>2）有些个别只有<strong>震荡间断点</strong>的函数（如$2x\sin\frac1x-\cos\frac1x$）</p>
+<p><strong>定积分</strong>存在的情况</p>
+<p>1）在闭区间上连续</p>
+<p>2）在闭区间上单调（单调必有界）</p>
+<p>3）在闭区间上有界，且只有有限个间断点</p>
+<p>由定积分存在必然推出，$f(x)$在闭区间上有界</p>
+<h5 id="定积分证明题已证出的一些结论"><a href="#定积分证明题已证出的一些结论" class="headerlink" title="定积分证明题已证出的一些结论"></a>定积分证明题已证出的一些结论</h5><p>虽然大多数不可以直接用，但是可以选择判断用</p>
+<p>(0)$f(x)$是连续函数，则$\int_a^bf(x)dx=\int_a^bf(a+b-x)dx$（<strong>区间再现公式</strong>）</p>
+<blockquote>
+<p>证：作变量代换，令$x=a+b-t$，则$\int_a^bf(x)dx=\int_b^af(a+b-t)(-dt)=\int_a^bf(a+b-t)dt=\int_a^bf(a+b-x)dx$</p>
+</blockquote>
+<p>(1)设$f(x)$在$[-a,a]$上连续，证明：$\int_{-a}^af(x)dx=\int_0^a[f(x)+f(-x)]dx$</p>
+<p>(2)$\int_0^{\pi}f(\sin x)dx=2\int_0^{\frac{\pi}{2}}f(\sin x)dx$</p>
+<p>(3)$\int_0^{\pi}xf(\sin x)dx=\frac{\pi}{2}\int_0^{\pi}f(\sin x)dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220318231515078.png" alt="image-20220318231515078" style="zoom: 67%;"></p>
+<h3 id="定积分的应用"><a href="#定积分的应用" class="headerlink" title="定积分的应用"></a>定积分的应用</h3><h4 id="微元法"><a href="#微元法" class="headerlink" title="微元法"></a>微元法</h4><p>对所求量U采用微元法的<strong>条件</strong>：</p>
+<blockquote>
+<p>(1)U是与一个<strong>变量x的变化区间[a,b]</strong>有关的量</p>
+<p>(2)U对于区间[a,b]具有<strong>可加性</strong>，也就是说，容易把[a,b]分为许多部分空间，U容易分为许多部分量$\Delta U_i$.</p>
+<p>(3)容易表示出近似量$\Delta U_i=f(\xi_i)\Delta x_i$.</p>
+</blockquote>
+<p>求出U的步骤：</p>
+<blockquote>
+<p>(1)根据问题的情况，选取容易积分的变量例如x，并确定它的变化区间[a,b];</p>
+<p>(2)设想把区间[a,b]分为n个小区间，任取其中任一小区间并记作[x,x+dx]，求出相应于这个小区间的部分量$\Delta U$的近似值$d U=F(x)dx$;</p>
+<p>(3)积分 $U=\int_a^bf(x)dx$.</p>
+</blockquote>
+<h4 id="平面图形的面积"><a href="#平面图形的面积" class="headerlink" title="平面图形的面积"></a>平面图形的面积</h4><p>直角坐标f(x)与x轴形成面积：$A=\int_a^bf(x)dx$</p>
+<p>极坐标：$A=\int_{\alpha}^{\beta}\frac{1}{2}[\rho(\theta)^2]d\theta$</p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%98%BF%E5%9F%BA%E7%B1%B3%E5%BE%B7%E8%9E%BA%E7%BA%BF/6174118">阿基米德螺线</a>（<strong>等距螺线</strong>）：是一个点匀速离开一个固定点的同时又以固定的角速度绕该固定点转动而产生的轨迹。</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194338705.png" alt="image-20220104194338705" style="zoom:50%;"></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BF%83%E8%84%8F%E7%BA%BF/10323843">心形线</a></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194512713.png" alt="image-20220104194512713" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104194540513.png" alt="image-20220104194540513" style="zoom:50%;"></p>
+<h4 id="体积"><a href="#体积" class="headerlink" title="体积"></a>体积</h4><h5 id="旋转体的体积"><a href="#旋转体的体积" class="headerlink" title="旋转体的体积"></a>旋转体的体积</h5><p>旋转体就是由一个平面图形绕这平面内一条直线旋转一周而成的立体。这条直线叫做旋转轴。</p>
+<p>连续曲线y=f(x)和x轴、x=a、x=b所围图形绕x轴旋转一周的体积：</p>
+<p>$V=\pi \int_a^b[f(x)]^2dx$</p>
+<blockquote>
+<p>策略：先积面，再积高。</p>
+<p><strong>高</strong>指的是沿旋转轴方向的。面指的是垂直旋转轴的方向。</p>
+<p>f(x)其实决定了旋转体旋出的薄片的半径，于是先表示出面的微元，再沿高的方向积分得到整个立体的体积。</p>
+</blockquote>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104195836610.png" alt="image-20220104195836610" style="zoom:50%;"></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%91%86%E7%BA%BF/5893005">摆线</a>：在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/数学/107037">数学</a>中，<strong>摆线</strong>（Cycloid）被定义为，一个圆沿一条直线运动时，圆边界上一定点所形成的轨迹。它是<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/一般旋轮线/18878448">一般旋轮线</a>的一种。</p>
+<p>摆线也是<strong><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/最速降线问题/9080622">最速降线问题</a></strong>和<strong>等时降落问题</strong>的解。</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104195909857.png" alt="image-20220104195909857" style="zoom:50%;"></p>
+<h5 id="平行截面面积为已知的立体的体积"><a href="#平行截面面积为已知的立体的体积" class="headerlink" title="平行截面面积为已知的立体的体积"></a>平行截面面积为已知的立体的体积</h5><p>这个更不用说，直接把截面面积函数写好了，直接在高上积分即可。</p>
+<p>$V=\int_a^bA(x)dx.$</p>
+<h4 id="平面曲线的弧长"><a href="#平面曲线的弧长" class="headerlink" title="平面曲线的弧长"></a>平面曲线的弧长</h4><p>光滑曲线弧是<strong>可求弧长的</strong>。</p>
+<p>直角坐标：$s=\int_a^b\sqrt{1+[f’(x)]^2}dx$</p>
+<p>参数方程($x=\phi(t),y=\psi(t),\alpha\leq x\leq \beta$)：$s=\int_{\alpha}^{\beta}\sqrt{\phi’^2(t)+\psi’^2(t)}dt$</p>
+<p>极坐标($r=r(\theta),\alpha\leq \theta\leq \beta$)：$s=\int_{\alpha}^{\beta}\sqrt{r’^2(\theta)+r’^2(\theta)}d\theta$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104221039091.png" alt="image-20220104221039091" style="zoom:50%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220104221052910.png" alt="image-20220104221052910" style="zoom:50%;"></p>
+<h4 id="定积分的物理应用"><a href="#定积分的物理应用" class="headerlink" title="定积分的物理应用"></a>定积分的物理应用</h4><h5 id="变力做功"><a href="#变力做功" class="headerlink" title="变力做功"></a>变力做功</h5><p>$W=\int_a^bF(x)dx.$</p>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><h5 id="极坐标和参数方程补充"><a href="#极坐标和参数方程补充" class="headerlink" title="极坐标和参数方程补充"></a>极坐标和参数方程补充</h5><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9E%81%E5%9D%90%E6%A0%87%E6%96%B9%E7%A8%8B/784998?fr=aladdin">极坐标方程百度百科</a></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B/2125917?fr=aladdin">参数坐标方程百度百科</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.gaosan.com/gaokao/263827.html">常见极坐标和参数方程</a></p>
+<h3 id="题目集"><a href="#题目集" class="headerlink" title="题目集"></a>题目集</h3><h4 id="1-不定积分计算专题"><a href="#1-不定积分计算专题" class="headerlink" title="1 不定积分计算专题"></a>1 不定积分计算专题</h4><h5 id="凑微分"><a href="#凑微分" class="headerlink" title="凑微分"></a><strong>凑微分</strong></h5><p>​    $\int f[g(x)]g’(x)dx=\int f[g(x)]d[g(x)]=\int f(u)du$</p>
+<p><strong>(1)</strong>$\int\frac{1+\cos x}{x+\sin x}dx$</p>
+<p>答案略</p>
+<p><strong>(2)</strong></p>
+<p>$\int \frac{\sin 2x}{1+4\cos[4]x}$</p>
+<p>$\sin 2x=2\sin x\cos x=d(\cos[2]x)$</p>
+<p><strong>(3)</strong></p>
+<p>$\int \frac{\cos 2x}{(3+\sin x\cos x)^2}dx$</p>
+<p>$\cos 2x=\cos[2]x-\sin[2]x=\cos 2x$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311210151566.png" alt="image-20220311210151566" style="zoom: 67%;"></p>
+<p><strong>(4)</strong></p>
+<p>$\int \frac{1-\ln x}{(x-\ln x)^2}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311210929305.png" alt="image-20220311210929305" style="zoom:67%;"></p>
+<p><strong>(5)</strong></p>
+<p>$\frac{1}{\cos x \sin x}dx=d\ln \tan x$ </p>
+<p><strong>(6)</strong></p>
+<p>$\int \sec^2x\tan xdx=\frac{1}{2}\tan ^2x=\frac{1}{2}\sec^2 x$</p>
+<p><strong>(7)</strong>$\int \frac{\cot x}{\sqrt{\sin x}}dx$</p>
+<p>$=\int\frac{\cos x}{\sin ^{\frac{3}{2}x}}dx=\frac{-2}{\sqrt{\sin x}}+C$</p>
+<p>此处$\int \frac{1}{x^{\frac{3}{2}}}dx=\frac{-2}{\sqrt{x}}+C$</p>
+<p><strong>(8)</strong></p>
+<p>一类问题</p>
+<p>$\int\frac{dx}{x\sqrt{x^2-1}}$</p>
+<p>$\int\frac{dx}{x\sqrt{x^2+1}}$</p>
+<p>$\int\frac{dx}{x^2\sqrt{x^2+1}}$</p>
+<p>$\int\frac{dx}{x^2\sqrt{x^2-1}}$</p>
+<p>$\int\frac{dx}{x^2\sqrt{1-x^2}}$</p>
+<p>思路：（a）倒代换</p>
+<p>（b）三角函数代换</p>
+<p>（c）同除$x^k$凑微分$d\frac{1}{x^{k-1}}$</p>
+<p>利用思路（c）同样有以下例题</p>
+<p>$\large\int\frac{dx}{\sqrt{e^{2x}+1}}$</p>
+<p>$\large \int\frac{dx}{\sqrt{e^{2x}-1}}$</p>
+<p>$\large \int\frac{dx}{\sqrt{1-e^{2x}}}$</p>
+<p><strong>(9)</strong></p>
+<p>$\large \int \frac{\cos x+x\sin x}{(x+\cos x)^2}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501150557906.png" alt="image-20220501150557906" style="zoom:50%;"></p>
+<p><strong>(10)</strong></p>
+<p>$\int x \ln(1+x^2)\arctan x dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501151920938.png" alt="image-20220501151920938" style="zoom:64%;"></p>
+<p><strong>（11）</strong></p>
+<p>$\large \int \frac{x^2-1}{x^4+1}$和$\large \int \frac{x^2+1}{x^4+1}$</p>
+<p>$ \int \arctan(x^2)dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501162635755.png" alt="image-20220501162635755" style="zoom: 51%;"></p>
+<p>$\large \int \frac{1}{x^4+1}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501163242044.png" alt="image-20220501163242044" style="zoom:52%;"></p>
+<h5 id="简单三角函数代换"><a href="#简单三角函数代换" class="headerlink" title="简单三角函数代换"></a><strong>简单三角函数代换</strong></h5><p>三角函数直接去根号，或者遇到$\arcsin x$这类反函数，进行换元</p>
+<h5 id="恒等变形后作三角函数代换"><a href="#恒等变形后作三角函数代换" class="headerlink" title="恒等变形后作三角函数代换"></a><strong>恒等变形后作三角函数代换</strong></h5><p>​    含有$\sqrt{ax^2+bx+c}$时，先化为$\sqrt{\phi^2(x)+k^2}$等形式，再应用简单三角函数代换</p>
+<p><strong>（1）</strong></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306193846321.png" alt="image-20220306193846321" style="zoom:67%;"></p>
+<h5 id="根式代换"><a href="#根式代换" class="headerlink" title="根式代换"></a><strong>根式代换</strong></h5><p>被积函数含有$^n\sqrt{ax+b},\sqrt{\frac{ax+b}{cx+d}},\sqrt{ae^{bx}+c}$的时候，很难凑成平方</p>
+<p><strong>（1）</strong>$\int \sqrt{\tan x}dx$</p>
+<p>这道题几乎不可能应用凑微分，也不能分部，也不能三角函数代换，唯一的办法就只剩下根式代换了。</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501161527408.png" alt="image-20220501161527408" style="zoom: 50%;"></p>
+<p><strong>（2）</strong></p>
+<p>​    $\large \int \frac{dx}{\sqrt[3]{(x+1)^2(x-1)^4}}$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501164146669.png" alt="image-20220501164146669" style="zoom:48%;"></p>
+<h5 id="倒代换"><a href="#倒代换" class="headerlink" title="倒代换"></a><strong>倒代换</strong></h5><p>当被积函数的分母幂次比分子<strong>高两次以及两次以上</strong>时，作倒代换</p>
+<p><strong>（1）</strong>$\large\int^1_{\frac{\sqrt2}{2}}\frac{dx}{x\sqrt{1+x^2+3x^4}}$</p>
+<p>此题运算量较大</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320154639648.png" alt="image-20220320154639648" style="zoom: 50%;"></p>
+<h5 id="复杂函数的直接代换"><a href="#复杂函数的直接代换" class="headerlink" title="复杂函数的直接代换"></a><strong>复杂函数的直接代换</strong></h5><h5 id="分部积分"><a href="#分部积分" class="headerlink" title="分部积分"></a><strong>分部积分</strong></h5><p><strong>（1）</strong>$\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}e^{\frac{\pi}{2}}\frac{\cos x-\sin x}{\sqrt{\cos x}}dx$</p>
+<p>这是循环积分的一个例子</p>
+<h5 id="n重分部推广"><a href="#n重分部推广" class="headerlink" title="n重分部推广"></a><strong>n重分部推广</strong></h5><h5 id="有理函数的积分-1"><a href="#有理函数的积分-1" class="headerlink" title="有理函数的积分"></a><strong>有理函数的积分</strong></h5><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311171937512.png" alt="image-20220311171937512" style="zoom: 62%;"></p>
+<p>最常见的有理函数的做法如上所示，但有的时候会牵扯到复杂的有理函数</p>
+<p>我们需要记忆以下公式，并用同除$x^k$凑微分、因数分解等方式解决这些复杂的有理函数题目。</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501140643485.png" alt="image-20220501140643485" style="zoom:67%;"></p>
+<p>（1）$\int \frac{x^4+1}{1+x^6}dx$</p>
+<p>（2）$\int \frac{x^3+1}{(x^2+1)^2}$</p>
+<h5 id="复杂三角函数变换"><a href="#复杂三角函数变换" class="headerlink" title="复杂三角函数变换"></a><strong>复杂三角函数变换</strong></h5><p>这类问题在积分前需要进行复杂的三角函数代换，如万能公式、积化和差和差化积、等</p>
+<blockquote>
+<p>套路总结</p>
+<p>a)如果<strong>不是分式</strong>，是多个$\sin\cos$的乘积，请<strong>积化和差</strong></p>
+<p>b)如果是<strong>分式</strong>，<strong>裂解</strong>很重要。一般三种情况，第一种<strong>分子分母</strong>都是$\sin、cos$的<strong>和或差</strong>，考虑将分子拆开；第二种分母是多个$\sin\cos$的<strong>乘积</strong>，分子是1，考虑将1化成$\sin^2x+\cos^2x$，这样可以方便降次；第三种，将微分凑成$d\sin x$或者$d\cos x$的形式，然后就能尝试用<strong>有理函数</strong>的方式进行裂解了。<strong><em>裂解不一定都能做出来，但是值得一试</em></strong></p>
+<p>c)其他的分式的方法一般都是考虑<strong>将分母化为乘积式</strong>，消灭$+$和$-$，这样容易进行三角函数变换。一般方法有：1）如果分子分母含$1-\sin x$之类考虑同乘$1+\sin x$；2）半角公式，包含$1+\sin x$考虑化为$\cos[2]\frac{x}2+\sin[2]\frac{x}2$，$1+\cos x$考虑化为$2\cos[2]\frac{x}2$等等；3）如果分包含$\sin x+(或-)\cos x$这类，考虑和角公式，凑$x+\frac{\pi}4$</p>
+<p>d)如果分式只包含1和$\cos^2x$，考虑同除以$\cos^2x$</p>
+<p>e)要掌握万能公式，熟练使用，但尽量又不要用（太麻烦）</p>
+<p>f)永远不要忽略：凑凑微分。比如$\sin x\cos x$既可以凑成$\sin^2x$又可以凑成$\cos^2x$ ，$\cos^2 x-\sin ^2x$也就是$\cos 2x$可以凑成$\sin x \cos x$</p>
+<p>g)当被积函数为幂函数与三角函数的乘积，且不能用凑微分法积分时，一定要用分部积分法积分；当被积函数是指数函数与三角函数的乘积，且不能用凑微分积分时，也需要用分部积分法</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">$F(x)$</th>
+<th style="text-align:center">$f(x)$</th>
+<th style="text-align:center">$f’(x)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$-\ln</td>
+<td style="text-align:center">\cos x</td>
+<td style="text-align:center">$</td>
+<td>$\tan x$</td>
+<td>$\sec^2 x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\sin x</td>
+<td style="text-align:center">$</td>
+<td>$\cot x$</td>
+<td>$-\csc^2 x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\sec x+\tan x</td>
+<td style="text-align:center">$</td>
+<td>$\sec x$</td>
+<td>$\sec x\tan x$</td>
+</tr>
+<tr>
+<td style="text-align:center">$\ln</td>
+<td style="text-align:center">\csc x-\cot x</td>
+<td style="text-align:center">$</td>
+<td>$\csc x$</td>
+<td>$-\csc x\cot x$</td>
+</tr>
+<tr>
+<td style="text-align:center">基本形式$\ln</td>
+<td style="text-align:center">?</td>
+<td style="text-align:center">$</td>
+<td>一次式</td>
+<td>二次式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>(1)</strong></p>
+<p>$\int\frac{\sin x}{\sin x-\cos x}dx$</p>
+<p>解法一：$=\int\frac{\sin x(\sin x+\cos x)}{-\cos 2x}dx=\frac{1}{2}\int\frac{1-\cos 2x+\sin 2x}{\cos 2x}=-\frac{1}{4}\ln|\sec 2x-\tan 2x|-x-\ln|\cos 2x|+C$</p>
+<p>解法二：</p>
+<p>=$\int \frac{A(\sin x-\cos x)}{\sin x-\cos x}dx+\int\frac{B(\sin x+\cos x)}{\sin x-\cos x}dx$</p>
+<p>解得$A=B=1$</p>
+<p>$=\frac{1}{2}x+\frac{1}{2}\int\frac{\sin x+\cos x}{\sin x-\cos x}dx=\frac{1}{2}x+\frac{1}{2}\ln(\sin x-\cos x)+C$</p>
+<p>解法三：$=\large\frac{1}{\sqrt2}\int\frac{\sin[][(x-\frac{\pi}4)+\frac{\pi}{4}]}{\sin x\cos\frac{\pi}{4}-\cos x\sin\frac{\pi}4}dx=\frac12\int\frac{\sin(x-\frac{\pi}{4})+\cos(x-\frac{\pi}{4})}{\sin(x-\frac{\pi}{4})}d(x-\frac{\pi}{4})$</p>
+<p>解法四：万能公式</p>
+<p><strong>(2)</strong></p>
+<p>$\int\frac{\sin x}{1+\sin x}dx$</p>
+<p>解法一：$=\int\frac{\sin x(1-\sin x)}{\cos^2 x}=\int\sec x\tan x-\tan^2x=\sec x-\tan x+x+C$</p>
+<p>解法二：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311171218535.png" alt="image-20220311171218535" style="zoom: 50%;"></p>
+<p>解法三：万能公式</p>
+<p><strong>(3）</strong></p>
+<p>$\int \frac{dx}{1+\sin x}dx$</p>
+<p>解法一：$=\int \frac{1-\sin x}{\cos ^2x}dx=\tan x-\sec x+C$</p>
+<p>解法二：$=\int \frac{dx}{(\cos\frac{x}2+\sin\frac{x}2)^2}=\int\frac{\sec^2\frac{x}2}{(1+\tan\frac{x}2)^2}dx=2\int\frac{d(1+\tan\frac{x}{2})}{(1+\tan\frac{x}{2})^2}=-\frac{2}{1+\tan \frac{x}2}+C$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220308093343569.png" alt="image-20220308093343569" style="zoom:50%;"></p>
+<p><strong>（4）</strong></p>
+<p>$\int\frac{x+\sin x}{1+\cos x}dx$</p>
+<p>解法一：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311165954655.png" alt="image-20220311165954655" style="zoom: 55%;"></p>
+<p>解法二：仔细观察可知$\frac{\sin x}{1+\cos x}=\tan\frac{x}{2}$，拆开解即可</p>
+<p><strong>（5）</strong></p>
+<p>$\int \frac{1+\cos x}{1+\sin x}dx$</p>
+<p>解法一：上下同乘$1-\sin x$，可以拆开解（分解为四项，较为繁琐）</p>
+<p>解法二：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311170920367.png" alt="image-20220311170920367" style="zoom:55%;"></p>
+<p><strong>（6）</strong></p>
+<p>$\int \frac{dx}{(2+\cos x)\sin x}$</p>
+<p>解法一：</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311172631399.png" alt="image-20220311172631399" style="zoom: 80%;"></p>
+<p><strong>（7）</strong></p>
+<p>$\int \frac{dx}{\sin x\cos[4]x}$</p>
+<p>解法一：分子变$\sin^2x+\cos^2x$裂解两次</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311193130745.png" alt="image-20220311193130745" style="zoom: 55%;"></p>
+<p><strong>（8）</strong></p>
+<p>$\int \frac{1}{2+\cos^2x}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311194000193.png" alt="image-20220311194000193" style="zoom: 55%;"></p>
+<p><strong>（9）</strong></p>
+<p>$\int\frac{dx}{\sin 2x+2\sin x}$</p>
+<p>解法：略</p>
+<p><strong>（10）</strong></p>
+<p>$\large\int \frac{\tan x}{a^2\sin^2x+b^2\cos^2x}dx$，（$a,b$不同时为0）</p>
+<p>有参数时要注意讨论</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320144058943.png" alt="image-20220320144058943" style="zoom: 65%;"></p>
+<p><strong>（11）</strong></p>
+<p>$\large\int \frac{dx}{\sin x(\sin x+\cos x)}$</p>
+<p>解法一：万能公式</p>
+<p>解法二：同乘$\sin x-\cos x$</p>
+<p><strong>（12）</strong></p>
+<p>$\large \int \frac{2\sin x+3\cos x}{5\sin x+7\cos x}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501153338403.png" alt="image-20220501153338403" style="zoom: 57%;"></p>
+<p><strong>（13）</strong></p>
+<p>$\large \int \frac{\sin x\cos x}{\sin x+\cos x}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501155243942.png" alt="image-20220501155243942" style="zoom: 89%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220501155307990.png" alt="image-20220501155307990" style="zoom:80%;"></p>
+<h5 id="包含-e-x-的问题"><a href="#包含-e-x-的问题" class="headerlink" title="包含$e^x$的问题"></a><strong>包含$e^x$的问题</strong></h5><p>这里收录了含有$e^x$的复杂问题，它们都非常巧妙</p>
+<blockquote>
+<p>$e^x$问题套路总结</p>
+<p>（1）分子分母同乘$e^x$，然后把分子的$e^x$（如果能的话凑微分）直接放到$d$里变成$de^x$，可能这时候就能直接转化为有理函数的积分问题。</p>
+</blockquote>
+<p><strong>(1)</strong></p>
+<p>$\int \frac{x+1}{x(1+xe^x)}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311201214377.png" alt="image-20220311201214377" style="zoom: 50%;"></p>
+<p>凑微分$xe^x=d[(x+1)e^x]$</p>
+<p><strong>(2)</strong></p>
+<p>$\int \frac{\arctan e^x}{e^x}dx$</p>
+<p>答案：略</p>
+<p><strong>(3)</strong></p>
+<p>$\int \frac{xe^x}{(e^x+1)^2}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311204252786.png" alt="image-20220311204252786" style="zoom: 80%;"></p>
+<p><strong>(4)</strong></p>
+<p>$\large\int\frac{e^{3x}+e^{x}}{e^{4x}-e^{2x}+1}$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311204358593.png" alt="image-20220311204358593" style="zoom: 80%;"></p>
+<p><strong>(5)</strong></p>
+<p>$\int\frac{1+\sin x}{1+\cos x}e^xdx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311234935621.png" alt="image-20220311234935621" style="zoom: 50%;"></p>
+<h5 id="不连续问题"><a href="#不连续问题" class="headerlink" title="不连续问题"></a>不连续问题</h5><p>仔细观察原函数存在定理，发现，在$f(x)\in I$的任何一点都有$F’(x)=f(x)$。也就是说，我们通过不定积分求出的原函数定义域，一定不能比$I$小。举一个最直接的例子。</p>
+<p>$\int \frac{1}{x}dx=\ln|x|+C$，$I=${$x\neq0$}，所以要加绝对值。</p>
+<p><strong>（0）</strong></p>
+<p>$\int \sqrt{1-\sin 2x}dx$</p>
+<p>按照之前的算法，我们化简，化到$\int |\sin x-\cos x|dx$，然后我们这里不能直接去掉绝对值，因为这样会导致定义域的错误。$\sqrt{1-\sin 2x}$的定义域是$R$，要 求出的原函数的定义域也必须$R$</p>
+<p>$\int |\sin x-\cos x|dx=\int  \sqrt{2}|\cos(x+\frac{\pi}{4})|dx=\sqrt2 \sin[][(k+1)\pi+(x+\frac{\pi}{4})]+C_k,x\in [k\pi+\frac{\pi}{4},k\pi+\frac{5\pi}{4}),k\in Z$</p>
+<p>我们注意到这里的巧妙操作，通过配一个$ (k+1)\pi$，可以让$\sin ()$的值永远都为正，所以后面的定义域自然扩展到了R</p>
+<p>又根据原函数的连续性，我  </p>
+<p>可知原式=$\sqrt2 \sin[][(k+1)\pi+(x+\frac{\pi}{4})]+C+2\sqrt2k,x\in [k\pi+\frac{\pi}{4},k\pi+\frac{5\pi}{4}),k\in Z$</p>
+<p><strong>（1）</strong></p>
+<p>$\int \frac{x^2+1}{x^4+1}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220311190557872.png" alt="image-20220311190557872" style="zoom: 67%;"></p>
+<p>大部分辅导书都会给出这样的答案，但实际上这并不是正确答案（简单来说，就是求出的$F(x)$不包含x=0这个点），详情请看链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1aa411F7Bh/?spm_id_from=333.788.recommend_more_video.4">一个广为流传的错误解法</a></p>
+<p><strong>（2）</strong></p>
+<p>求$\int \max ${$1,|x|dx$}</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320144740071.png" alt="image-20220320144740071" style="zoom:67%;"></p>
+<p><strong>（3）</strong></p>
+<p>​    $\int \frac{dx}{x\ln x \ln\ln x}$</p>
+<p>​    答案：$\ln |\ln \ln x|$</p>
+<p>​    思考：为何要在这里加绝对值呢？</p>
+<p>​    因为$I\in(1,+\infty)$，如果不加绝对值，原函数定义域就是$I \in (e,+\infty)$.</p>
+<h4 id="2-定积分计算专题"><a href="#2-定积分计算专题" class="headerlink" title="2 定积分计算专题"></a>2 定积分计算专题</h4><p>定积分的计算比不定积分的计算甚至要更为复杂，除了不定积分的积分法，还需要牵扯到更多内容</p>
+<p><strong>定积分计算的一些基本题型：</strong></p>
+<p>a) 区间再现公式：特别适合一些对偶式（因为区间再现本身就是一种对偶），或者三角函数</p>
+<p>b) 三角函数变换：一般用一些基本结论和华里士公式来解决</p>
+<p>c)几何图形：比如最基本的$\int_0^a\sqrt{a^2-x^2}dx$是圆面积的四分之一</p>
+<blockquote>
+<p><strong>定积分进行运算的步骤</strong></p>
+<p>（1）求定义域，首先判断是不是<strong>无穷区间</strong>的反常积分，再根据是否有间断点判断是否是<strong>无界函数</strong>的反常积分</p>
+<p>（2）若积分上下限相等，尝试根据奇函数和偶函数的特性来简化计算。</p>
+<p>（3）判断是否有不定积分的常见套路，比如是很典型的分部，或者很典型的凑积分，或者分母是很典型的三角函数代换，或者很典型的有理函数的积分，请直接应用。</p>
+<p>（4）如果它看上去很难积，可以尝试利用上述的定积分的一些套路</p>
+<p>（5）实在做不出来可以考虑分解，换元等复杂的不定积分方式来算</p>
+<p>（6）积出来之后利用牛顿莱布尼兹公式来收尾</p>
+<p><strong>一些常见的奇函数偶函数：</strong></p>
+<p><strong>结论</strong>：连续的奇函数的一切原函数都是偶函数；连续的偶函数的原函数中仅有一个原函数是奇函数</p>
+<p>奇函数偶函数性质：</p>
+<p>（1）奇函数±奇函数=奇函数；偶函数±偶函数=偶函数，奇函数±偶函数=非奇非偶函数</p>
+<p>（2）奇函数×奇函数=偶函数，偶函数×偶函数=偶函数，奇函数×偶函数=奇函数</p>
+<p><em>所以奇函数的奇数次方是奇函数，偶数次方是偶函数。</em></p>
+<p>（3）函数÷奇函数=偶函数，偶函数÷偶函数=偶函数，奇函数÷偶函数=奇函数，偶函数÷奇函数=奇函数</p>
+<p><strong>奇函数：</strong></p>
+<p>（1）双曲正弦函数$\frac{e^x-e^{-x}}{2}$</p>
+<p>​        可推广到$a^x-a^{-x}$</p>
+<p>（2）反双曲正弦函数$\ln(x+\sqrt{x^2+1})$</p>
+<p>​        很容易想到$\ln(\sqrt{x^2+1}-x)$</p>
+<p>​        可推广到$\large\log_c^{\sqrt{1+a^2x^2}\pm ax}$</p>
+<p>（3）双曲正切函数$\frac{e^x-e^{-x}}{e^x+e^{-x}}$</p>
+<p>​        可推广到$\frac{a^x+1}{a^x-1}$和$\frac{a^x+a^{-x}}{a^x-a^{-x}}$</p>
+<p>（4）反双曲正切$\frac{1}{2}\ln\frac{1+x}{1-x}$</p>
+<p>​        可推广到$\log_c{\frac{b+ax}{b-ax}}$</p>
+<p>（5）$|x+a|-|x-a|$</p>
+<p><strong>偶函数：</strong></p>
+<p>（1）双曲余弦函数$\frac{e^x+e^{-x}}{2}$（悬链线）</p>
+<p>​        可推广到$a^x+a^{-x}$</p>
+<p>（2）$\large \log_a^{a^{kx}+1}-\frac{kx}{2}$</p>
+<p>（3）$\frac{x}{2^x-1}+\frac{x}{2}$</p>
+<p>（4）$\log_c{(b+ax)}+\log_c{(b-ax)}$</p>
+<p>（5）$|x+a|+|x-a|$</p>
+<p><strong>非奇非偶函数</strong>：</p>
+<p>（1）反双曲余弦函数$\ln(x+\sqrt{x^2-1})$</p>
+<p><strong>收尾时的一些小技巧</strong></p>
+<p>要注意区分$\int_{-a}^a$和$|_{-a}^a$对奇偶函数的性质是相反的</p>
+<p>$\int_{-a}^a\sin x=$0，而$\sin x|_{-a}^a=2\sin a$</p>
+<p>$\int_{-a}^a\cos x=2\sin a$，而$\cos x|_{-a}^a=0$</p>
+<p>联系图像可理解：</p>
+<p>$\int_0^{\pi}\sin^n xdx=2\int_0^{\frac{\pi}2}\sin ^n xdx$</p>
+<p>$\int_0^{\pi}\cos^n xdx=\begin{cases} 2\int_0^{\frac{\pi}2}\sin ^n xdx,(n是正偶数)\\0,(n是正奇数) \end{cases}$</p>
+<p>$\int_0^{2\pi}\sin^n xdx=\int_0^{2\pi}\cos^n xdx=\begin{cases}4·\frac{n-1}{n}·\frac{n-3}{n-2}···\frac{1}{2}·\frac{\pi}{2},(n是正偶数) \\0,(n是正奇数) \end{cases}$</p>
+<p>$\int_0^{\pi}xf(\sin x)dx=\frac{\pi}{2}\int_0^{\pi}f(\sin x)dx$</p>
+<p>一些最基本的定积分</p>
+<p>$\int_0^{\frac{\pi}{2}}\sin x=\int_0^{\frac{\pi}{2}}\cos x=1$</p>
+<p>$\int_0^{\pi}\sin x=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\cos x=2$</p>
+<p>$\int_0^{\frac{\pi}{2}}x\sin x=1$，$\int_0^{\frac{\pi}{2}}x\cos x=\frac{\pi}{2}-1$</p>
+<p>$\int_0^{\pi}x\sin x=\pi,\int_0^{\pi}x\cos x=-2$</p>
+</blockquote>
+<h5 id="区间再现公式"><a href="#区间再现公式" class="headerlink" title="区间再现公式"></a>区间再现公式</h5><h5 id="三角函数变换"><a href="#三角函数变换" class="headerlink" title="三角函数变换"></a>三角函数变换</h5><p>$ \int_{-2}^2 (x^2+3x+4)\sqrt{4|x|-x^2}dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503161555371.png" alt="image-20220503161555371" style="zoom:67%;"></p>
+<h5 id="几何图形"><a href="#几何图形" class="headerlink" title="几何图形"></a>几何图形</h5><h5 id="反常积分-1"><a href="#反常积分-1" class="headerlink" title="反常积分"></a>反常积分</h5><h4 id="3-积分上限函数作函数式中的常数"><a href="#3-积分上限函数作函数式中的常数" class="headerlink" title="3 积分上限函数作函数式中的常数"></a>3 积分上限函数作函数式中的常数</h4><p>我们会遇到一些函数的定义中包含积分上限函数，而积分上限函数的意义实际上是一块图形的面积，所以关键是把它当作真的一个常数（因为面积就是一个常数）。将f(x)凑成那个积分上限函数的样子，既可以解出这个常数</p>
+<h4 id="4-反常积分敛散性的判别"><a href="#4-反常积分敛散性的判别" class="headerlink" title="4 反常积分敛散性的判别"></a>4 反常积分敛散性的判别</h4><p>反常积分的敛散性的判别一般有两种方式：判断判别和计算判别</p>
+<p>判断判别法：</p>
+<p>无穷区间的反常积分$\int_1^{+\infty}\frac{dx}{x^p}$：在$p&gt;1$时收敛，在$p \leq 1$时发散</p>
+<p>无界函数的反常积分$\int_0^1\frac{dx}{x^p}$：在$0&lt;p&lt;1$时收敛，在$p \geq 1$时发散</p>
+<p>在一些题目中，时常要我们讨论反常积分的敛散性，这时候我们需要进行计算判别。（1）就是这样的例子    </p>
+<p>（1）</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320133106537.png" alt="image-20220320133106537" style="zoom:67%;"></p>
+<p>（2）</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320135542031.png" alt="image-20220320135542031" style="zoom: 67%;"></p>
+<blockquote>
+<p>从（1）和（2）中我们很容易发现，$\int_1^{+\infty}\frac{1}{x}dx$发散，$\int_1^{+\infty}\frac{1}{x^{1.001}}dx$是收敛的，而$\int_1^{+\infty}\frac{1}{x\ln x}dx$确依旧是发散的。</p>
+<p>很容易知道，对无穷区间的反常积分中，$f(x)$越小，越容易收敛。我们注意到$\frac{1}{x}$与$\frac{1}{x^{0.000001}}$的乘积可以收敛，但是$\frac{1}{x}$和$\frac{1}{\ln x}$的乘积却依旧是发散的，这意味着$\ln x$加在分母上的贡献，甚至不如$x^{0.000001}$加在分母上，这实际上是<strong>很容易理解的</strong></p>
+</blockquote>
+<p>（3）</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320151952422.png" alt="image-20220320151952422" style="zoom: 50%;"></p>
+<h4 id="5-定积分的应用"><a href="#5-定积分的应用" class="headerlink" title="5 定积分的应用"></a>5 定积分的应用</h4><p>（1）双扭线$(x^2+y^2)^2=x^2-y^2$所围成的区域面积可表示为?</p>
+<p>​    答案：$2\int_0^{\frac{\pi}{4}}\cos 2\theta d\theta$</p>
+<p>​    要牢记极坐标积分：$A=\int_{\alpha}^{\beta}\frac{1}{2}[\rho(\theta)^2]d\theta$中包含一个$\frac12$</p>
+<p>（2）</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220506170828577.png" alt="image-20220506170828577" style="zoom: 65%;"></p>
+<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p>设$y’=\arctan(x-1)^2,y(0)=0$,求$\int_0^1y(x)dx$</p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220320160813769.png" alt="image-20220320160813769" style="zoom: 50%;"></p>
+<h4 id="7-反三角函数的定义域的问题"><a href="#7-反三角函数的定义域的问题" class="headerlink" title="7 反三角函数的定义域的问题"></a>7 反三角函数的定义域的问题</h4><p>$\int_0^{\pi}\arcsin(\sin x)dx$</p>
+<p>答案:$\frac{\pi^2}{4}$</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cY4y1W7UB?spm_id_from=333.999.0.0">一个反函数的易错点</a></p>
+<h4 id="8-定积分与中值定理专题"><a href="#8-定积分与中值定理专题" class="headerlink" title="8 定积分与中值定理专题"></a>8 定积分与中值定理专题</h4><p> <strong>(1)</strong></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163320497.png" alt="image-20220503163320497" style="zoom:54%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163349273.png" alt="image-20220503163349273" style="zoom:56%;"></p>
+<p><strong>(2)</strong></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163621448.png" alt="image-20220503163621448" style="zoom:55%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220503163645249.png" alt="image-20220503163645249" style="zoom:62%;"></p>
+<h3 id="错题筐"><a href="#错题筐" class="headerlink" title="错题筐"></a>错题筐</h3><p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306184849957.png" alt="image-20220306184849957" style="zoom:67%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306193846321.png" alt="image-20220306193846321" style="zoom:67%;"></p>
+<p><img src="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220306205641196.png" alt="image-20220306205641196" style="zoom:67%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/01/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6/" rel="prev" title="一元函数微分学">
+      <i class="fa fa-chevron-left"></i> 一元函数微分学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/" rel="next" title="多元函数微积分学">
+      多元函数微积分学 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">不定积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">概念和性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E8%A1%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">基本积分表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8D%A2%E5%85%83%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">换元积分法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB%E6%8D%A2%E5%85%83%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">第一类换元法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB%E6%8D%A2%E5%85%83%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">第二类换元法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">分部积分法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86"><span class="nav-number">1.4.</span> <span class="nav-text">有理函数的积分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">有理函数积分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E5%8C%96%E4%B8%BA%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.4.2.</span> <span class="nav-text">可化为有理函数的积分举例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">定积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="nav-number">2.1.</span> <span class="nav-text">定义和性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">微积分基本公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%AF%E5%88%86%E4%B8%8A%E9%99%90%E5%87%BD%E6%95%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">积分上限函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%9B%E9%A1%BF-%E8%8E%B1%E5%B8%83%E5%B0%BC%E5%85%B9%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">牛顿-莱布尼兹公式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E6%8D%A2%E5%85%83%E6%B3%95%E5%92%8C%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">定积分的换元法和分部积分法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E6%8D%A2%E5%85%83%E6%B3%95"><span class="nav-number">2.3.1.</span> <span class="nav-text">定积分的换元法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86%E6%B3%95"><span class="nav-number">2.3.2.</span> <span class="nav-text">定积分的分部积分法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86"><span class="nav-number">2.4.</span> <span class="nav-text">反常积分</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%A9%B7%E9%99%90%E7%9A%84%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86"><span class="nav-number">2.4.1.</span> <span class="nav-text">无穷限的反常积分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%95%8C%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86"><span class="nav-number">2.4.2.</span> <span class="nav-text">无界函数的反常积分</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%E7%9A%84%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">反常积分的审敛法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%A9%B7%E9%99%90%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%E7%9A%84%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="nav-number">2.5.1.</span> <span class="nav-text">无穷限反常积分的审敛法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%95%8C%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%E7%9A%84%E5%AE%A1%E6%95%9B%E6%B3%95"><span class="nav-number">2.5.2.</span> <span class="nav-text">无界函数的反常积分的审敛法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gamma%E5%87%BD%E6%95%B0"><span class="nav-number">2.5.3.</span> <span class="nav-text">$\Gamma函数$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">2.6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E5%92%8C%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E8%81%94%E7%B3%BB"><span class="nav-number">2.6.1.</span> <span class="nav-text">不定积分和定积分的联系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E8%AF%81%E6%98%8E%E9%A2%98%E5%B7%B2%E8%AF%81%E5%87%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%93%E8%AE%BA"><span class="nav-number">2.6.2.</span> <span class="nav-text">定积分证明题已证出的一些结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">定积分的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E5%85%83%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">微元法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E9%9D%A2%E5%9B%BE%E5%BD%A2%E7%9A%84%E9%9D%A2%E7%A7%AF"><span class="nav-number">3.2.</span> <span class="nav-text">平面图形的面积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%93%E7%A7%AF"><span class="nav-number">3.3.</span> <span class="nav-text">体积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC%E4%BD%93%E7%9A%84%E4%BD%93%E7%A7%AF"><span class="nav-number">3.3.1.</span> <span class="nav-text">旋转体的体积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E8%A1%8C%E6%88%AA%E9%9D%A2%E9%9D%A2%E7%A7%AF%E4%B8%BA%E5%B7%B2%E7%9F%A5%E7%9A%84%E7%AB%8B%E4%BD%93%E7%9A%84%E4%BD%93%E7%A7%AF"><span class="nav-number">3.3.2.</span> <span class="nav-text">平行截面面积为已知的立体的体积</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B3%E9%9D%A2%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%BC%A7%E9%95%BF"><span class="nav-number">3.4.</span> <span class="nav-text">平面曲线的弧长</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E7%89%A9%E7%90%86%E5%BA%94%E7%94%A8"><span class="nav-number">3.5.</span> <span class="nav-text">定积分的物理应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E5%8A%9B%E5%81%9A%E5%8A%9F"><span class="nav-number">3.5.1.</span> <span class="nav-text">变力做功</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">3.6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87%E5%92%8C%E5%8F%82%E6%95%B0%E6%96%B9%E7%A8%8B%E8%A1%A5%E5%85%85"><span class="nav-number">3.6.1.</span> <span class="nav-text">极坐标和参数方程补充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%9B%86"><span class="nav-number">4.</span> <span class="nav-text">题目集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86%E8%AE%A1%E7%AE%97%E4%B8%93%E9%A2%98"><span class="nav-number">4.1.</span> <span class="nav-text">1 不定积分计算专题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%91%E5%BE%AE%E5%88%86"><span class="nav-number">4.1.1.</span> <span class="nav-text">凑微分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E4%BB%A3%E6%8D%A2"><span class="nav-number">4.1.2.</span> <span class="nav-text">简单三角函数代换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%81%92%E7%AD%89%E5%8F%98%E5%BD%A2%E5%90%8E%E4%BD%9C%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E4%BB%A3%E6%8D%A2"><span class="nav-number">4.1.3.</span> <span class="nav-text">恒等变形后作三角函数代换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A0%B9%E5%BC%8F%E4%BB%A3%E6%8D%A2"><span class="nav-number">4.1.4.</span> <span class="nav-text">根式代换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%80%92%E4%BB%A3%E6%8D%A2"><span class="nav-number">4.1.5.</span> <span class="nav-text">倒代换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%87%BD%E6%95%B0%E7%9A%84%E7%9B%B4%E6%8E%A5%E4%BB%A3%E6%8D%A2"><span class="nav-number">4.1.6.</span> <span class="nav-text">复杂函数的直接代换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E9%83%A8%E7%A7%AF%E5%88%86"><span class="nav-number">4.1.7.</span> <span class="nav-text">分部积分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#n%E9%87%8D%E5%88%86%E9%83%A8%E6%8E%A8%E5%B9%BF"><span class="nav-number">4.1.8.</span> <span class="nav-text">n重分部推广</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E7%90%86%E5%87%BD%E6%95%B0%E7%9A%84%E7%A7%AF%E5%88%86-1"><span class="nav-number">4.1.9.</span> <span class="nav-text">有理函数的积分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E5%8F%98%E6%8D%A2"><span class="nav-number">4.1.10.</span> <span class="nav-text">复杂三角函数变换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%85%E5%90%AB-e-x-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.1.11.</span> <span class="nav-text">包含$e^x$的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E8%BF%9E%E7%BB%AD%E9%97%AE%E9%A2%98"><span class="nav-number">4.1.12.</span> <span class="nav-text">不连续问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%9A%E7%A7%AF%E5%88%86%E8%AE%A1%E7%AE%97%E4%B8%93%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">2 定积分计算专题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E5%86%8D%E7%8E%B0%E5%85%AC%E5%BC%8F"><span class="nav-number">4.2.1.</span> <span class="nav-text">区间再现公式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E5%8F%98%E6%8D%A2"><span class="nav-number">4.2.2.</span> <span class="nav-text">三角函数变换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E5%9B%BE%E5%BD%A2"><span class="nav-number">4.2.3.</span> <span class="nav-text">几何图形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86-1"><span class="nav-number">4.2.4.</span> <span class="nav-text">反常积分</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E7%A7%AF%E5%88%86%E4%B8%8A%E9%99%90%E5%87%BD%E6%95%B0%E4%BD%9C%E5%87%BD%E6%95%B0%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%B8%B8%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">3 积分上限函数作函数式中的常数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8F%8D%E5%B8%B8%E7%A7%AF%E5%88%86%E6%95%9B%E6%95%A3%E6%80%A7%E7%9A%84%E5%88%A4%E5%88%AB"><span class="nav-number">4.4.</span> <span class="nav-text">4 反常积分敛散性的判别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">4.5.</span> <span class="nav-text">5 定积分的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6"><span class="nav-number">4.6.</span> <span class="nav-text">6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%8F%8D%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89%E5%9F%9F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.7.</span> <span class="nav-text">7 反三角函数的定义域的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%AE%9A%E7%A7%AF%E5%88%86%E4%B8%8E%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E4%B8%93%E9%A2%98"><span class="nav-number">4.8.</span> <span class="nav-text">8 定积分与中值定理专题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E9%A2%98%E7%AD%90"><span class="nav-number">5.</span> <span class="nav-text">错题筐</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

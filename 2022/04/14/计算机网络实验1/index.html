@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="计算机网络 实验一 ​    1.解释traceroute 的工作原理 ​    2.它在哪一层工作，如何工作？  Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？  使用 traceroute 程序尝试两个目的地：www.baidu.com 和 www.google.com，解释结果  如果您有一个可以浏览www.google.com 的socks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络实验：traceroute">
+<meta property="og:url" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="计算机网络 实验一 ​    1.解释traceroute 的工作原理 ​    2.它在哪一层工作，如何工作？  Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？  使用 traceroute 程序尝试两个目的地：www.baidu.com 和 www.google.com，解释结果  如果您有一个可以浏览www.google.com 的socks">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414203248338.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414203444892.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204017300.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204149083.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204557170.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414211329301.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414205002259.png">
+<meta property="og:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414212008934.png">
+<meta property="article:published_time" content="2022-04-14T13:20:24.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:12:46.420Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414203248338.png">
+
+<link rel="canonical" href="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机网络实验：traceroute | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络实验：traceroute
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-14 21:20:24" itemprop="dateCreated datePublished" datetime="2022-04-14T21:20:24+08:00">2022-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:12:46" itemprop="dateModified" datetime="2022-05-13T23:12:46+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="计算机网络-实验一"><a href="#计算机网络-实验一" class="headerlink" title="计算机网络 实验一"></a>计算机网络 实验一</h3><blockquote>
+<p>​    1.解释traceroute 的工作原理</p>
+<p>​    2.它在哪一层工作，如何工作？</p>
+<ol>
+<li><p>Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？</p>
+</li>
+<li><p>使用 traceroute 程序尝试两个目的地：www.baidu.com 和 www.google.com，解释结果</p>
+</li>
+<li><p>如果您有一个可以浏览www.google.com 的socks 代理，有什么不同吗？</p>
+</li>
+</ol>
+</blockquote>
+<span id="more"></span>
+<h4 id="解释traceroute-的工作原理"><a href="#解释traceroute-的工作原理" class="headerlink" title="解释traceroute 的工作原理"></a><strong>解释traceroute 的工作原理</strong></h4><p>在主机通信时，会经过很多节点。可能在中间节点有丢包问题，或者其他原因，我们需要通信时经过路由器的路径。</p>
+<p>traceroute命令利用<strong>ICMP协议</strong>定位您的计算机和目标计算机之间的所有路由器。<strong>存活时间（TTL）</strong>可以反映数据包经过的路由器或网关的数量，通过操纵独立ICMP 呼叫报文的TTL 值和观察该报文被抛弃的返回信息，traceroute命令能够遍历到数据包传输路径上的所有路由器。</p>
+<p>首先介绍<strong>TTL</strong>（time to live）的原理：这个字段指定了IP包被路由器丢弃之前允许通过的最大网段数量。在IPV4包头中它是一个8 bit字段，它位于IPv4包的第9个字节，主要作用是：避免IP包在网络中的无限循环和收发，节省了网络资源，并能使IP包的发送者能收到告警消息。每经过一个路由器，路由器都会修改这个TTL字段值，具体的做法是<strong>把该TTL的值减1</strong>，然后再将IP包<strong>转发出去</strong>。如果在IP包到达目的IP之前，TTL减少为0，路由器将会丢弃收到的TTL=0的IP包并向IP包的发送者发送 ICMP time exceeded消息。</p>
+<p>traceroute的原理就是：<strong>通过设定特定的TTL，来追踪IP包前往目的地时经过的路由器。</strong>其TTL是有策略设置的。traceroute先将TTL从1开始设置，看这个IP报文能走到哪，然后逐步增加TTL的值，当TTL=$k$时，它一定是在沿途经过的第$k$个路由器变为0的，那么通过把$k$设置为$0,1,2···n$，我们收到它依次经过的$n$个路由器的 ICMP time exceeded消息，从而获得它经过的路由器的IP地址和往返时间。</p>
+<h4 id="它在哪一层工作，如何工作？"><a href="#它在哪一层工作，如何工作？" class="headerlink" title="它在哪一层工作，如何工作？"></a><strong>它在哪一层工作，如何工作？</strong></h4><p>tracerout在<strong>网络层</strong>工作。</p>
+<p>简略原理（和工作原理（工作原理不就是如何工作吗？））想必我在上一问已经讲的很清楚了。写的太明白以至于我都不知道这里写啥了。😑</p>
+<p>这里主要说明一些细节。为何收到ICMP time exceeded消息，我们就可以获取对应路由节点的IP和往返时间呢。首先，traceroute为了准确，往往多次测量（一般是3次），至于节点的IP和往返时间，是因为接收的路由器的ICMP报文时封装在IP数据报文中传送的，因为ICMP报文前段就是IP首部。因此可以获得IP地址。除此之外，ICMP报文有多种报错类型，比如主机错误、端口错误、延时错误等。另外，为了确保报文到达目标主机，且能收到回复，往往traceroute发送报文时将目标端口设为较大的值，假如真的到达目标主机，它会发送目标端口不存在（端口错误）的ICMP报文，traceroute收到并验证报文，就能发现已经到达目标主机。</p>
+<h4 id="Linux、Windows（不同版本）和macOS-中的traceroute-实现有什么不同吗？"><a href="#Linux、Windows（不同版本）和macOS-中的traceroute-实现有什么不同吗？" class="headerlink" title="Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？"></a><strong>Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？</strong></h4><p>linux和macOS一般采用traceroute命令，在window上，这个命令被叫做Tracert。Tracert 命令同样用TTL字段和 ICMP 错误消息来确定从一个主机到网络上其他主机的路由。两者一般都基于UDP协议，当然 tcp icmp其实也能实现。</p>
+<p>实现的不同之处：</p>
+<p>探测方法和获得的数据不同：默认情况下，tracert基于ICMP协议，是向目的地址发出ICMP数据包，而traceroute一般是向目的地址的某个端口（大于30000）发送UDP数据报。基于tcp实现的traceroute 是向 80 端口发送 TCP SYN 包，效果更好。</p>
+<h4 id="使用-traceroute-程序尝试两个目的地：www-baidu-com和-www-google-com，解释结果"><a href="#使用-traceroute-程序尝试两个目的地：www-baidu-com和-www-google-com，解释结果" class="headerlink" title="使用 traceroute 程序尝试两个目的地：www.baidu.com和 www.google.com，解释结果"></a><strong>使用 traceroute 程序尝试两个目的地：www.baidu.com和 www.google.com，解释结果</strong></h4><p>首先试图在linux下试图更新traceroute</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414203248338.png" alt="image-20220414203248338" style="zoom:67%;"></p>
+<p>直接开始尝试第一个网址，这里发现从2开始后面都是谜之星号，这说说明路由可能设置了安全防护措施，只负责转发数据包，不允许进行检测。三个*代表没有三次测量得到的往返时间的数据。可能是虚拟机的缘故，再加上是UDP协议，穿透能力太弱，只测出了第一个IP。默认设置30hops，到最后也没有出现第二个ip</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414203444892.png" alt="image-20220414203444892" style="zoom:67%;"></p>
+<p>tcptraceroute可以绕过最常见的防火墙过滤器。这里下载tcptraceroute</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204017300.png" alt="image-20220414204017300" style="zoom:67%;"></p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204149083.png" alt="image-20220414204149083" style="zoom:67%;"></p>
+<p>用traceroute -T 可以得到同样的结果。</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414204557170.png" alt="image-20220414204557170" style="zoom:67%;"></p>
+<p>在windows上使用tracert www.baidu.com，效果要好得多。</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414211329301.png" alt="image-20220414211329301" style="zoom:67%;"></p>
+<p>尝试第二个网址</p>
+<p>tcptraceroute得到了一个关闭的IP地址。</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414205002259.png" alt="image-20220414205002259" style="zoom:67%;"></p>
+<p>在windows下使用tracert效果更好</p>
+<p><img src="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/image-20220414212008934.png" alt="image-20220414212008934" style="zoom:67%;"></p>
+<p>但是与baidu不同的是，无法定位最终的ip地址。这或许与Google在10年暂停了在中国的搜索服务有关。</p>
+<h4 id="如果您有一个可以浏览www-google-com-的socks-代理，有什么不同吗？"><a href="#如果您有一个可以浏览www-google-com-的socks-代理，有什么不同吗？" class="headerlink" title="如果您有一个可以浏览www.google.com 的socks 代理，有什么不同吗？"></a><strong>如果您有一个可以浏览www.google.com 的socks 代理，有什么不同吗？</strong></h4><p>很可惜，我并没有socks5代理。</p>
+<p>使用socks5代理应该可以跳到代理服务器的IP，进而跳到www.google.com的IP上去。但是由于socks5位于应用层和运输层之间，因此它不支持网络层的ICMP协议，所以，收不到回显的数据包。所以其实也没什么不同。</p>
+<p>代理服务器（Proxy Server）的功能是代理网络用户去取得网络信息，它时网络信息的中转站。一般情况下，使用网络浏览器直接去链接其它Internet站点并取得网络信息时，须送出请求信号来得到应答，然后对方再把信息传送回来。代理服务器是介于浏览器和Web服务器之间的一台服务器，有了它之后，浏览器不是直接到Web服务器去取回网页而是向代理服务器发出请求，请求信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/" rel="prev" title="常微分方程">
+      <i class="fa fa-chevron-left"></i> 常微分方程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/" rel="next" title="计算机网络实验：wireshark">
+      计算机网络实验：wireshark <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%AE%9E%E9%AA%8C%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">计算机网络 实验一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%87%8Atraceroute-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">解释traceroute 的工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%83%E5%9C%A8%E5%93%AA%E4%B8%80%E5%B1%82%E5%B7%A5%E4%BD%9C%EF%BC%8C%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">它在哪一层工作，如何工作？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E3%80%81Windows%EF%BC%88%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%EF%BC%89%E5%92%8CmacOS-%E4%B8%AD%E7%9A%84traceroute-%E5%AE%9E%E7%8E%B0%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E5%90%97%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">Linux、Windows（不同版本）和macOS 中的traceroute 实现有什么不同吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-traceroute-%E7%A8%8B%E5%BA%8F%E5%B0%9D%E8%AF%95%E4%B8%A4%E4%B8%AA%E7%9B%AE%E7%9A%84%E5%9C%B0%EF%BC%9Awww-baidu-com%E5%92%8C-www-google-com%EF%BC%8C%E8%A7%A3%E9%87%8A%E7%BB%93%E6%9E%9C"><span class="nav-number">1.4.</span> <span class="nav-text">使用 traceroute 程序尝试两个目的地：www.baidu.com和 www.google.com，解释结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%82%A8%E6%9C%89%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%B5%8F%E8%A7%88www-google-com-%E7%9A%84socks-%E4%BB%A3%E7%90%86%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E5%90%97%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">如果您有一个可以浏览www.google.com 的socks 代理，有什么不同吗？</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

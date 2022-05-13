@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多元函数微积分学">
+<meta property="og:url" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123094204680.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123094326076.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123100033022.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101250943.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101410358.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101511350.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101606533.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101704267.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123102354578.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103437902.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103730142.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103746597.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110738389.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110758187.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110411710.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110439777.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123111153535.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123111210739.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112030758.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112218745.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112249481.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112836921.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123113818082.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123113902825.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127144344899.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127145339457.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127145401618.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127151924024.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127151950064.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127152543768.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127153024609.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127153052222.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127154513400.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127154818455.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160324122.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160516222.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160536328.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162734823.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162818175.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162827225.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210140765.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210710361.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210731426.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203211633073.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203211651408.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203212412697.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203212516866.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123512486.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123529666.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123542967.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123551702.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152913788.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152934079.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152943182.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152954535.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204173602631.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204173733431.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204174319021.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204181001344.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204185953801.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190123415.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190325510.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190348333.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204191857565.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204193747270.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204194643158.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202722006.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202833170.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202846098.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220322164349474.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220221113248585.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227204901114.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227205112002.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227205128866.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210449755.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210102723.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210520113.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210426728.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227211856692.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227211915238.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212145892.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212231350.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212644593.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402195412897.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402195425112.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402202856832.png">
+<meta property="og:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402203915529.png">
+<meta property="article:published_time" content="2022-03-21T00:23:49.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:28:14.436Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123094204680.png">
+
+<link rel="canonical" href="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>多元函数微积分学 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多元函数微积分学
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-21 08:23:49" itemprop="dateCreated datePublished" datetime="2022-03-21T08:23:49+08:00">2022-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:28:14" itemprop="dateModified" datetime="2022-05-13T23:28:14+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>-</p>
+<span id="more"></span>
+<h3 id="多元函数微分法"><a href="#多元函数微分法" class="headerlink" title="多元函数微分法"></a>多元函数微分法</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>有关二元函数的概念都可以拓扑到多元函数中去</p>
+<h5 id="二元函数的定义"><a href="#二元函数的定义" class="headerlink" title="二元函数的定义"></a>二元函数的定义</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123094204680.png" alt="image-20220123094204680" style="zoom:67%;"></p>
+<h5 id="二元函数的极限"><a href="#二元函数的极限" class="headerlink" title="二元函数的极限"></a>二元函数的极限</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123094326076.png" alt="image-20220123094326076" style="zoom:67%;"></p>
+<blockquote>
+<p>$P_0(x_0,y_0)$是$D$的聚点是说，$P_0$的去心邻域中总有$D$中的点</p>
+<p>可是有的是，有的不是</p>
+<p>所以最终要使去逼近$P_0$的点$P$既在$D$中又在$P_0$的邻域中</p>
+</blockquote>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123100033022.png" alt="image-20220123100033022" style="zoom:67%;"></p>
+<h5 id="二元函数的连续性"><a href="#二元函数的连续性" class="headerlink" title="二元函数的连续性"></a>二元函数的连续性</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101250943.png" alt="image-20220123101250943" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101410358.png" alt="image-20220123101410358" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101511350.png" alt="image-20220123101511350" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101606533.png" alt="image-20220123101606533" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123101704267.png" alt="image-20220123101704267" style="zoom:67%;"></p>
+<h4 id="偏导数"><a href="#偏导数" class="headerlink" title="偏导数"></a>偏导数</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>偏导数<strong>只考虑</strong>多元函数中<strong>关于其中一个自变量</strong>的变化率</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123102354578.png" alt="image-20220123102354578" style="zoom:67%;"></p>
+<h5 id="几何意义"><a href="#几何意义" class="headerlink" title="几何意义"></a>几何意义</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103437902.png" alt="image-20220123103437902" style="zoom:67%;"></p>
+<h5 id="偏导数都存在，也不能保证连续"><a href="#偏导数都存在，也不能保证连续" class="headerlink" title="偏导数都存在，也不能保证连续"></a>偏导数都存在，也不能保证连续</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103730142.png" alt="image-20220123103730142" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123103746597.png" alt="image-20220123103746597" style="zoom:67%;"></p>
+<h5 id="高阶偏导数"><a href="#高阶偏导数" class="headerlink" title="高阶偏导数"></a>高阶偏导数</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110738389.png" alt="image-20220123110738389" style="zoom: 67%;"></p>
+<p>​                       <img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110758187.png" alt="image-20220123110758187" style="zoom:67%;">                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </p>
+<h5 id="拉普拉斯-Laplace-方程"><a href="#拉普拉斯-Laplace-方程" class="headerlink" title="拉普拉斯(Laplace)方程"></a>拉普拉斯(Laplace)方程</h5><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/350388376">三大偏微分方程之首：拉普拉斯方程</a></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110411710.png" alt="image-20220123110411710" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123110439777.png" alt="image-20220123110439777" style="zoom:67%;"></p>
+<h4 id="全微分"><a href="#全微分" class="headerlink" title="全微分"></a>全微分</h4><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123111153535.png" alt="image-20220123111153535" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123111210739.png" alt="image-20220123111210739" style="zoom:67%;"></p>
+<p>多元函数偏导数存在不一定连续，但是可微分一定连续</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112030758.png" alt="image-20220123112030758" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112218745.png" alt="image-20220123112218745" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112249481.png" alt="image-20220123112249481" style="zoom:67%;"></p>
+<blockquote>
+<p>可微分则偏导存在，但偏导连续才能可微分</p>
+</blockquote>
+<h4 id="多元复合函数的求导法则"><a href="#多元复合函数的求导法则" class="headerlink" title="多元复合函数的求导法则"></a>多元复合函数的求导法则</h4><p>一元函数微分学中的复合函数的求导法则可推广到多元函数中来。</p>
+<p>按照多元复合函数的不同复合情形，可以分为三种情况讨论</p>
+<h5 id="一元函数和多元函数复合"><a href="#一元函数和多元函数复合" class="headerlink" title="一元函数和多元函数复合"></a>一元函数和多元函数复合</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123112836921.png" alt="image-20220123112836921" style="zoom:67%;"></p>
+<h5 id="多元函数与多元函数复合"><a href="#多元函数与多元函数复合" class="headerlink" title="多元函数与多元函数复合"></a>多元函数与多元函数复合</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123113818082.png" alt="image-20220123113818082" style="zoom:67%;"></p>
+<h5 id="其它情形"><a href="#其它情形" class="headerlink" title="其它情形"></a>其它情形</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220123113902825.png" alt="image-20220123113902825" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127144344899.png" alt="image-20220127144344899" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127145339457.png" alt="image-20220127145339457" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127145401618.png" alt="image-20220127145401618" style="zoom:67%;"></p>
+<h5 id="全微分形式的不变性"><a href="#全微分形式的不变性" class="headerlink" title="全微分形式的不变性"></a>全微分形式的不变性</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127151924024.png" alt="image-20220127151924024" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127151950064.png" alt="image-20220127151950064" style="zoom:67%;"></p>
+<h4 id="隐函数的求导公式"><a href="#隐函数的求导公式" class="headerlink" title="隐函数的求导公式"></a>隐函数的求导公式</h4><h5 id="一个方程的情形"><a href="#一个方程的情形" class="headerlink" title="一个方程的情形"></a>一个方程的情形</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127152543768.png" alt="image-20220127152543768" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127153024609.png" alt="image-20220127153024609" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127153052222.png" alt="image-20220127153052222" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127154513400.png" alt="image-20220127154513400" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127154818455.png" alt="image-20220127154818455" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160324122.png" alt="image-20220127160324122" style="zoom:67%;"></p>
+<h5 id="方程组的情形"><a href="#方程组的情形" class="headerlink" title="方程组的情形"></a>方程组的情形</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160516222.png" alt="image-20220127160516222" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127160536328.png" alt="image-20220127160536328" style="zoom:67%;"></p>
+<p> <img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162734823.png" alt="image-20220127162734823" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162818175.png" alt="image-20220127162818175" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220127162827225.png" alt="image-20220127162827225" style="zoom:67%;"></p>
+<h4 id="多元函数微分学的几何应用"><a href="#多元函数微分学的几何应用" class="headerlink" title="多元函数微分学的几何应用"></a>多元函数微分学的几何应用</h4><h5 id="一元向量值函数"><a href="#一元向量值函数" class="headerlink" title="一元向量值函数"></a>一元向量值函数</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210140765.png" alt="image-20220203210140765" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210710361.png" alt="image-20220203210710361" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203210731426.png" alt="image-20220203210731426" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203211633073.png" alt="image-20220203211633073" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203211651408.png" alt="image-20220203211651408" style="zoom:67%;"></p>
+<h5 id="空间曲线的切线和法向量"><a href="#空间曲线的切线和法向量" class="headerlink" title="空间曲线的切线和法向量"></a>空间曲线的切线和法向量</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203212412697.png" alt="image-20220203212412697" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220203212516866.png" alt="image-20220203212516866" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123512486.png" alt="image-20220204123512486" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123529666.png" alt="image-20220204123529666" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123542967.png" alt="image-20220204123542967" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204123551702.png" alt="image-20220204123551702" style="zoom:67%;"></p>
+<h5 id="曲面的切平面与法线"><a href="#曲面的切平面与法线" class="headerlink" title="曲面的切平面与法线"></a>曲面的切平面与法线</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152913788.png" alt="image-20220204152913788" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152934079.png" alt="image-20220204152934079" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152943182.png" alt="image-20220204152943182" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204152954535.png" alt="image-20220204152954535" style="zoom:67%;"></p>
+<h4 id="方向导数与梯度"><a href="#方向导数与梯度" class="headerlink" title="方向导数与梯度"></a>方向导数与梯度</h4><h5 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h5><p><strong>偏导数</strong>反映的是函数沿<strong>坐标轴方向</strong>的变化率，<strong>方向导数</strong>反映的是函数沿<strong>任意指定方向</strong>的变化率</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204173602631.png" alt="image-20220204173602631" style="zoom:67%;"></p>
+<p>定理：如果函数$f(x,y)$在点$P_0(x_0,y_o)$可微分，那么函数在该点任一方向$l$的方向导数存在，且有$\large \frac{\part f}{\part l}|_{(x_0,y_0)}=f_x(x_0,y_0)\cos \alpha +f_y(x_0,y_0)\cos \beta$，其中$\cos \alpha$和$\cos \beta$是方向$l$上的方向余弦</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204173733431.png" alt="image-20220204173733431" style="zoom:67%;"></p>
+<h5 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%A2%AF%E5%BA%A6/13014729?fr=aladdin">梯度</a></h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204174319021.png" alt="image-20220204174319021" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204181001344.png" alt="image-20220204181001344" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204185953801.png" alt="image-20220204185953801" style="zoom:67%;"></p>
+<h4 id="多元函数的极值"><a href="#多元函数的极值" class="headerlink" title="多元函数的极值"></a>多元函数的极值</h4><h5 id="极值及最大值与最小值"><a href="#极值及最大值与最小值" class="headerlink" title="极值及最大值与最小值"></a>极值及最大值与最小值</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190123415.png" alt="image-20220204190123415" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190325510.png" alt="image-20220204190325510" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204190348333.png" alt="image-20220204190348333" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204191857565.png" alt="image-20220204191857565" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204193747270.png" alt="image-20220204193747270" style="zoom:67%;"></p>
+<h5 id="条件极值"><a href="#条件极值" class="headerlink" title="条件极值"></a>条件极值</h5><p>对于函数的自变量，除了限制在函数的定义域内以外，并无其他条件，叫做<strong>无条件极值</strong>。对自变量有附加条件的极值称为<strong>条件极值</strong>。</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204194643158.png" alt="image-20220204194643158" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202722006.png" alt="image-20220204202722006" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202833170.png" alt="image-20220204202833170" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220204202846098.png" alt="image-20220204202846098" style="zoom:67%;"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="多元函数微分学概念整理"><a href="#多元函数微分学概念整理" class="headerlink" title="多元函数微分学概念整理"></a>多元函数微分学概念整理</h5><p>对于$z=f(x,y)$来说</p>
+<p>（1）在某点$(x_0,y_0)$的<strong>极限</strong></p>
+<p>​    在该点<strong>存在极限</strong>的<strong>判别</strong>：需要说明沿任何方向趋向$(x_0,y_0)$时，$f(x,y)$都无限接近极限值</p>
+<p>​    在该点<strong>不存在极限</strong>的<strong>判别</strong>：举出反例即可</p>
+<p>（2）<strong>连续</strong></p>
+<p>​    连续则说明$\lim\limits_{(x,y)\rightarrow(x_0,y_0)}f(x,y)=f(x_0,y_0)$</p>
+<p>​    连续的<strong>判别</strong>：类似一元函数连续的判别。间断点有两种可能<strong>:极限不存在</strong>（沿任何方向）或者<strong>极限不等于函数值</strong></p>
+<p>​    <strong>可微分一定连续</strong></p>
+<p>​    <strong>偏导数存在不一定连续</strong></p>
+<p>（3）<strong>偏导数存在</strong></p>
+<p>​    偏导数定义：$f_x(x_0,y_0)=\lim \limits_{\Delta x\rightarrow 0}\frac{f(x_0+\Delta x,y_0)-f(x_0,y_0)}{\Delta x}=\lim\limits_{x\rightarrow x_0}\frac{f(x,y_0)-f(x_0,y_0)}{x-x_0}$</p>
+<p>​    <strong>偏导数在某点存在</strong>的<strong>判别</strong>：偏导数实质上是一元函数的导数，它只考虑一个变量，因此考虑$(x_0,y_0)$处的偏导数，只需要讨论其左右导数是否相等（用定义法）</p>
+<p>​    <strong>可微分偏导数一定存在</strong></p>
+<p>（4）<strong>偏导数在</strong>$(x_0,y_0)$<strong>连续</strong></p>
+<p>​    偏导数连续<strong>实际上</strong>也是<strong>一元函数的连续问题</strong>。先求出$f_x’(x_0,y_0)$的值，再判断是否与$\lim\limits_{(x,y)\rightarrow(x_0,y_0)}f’_x(x,y)$相等。无非求起来稍微复杂一点（一方面$f’_x(x,y)$的表达式毕竟包含两个变量，尽管$y$被看作常量；另一方面$f’(x_0,y_0)$的值需要用定义法，而不是简单的代入求值) 。</p>
+<blockquote>
+<p>步骤：</p>
+<p>（a）用<strong>定义法</strong>求$f_x’(x_0,y_0),f_y’(x_0,y_0)$</p>
+<p>（b）用公式计算$f_x’(x,y),f_y’(x,y)$，加极限$\lim\limits_{(x,y)\rightarrow(x_0,y_0)}f_x’(x,y),\lim\limits_{(x,y)\rightarrow(x_0,y_0)}f_y’(x,y)$</p>
+<p>（c）判断极限值和该点的偏导数是否相等</p>
+</blockquote>
+<p>​    <strong>偏导数连续则一定可微分</strong></p>
+<p>（5）<strong>全微分</strong></p>
+<blockquote>
+<p>全微分求解步骤</p>
+<p>（a）写出<strong>全增量$\Delta z=f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)$</strong>;</p>
+<p>（b）写出<strong>线性增量</strong>$f’_x(x_0,y_0)\Delta x+f’_y(x_0,y_0)\Delta y)$</p>
+<p>（c）求<strong>极限</strong>$\lim \limits_{\Delta x,\Delta y \rightarrow0}\frac{\Delta z-(f’_x(x_0,y_0)\Delta x+f’_y(x_0,y_0)\Delta y))}{\sqrt{(\Delta x)^2+(\Delta y)^2}}$，若$=0$，则可微分</p>
+</blockquote>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220322164349474.png" alt="image-20220322164349474" style="zoom: 67%;"></p>
+<p>上图揭示了这些概念之间的关系，未注明的关系之间不存在必然联系</p>
+<h3 id="重积分"><a href="#重积分" class="headerlink" title="重积分"></a>重积分</h3><h4 id="二重积分的概念和性质"><a href="#二重积分的概念和性质" class="headerlink" title="二重积分的概念和性质"></a>二重积分的概念和性质</h4><h5 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220221113248585.png" alt="image-20220221113248585" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227204901114.png" alt="image-20220227204901114" style="zoom:67%;"></p>
+<h5 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227205112002.png" alt="image-20220227205112002" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227205128866.png" alt="image-20220227205128866" style="zoom:67%;"></p>
+<h4 id="二重积分的计算"><a href="#二重积分的计算" class="headerlink" title="二重积分的计算"></a>二重积分的计算</h4><h5 id="直角坐标"><a href="#直角坐标" class="headerlink" title="直角坐标"></a>直角坐标</h5><p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210449755.png" alt="image-20220227210449755" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210102723.png" alt="image-20220227210102723" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210520113.png" alt="image-20220227210520113" style="zoom: 67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227210426728.png" alt="image-20220227210426728" style="zoom: 67%;"></p>
+<h5 id="极坐标"><a href="#极坐标" class="headerlink" title="极坐标"></a>极坐标</h5><p>s</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227211856692.png" alt="image-20220227211856692" style="zoom: 67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227211915238.png" alt="image-20220227211915238" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212145892.png" alt="image-20220227212145892" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212231350.png" alt="image-20220227212231350" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220227212644593.png" alt="image-20220227212644593" style="zoom:67%;"></p>
+<h3 id="题目集"><a href="#题目集" class="headerlink" title="题目集"></a>题目集</h3><h4 id="1多元函数极值、最值、条件极值问题"><a href="#1多元函数极值、最值、条件极值问题" class="headerlink" title="1多元函数极值、最值、条件极值问题"></a>1多元函数极值、最值、条件极值问题</h4><p><strong>（1）由极限的保号性确定取极大值极小值</strong></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402195412897.png" alt="image-20220402195412897" style="zoom:67%;"></p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402195425112.png" alt="image-20220402195425112" style="zoom:67%;"></p>
+<h4 id="2-利用积分中值定理简化运算"><a href="#2-利用积分中值定理简化运算" class="headerlink" title="2 利用积分中值定理简化运算"></a>2 利用积分中值定理简化运算</h4><p>设积分区域$D$是$x^2+y^2 \leq t^2$,又有$f(x,y)$是连续函数且$f(0,0)=4$，则$\large \lim \limits_{t \rightarrow 0}\frac{\iint \limits_Df(x,y)dxdy}{e^{-t^2}-\cos x}=?$</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402202856832.png" alt="image-20220402202856832" style="zoom:67%;"></p>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><p>设$f(x)$在$[0,1]$上连续，且$\int_0^1f(x)dx=A$，则$\int_0^1f(x)dx\int_x^1f(y)dy$=?</p>
+<p><img src="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/image-20220402203915529.png" alt="image-20220402203915529" style="zoom:69%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/06/%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AD%A6/" rel="prev" title="一元函数积分学">
+      <i class="fa fa-chevron-left"></i> 一元函数积分学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/" rel="next" title="常微分方程">
+      常微分方程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">多元函数微分法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">二元函数的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E9%99%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">二元函数的极限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">1.1.3.</span> <span class="nav-text">二元函数的连续性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%8F%E5%AF%BC%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">偏导数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">几何意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%81%8F%E5%AF%BC%E6%95%B0%E9%83%BD%E5%AD%98%E5%9C%A8%EF%BC%8C%E4%B9%9F%E4%B8%8D%E8%83%BD%E4%BF%9D%E8%AF%81%E8%BF%9E%E7%BB%AD"><span class="nav-number">1.2.3.</span> <span class="nav-text">偏导数都存在，也不能保证连续</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%81%8F%E5%AF%BC%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">高阶偏导数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF-Laplace-%E6%96%B9%E7%A8%8B"><span class="nav-number">1.2.5.</span> <span class="nav-text">拉普拉斯(Laplace)方程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%BE%AE%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">全微分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E6%B3%95%E5%88%99"><span class="nav-number">1.4.</span> <span class="nav-text">多元复合函数的求导法则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%92%8C%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%A4%8D%E5%90%88"><span class="nav-number">1.4.1.</span> <span class="nav-text">一元函数和多元函数复合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E4%B8%8E%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%A4%8D%E5%90%88"><span class="nav-number">1.4.2.</span> <span class="nav-text">多元函数与多元函数复合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%83%85%E5%BD%A2"><span class="nav-number">1.4.3.</span> <span class="nav-text">其它情形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%BE%AE%E5%88%86%E5%BD%A2%E5%BC%8F%E7%9A%84%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="nav-number">1.4.4.</span> <span class="nav-text">全微分形式的不变性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%90%E5%87%BD%E6%95%B0%E7%9A%84%E6%B1%82%E5%AF%BC%E5%85%AC%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">隐函数的求导公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%96%B9%E7%A8%8B%E7%9A%84%E6%83%85%E5%BD%A2"><span class="nav-number">1.5.1.</span> <span class="nav-text">一个方程的情形</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E6%83%85%E5%BD%A2"><span class="nav-number">1.5.2.</span> <span class="nav-text">方程组的情形</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6%E7%9A%84%E5%87%A0%E4%BD%95%E5%BA%94%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">多元函数微分学的几何应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E5%90%91%E9%87%8F%E5%80%BC%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.1.</span> <span class="nav-text">一元向量值函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E6%9B%B2%E7%BA%BF%E7%9A%84%E5%88%87%E7%BA%BF%E5%92%8C%E6%B3%95%E5%90%91%E9%87%8F"><span class="nav-number">1.6.2.</span> <span class="nav-text">空间曲线的切线和法向量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B2%E9%9D%A2%E7%9A%84%E5%88%87%E5%B9%B3%E9%9D%A2%E4%B8%8E%E6%B3%95%E7%BA%BF"><span class="nav-number">1.6.3.</span> <span class="nav-text">曲面的切平面与法线</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0%E4%B8%8E%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.7.</span> <span class="nav-text">方向导数与梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0"><span class="nav-number">1.7.1.</span> <span class="nav-text">方向导数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.7.2.</span> <span class="nav-text">梯度</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%9E%81%E5%80%BC"><span class="nav-number">1.8.</span> <span class="nav-text">多元函数的极值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%81%E5%80%BC%E5%8F%8A%E6%9C%80%E5%A4%A7%E5%80%BC%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="nav-number">1.8.1.</span> <span class="nav-text">极值及最大值与最小值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E6%9E%81%E5%80%BC"><span class="nav-number">1.8.2.</span> <span class="nav-text">条件极值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.9.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E5%88%86%E5%AD%A6%E6%A6%82%E5%BF%B5%E6%95%B4%E7%90%86"><span class="nav-number">1.9.1.</span> <span class="nav-text">多元函数微分学概念整理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E7%A7%AF%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">重积分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="nav-number">2.1.</span> <span class="nav-text">二重积分的概念和性质</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%87%8D%E7%A7%AF%E5%88%86%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">2.2.</span> <span class="nav-text">二重积分的计算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B4%E8%A7%92%E5%9D%90%E6%A0%87"><span class="nav-number">2.2.1.</span> <span class="nav-text">直角坐标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%81%E5%9D%90%E6%A0%87"><span class="nav-number">2.2.2.</span> <span class="nav-text">极坐标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">题目集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E6%9E%81%E5%80%BC%E3%80%81%E6%9C%80%E5%80%BC%E3%80%81%E6%9D%A1%E4%BB%B6%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">1多元函数极值、最值、条件极值问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%A9%E7%94%A8%E7%A7%AF%E5%88%86%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86%E7%AE%80%E5%8C%96%E8%BF%90%E7%AE%97"><span class="nav-number">3.2.</span> <span class="nav-text">2 利用积分中值定理简化运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">3.3.</span> <span class="nav-text">3</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

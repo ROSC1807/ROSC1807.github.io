@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="计算机网络 实验二 1.使用wireshark窃听你电脑上的http流量，在你尝试登录http:&#x2F;&#x2F;webmail.hnu.edu.cn的时候解释一下抓到的流量 2.使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。 3.（可选）如果您的计算机的无线驱动程序允许混杂模式和监控空中的所有 802.11 帧，请使用 wir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络实验：wireshark">
+<meta property="og:url" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="计算机网络 实验二 1.使用wireshark窃听你电脑上的http流量，在你尝试登录http:&#x2F;&#x2F;webmail.hnu.edu.cn的时候解释一下抓到的流量 2.使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。 3.（可选）如果您的计算机的无线驱动程序允许混杂模式和监控空中的所有 802.11 帧，请使用 wir">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421103107760.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130311904.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130019571.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130530460.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421105619259.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421110435150.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130752828.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131031027.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131418370.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131737517.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131901274.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132856929.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132751367.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132929036.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421133404773.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421144217251.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421144627296.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145113663.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145146042.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145442970.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145642752.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421190656700.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421190918952.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421191204848.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421150731564.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421153146668.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154431169.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154537945.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154803511.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421153618970.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162037665.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162259365.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162437289.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421163815257.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421163915236.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164438475.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164627560.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164719479.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164919786.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421165127785.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421165347697.png">
+<meta property="og:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421170633738.png">
+<meta property="article:published_time" content="2022-04-21T13:20:24.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:12:41.322Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421103107760.png">
+
+<link rel="canonical" href="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机网络实验：wireshark | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络实验：wireshark
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-21 21:20:24" itemprop="dateCreated datePublished" datetime="2022-04-21T21:20:24+08:00">2022-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:12:41" itemprop="dateModified" datetime="2022-05-13T23:12:41+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vocation/" itemprop="url" rel="index"><span itemprop="name">vocation</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="计算机网络-实验二"><a href="#计算机网络-实验二" class="headerlink" title="计算机网络 实验二"></a>计算机网络 实验二</h2><blockquote>
+<p>1.使用wireshark窃听你电脑上的http流量，在你尝试登录<a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn的时候解释一下抓到的流量">http://webmail.hnu.edu.cn的时候解释一下抓到的流量</a></p>
+<p>2.使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。</p>
+<p>3.（可选）如果您的计算机的无线驱动程序允许混杂模式和监控空中的所有 802.11 帧，请使用 wireshark 捕获进出附近 HNU 接入点（或星巴克 AP，或任何不加密 WiFi 的任何 AP）的流量），尝试寻找有趣的内容。 注意：您有责任保护数据隐私</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="使用wireshark窃听你电脑上的http流量，在你尝试登录http-webmail-hnu-edu-cn的时候解释一下抓到的流量"><a href="#使用wireshark窃听你电脑上的http流量，在你尝试登录http-webmail-hnu-edu-cn的时候解释一下抓到的流量" class="headerlink" title="使用wireshark窃听你电脑上的http流量，在你尝试登录http://webmail.hnu.edu.cn的时候解释一下抓到的流量"></a>使用wireshark窃听你电脑上的http流量，在你尝试登录<a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn的时候解释一下抓到的流量">http://webmail.hnu.edu.cn的时候解释一下抓到的流量</a></h3><p><strong>解释：题目是监听http流量，但我没看见，于是把DNS和TCP的一部分也说了一下，删了觉得可惜，但是HTTP该有的还是有</strong></p>
+<p>启动浏览器，清空浏览器的缓存(在浏览器中，选择“工具”菜单中的“Internet 选项” 命令，在出现的对话框中，选择“删除文件”)。 </p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421103107760.png" alt="image-20220421103107760" style="zoom: 50%;"></p>
+<p>cmd中输入ipconfig查看本机的WLAN IPv4地址是10.68.233.75</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130311904.png" alt="image-20220421130311904" style="zoom: 50%;"></p>
+<p>ping得到<a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn的ip地址是10.62.105.33">http://webmail.hnu.edu.cn的ip地址是10.62.105.33</a></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130019571.png" alt="image-20220421130019571" style="zoom: 50%;"></p>
+<p>输入到wireshark的Filter中去</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130530460.png" alt="image-20220421130530460" style="zoom: 50%;"></p>
+<p>点击捕获-选项，打开之后接口选择WLAN。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421105619259.png" alt="image-20220421105619259"></p>
+<p>点击开始开始抓包，然后立刻在浏览器中输入</p>
+<p><a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn">http://webmail.hnu.edu.cn</a></p>
+<p>并回车</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421110435150.png" alt="image-20220421110435150" style="zoom: 50%;"></p>
+<p>等完整的下载完成之后，点击捕捉对话框中的“stop”按钮，停止分组捕获。</p>
+<p>这样，分组列表窗口就显示显示所俘获到的报文</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421130752828.png" alt="image-20220421130752828" style="zoom: 50%;"></p>
+<p><strong>分析：</strong></p>
+<p>首先，在访问<a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn之前，主机需要将主机名转换为IP地址，因此它向DNS服务器进行查询。从下面这张图中可以看出，本机IP为10.68.223.75向地址为202.197.96.100的DNS服务器进行查询">http://webmail.hnu.edu.cn之前，主机需要将主机名转换为IP地址，因此它向DNS服务器进行查询。从下面这张图中可以看出，本机IP为10.68.223.75向地址为202.197.96.100的DNS服务器进行查询</a></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131031027.png" alt="image-20220421131031027" style="zoom: 50%;"></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131418370.png" alt="image-20220421131418370" style="zoom: 50%;"></p>
+<p>下图是DNS的查询报文。可以看出，首部区域的第一字段flag是个16比特的数。首位指出是查询报文（0），Opcode显示出是标准查询。Truncated位设置为0表示消息完整，Recursion desired位设为1表示将进行递归查询。Non-authenticated data: Unacceptable表示无需对报文进行校验。</p>
+<p>在首部位中剩下的四个有关数量的字段，表示含有一个问题。并且在问题区域中附加了这个查询：要查询webmail.hnu.edu.cn的IP，<strong>类型是A</strong>。</p>
+<p>在DNS服务器中储存着资源记录（Resource Record），提供主机名到IP地址的映射，资源记录是包含（Name，Value，Type，TTL）的四元组。上面的类型是A表示资源记录提供了标准的主机名到IP地址的映射。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131737517.png" alt="image-20220421131737517" style="zoom: 50%;"></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421131901274.png" alt="image-20220421131901274" style="zoom:64%;"></p>
+<p>然后我们发现，权威DNS服务器为我们的主机10.68.223.75返回了一条报文。类型是查询回复<img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132856929.png" alt="image-20220421132856929" style="zoom:37%;"></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132751367.png" alt="image-20220421132751367" style="zoom: 50%;"></p>
+<p>我们发现首部行的第一位表示这是一条查询报文，并在问题区域附加了问题和一条权威记录（Authority RRs），即为这台主机所要求的资源记录。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421132929036.png" alt="image-20220421132929036" style="zoom: 54%;"></p>
+<p>从报文中可以看出这就是这台主机所要要求的信息。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421133404773.png" alt="image-20220421133404773" style="zoom: 50%;"></p>
+<p>接下来，我们的主机就直接跟地址为10.62.105.33的<a target="_blank" rel="noopener" href="http://webmail.hnu.edu.cn进行通讯了。">http://webmail.hnu.edu.cn进行通讯了。</a></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421144217251.png" alt="image-20220421144045408"></p>
+<p>我们能够看出这是tcp建立连接的一个典型的TCP三次握手的过程</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421144627296.png" alt="image-20220421144627296" style="zoom:57%;"></p>
+<p>这里我们暂且不深入讲解，因为（是因为题目是：<strong>窃听你电脑上的http流量</strong>）所以，我们直接跳到http流量的部分。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145113663.png" alt="image-20220421145113663" style="zoom:67%;"></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145146042.png" alt="image-20220421145146042" style="zoom: 55%;"></p>
+<p>我们只关注应用层http协议。</p>
+<p>如上所示，从请求行能看出，浏览器请求对象采用的是默认的GET，浏览器http版本号是<img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145442970.png" alt="image-20220421145442970" style="zoom:50%;">。</p>
+<p>host指明对象所在的主机就在webmail.hnu.edu.cn</p>
+<p>Connection:keep-alive 表明浏览器告诉服务器希望持续连接（这样应该是希望方便传输文字、图片信息）</p>
+<p>User-Agent指明的是本主机的信息</p>
+<p>Accept表明本主机希望获取的文件，Accept-Encoding指出了本主机希望传输的编码格式。Accept-Language表示用户希望得到对象的语言版本。</p>
+<p>另外这里发送了cookie的唯一识别码。（应该是我清除cookie之后，又访问了webmail.hnu.edu.cn，然后才抓的包）</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421145642752.png" alt="image-20220421145642752" style="zoom:57%;"></p>
+<p>然后建立连接后不久，传来服务器传来另一条http报文</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421190656700.png" alt="image-20220421190656700" style="zoom:67%;"></p>
+<p>仔细调查之后发现，是一个文件被永久转移了(丢失)。首部行301 Moved Permanently表示了这一过程。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421190918952.png" alt="image-20220421190918952" style="zoom: 50%;"></p>
+<p>于是服务器希望关闭连接<img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421191204848.png" alt="image-20220421191204848" style="zoom:50%;"> </p>
+<p>然后tcp断开了连接</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421150731564.png" alt="image-20220421150731564" style="zoom:67%;"></p>
+<p>标准的四次挥手过程。</p>
+<h3 id="使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。"><a href="#使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。" class="headerlink" title="使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。"></a>使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。</h3><p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421153146668.png" alt="image-20220421153146668" style="zoom:67%;"></p>
+<p>尝试连接HNU无线网络时，获取到的第一个报文是DHCP（动态主机配置协议）的。DHCP是一个局域网的网络协议。指的是由服务器控制一段IP地址范围，客户机登录服务器时就可以自动获得服务器分配的IP地址和子网掩码。</p>
+<p>也就是说，本主机在连接无线网络时，被分配了IP地址（在不连接wlan的时候，主机是不会被分配IP地址的）。后面的Transaction ID 0xbac7feb2提供了唯一的“交易号”，标识此次连接</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154431169.png" alt="image-20220421154431169"></p>
+<p>随后，发送一个广播类型的ARP协议报文，服务器就确定了本主机在网络中的位置，注意，此处ARP查询是向子网中的全部节点发起询问，而ARP响应则是把答案发给询问的人</p>
+<blockquote>
+<p>ARP（Address Resolution Protocol），是根据<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/IP地址">IP地址</a>获取<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/物理地址/2129">物理地址</a>的一个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/TCP%2FIP协议">TCP/IP协议</a>。<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/主机/455151">主机</a>发送信息时将包含目标IP地址的ARP请求广播到局域网络上的所有主机，并接收返回消息，以此确定目标的物理地址</p>
+</blockquote>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154537945.png" alt="image-20220421154537945"></p>
+<p>随后，服务器向本机发送了先前DHCP的ACK报文，然后本机就知道了服务器的IP，随后发送一个ARP广播，who has  10.72.21.254？tell 10.72.20.66（本机）本机也就获悉了服务器在网络中的位置。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421154803511.png" alt="image-20220421154803511"></p>
+<p>在cmd中输入ipconfig指令查看主机当前的IPv4地址，发现结果是10.72.20.66</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421153618970.png" alt="image-20220421153618970" style="zoom:67%;"></p>
+<p>随后利用该页面完成RADIUS认证</p>
+<p>现在我们连着校园网，但是没有登陆，因此一些网络不能访问，但是还是能ping到一些ip地址的。因此我们的wireshark上也会夹杂很多报文。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162037665.png" alt="image-20220421162037665" style="zoom: 50%;"></p>
+<p>于是我们发现校园网认证页面的网址是10.62.106.218，在cmd中ping也能ping的通。我们把wireshark上的filter设置为<img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162259365.png" alt="image-20220421162259365" style="zoom: 50%;">，然后开始捕获，旋即立刻点击校园网的RADIUS认证登录页面。捕获到一些包。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421162437289.png" alt="image-20220421162437289" style="zoom:61%;"></p>
+<p>我们注意到本主机与目标服务器首先“三次握手”建立了TCP连接。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421163815257.png" alt="image-20220421163815257" style="zoom:67%;"></p>
+<p>然后本主机发送了HTTP协议的报文，从首部行中我们可以看出，请求的页面是<a target="_blank" rel="noopener" href="http://10.62.106.218/cgi-bin/get_challenge?callback=jQuery11240995089542664039_1650528881082&amp;username=201908060124&amp;ip=10.72.20.66&amp;_=1650528881083；我们可以看出，这个报文把我的用户名和本机的ip地址传过去了。这个操作应该是尝试向数据库请求验证我的账号密码信息的。">http://10.62.106.218/cgi-bin/get_challenge?callback=jQuery11240995089542664039_1650528881082&amp;username=201908060124&amp;ip=10.72.20.66&amp;_=1650528881083；我们可以看出，这个报文把我的用户名和本机的ip地址传过去了。这个操作应该是尝试向数据库请求验证我的账号密码信息的。</a></p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421163915236.png" alt="image-20220421163915236"></p>
+<p>然后过了一回收到了服务器的http报文，200 OK即回应我之前的请求，看来我之前的请求是成功的。</p>
+<p>随后，如下所示，通过四次挥手关闭了TCP连接，此时本地端口是65298</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164438475.png" alt="image-20220421164438475" style="zoom:67%;"></p>
+<p>紧接着，本地端口65299又与这个目标服务器的80端口通过三次握手建立了新的连接</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164627560.png" alt="image-20220421164627560" style="zoom:67%;"></p>
+<p>之后本机向服务器发送了新的http报文请求。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164719479.png" alt="image-20220421164719479" style="zoom:67%;"></p>
+<p>然后发现这次的请求路径是<img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421164919786.png" alt="image-20220421164919786" style="zoom:50%;"></p>
+<p>百度之后可以得到相关的信息</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421165127785.png" alt="image-20220421165127785" style="zoom: 50%;"></p>
+<p>容易看出，srun_portal实际上就是校园网登录的校验系统，因此这个操作实际上就是把我的账号密码发送到srun_portal进行验证，我们可以从请求网页的参数中发现这一点，我的用户名，账号和ip都传过去了。密码应该进行了加密（或者进行了编码）</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421165347697.png" alt="image-20220421165347697" style="zoom: 47%;"></p>
+<p>然后再往后的报文就显示认证成功，主机已经去DNS服务器查百度的IP地址了</p>
+<p>验证：输错一次密码，发现目标服务器在正确的基础上多发了一个报文段，分析之后，应该是密码输入错误的弹窗。</p>
+<p><img src="/2022/04/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C2/image-20220421170633738.png" alt="image-20220421170633738" style="zoom: 50%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/" rel="prev" title="计算机网络实验：traceroute">
+      <i class="fa fa-chevron-left"></i> 计算机网络实验：traceroute
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/13/%E8%8B%B1%E8%AF%AD%E7%AC%94%E8%AE%B0/" rel="next" title="英语笔记">
+      英语笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-%E5%AE%9E%E9%AA%8C%E4%BA%8C"><span class="nav-number">1.</span> <span class="nav-text">计算机网络 实验二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8wireshark%E7%AA%83%E5%90%AC%E4%BD%A0%E7%94%B5%E8%84%91%E4%B8%8A%E7%9A%84http%E6%B5%81%E9%87%8F%EF%BC%8C%E5%9C%A8%E4%BD%A0%E5%B0%9D%E8%AF%95%E7%99%BB%E5%BD%95http-webmail-hnu-edu-cn%E7%9A%84%E6%97%B6%E5%80%99%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%E6%8A%93%E5%88%B0%E7%9A%84%E6%B5%81%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">使用wireshark窃听你电脑上的http流量，在你尝试登录http:&#x2F;&#x2F;webmail.hnu.edu.cn的时候解释一下抓到的流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8wireshark%E7%AA%83%E5%90%AC%E6%82%A8%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%8A%E7%9A%84%E6%B5%81%E9%87%8F%EF%BC%8C%E8%A7%A3%E9%87%8A%E5%BD%93%E6%82%A8%E5%B0%9D%E8%AF%95%E8%BF%9E%E6%8E%A5HNU%E6%97%A0%E7%BA%BF%E7%BD%91%E7%BB%9C%E6%97%B6%E6%8D%95%E8%8E%B7%E7%9A%84%E6%B5%81%E9%87%8F%EF%BC%8C%E5%B9%B6%E4%BD%BF%E7%94%A8%E5%85%B6Web%E7%95%8C%E9%9D%A2%E5%AE%8C%E6%88%90RADIUS%E8%AE%A4%E8%AF%81%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">使用wireshark窃听您的计算机上的流量，解释当您尝试连接HNU无线网络时捕获的流量，并使用其Web界面完成RADIUS认证。</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>

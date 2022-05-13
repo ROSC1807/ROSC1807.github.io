@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Arial:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+ 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常微分方程">
+<meta property="og:url" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Rosc. 1807">
+<meta property="og:description" content="-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105000608210.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105001641243.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002004621.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002030606.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002405248.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002441644.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002526851.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105094803685.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105094815370.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110725088.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110738236.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110749144.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111205576.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111218154.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111344397.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111617743.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153510195.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153713908.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153737794.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153931940.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154113563.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154216153.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154230245.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154808668.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155549969.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155609002.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155658522.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155712906.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155724721.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155742343.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155754638.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155822772.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155834257.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155847018.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155944246.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105160220208.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161114577.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161124261.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161135719.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161155607.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161217024.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161227839.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161734716.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161746300.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161801018.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161809770.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161822322.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161911739.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161922355.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161941383.png">
+<meta property="og:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220330113612938.png">
+<meta property="article:published_time" content="2022-03-27T13:33:29.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:27:35.653Z">
+<meta property="article:author" content="Rosc. 1807">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105000608210.png">
+
+<link rel="canonical" href="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>常微分方程 | Rosc. 1807</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Rosc. 1807</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Rosc. 1807">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Rosc. 1807">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常微分方程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-27 21:33:29" itemprop="dateCreated datePublished" datetime="2022-03-27T21:33:29+08:00">2022-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-13 23:27:35" itemprop="dateModified" datetime="2022-05-13T23:27:35+08:00">2022-05-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">考研</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>-</p>
+<span id="more"></span>
+<h3 id="微分方程"><a href="#微分方程" class="headerlink" title=" 微分方程"></a><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/4763"> 微分方程</a></h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35357274/article/details/109935169">微分方程解法公式</a></p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>未知函数是一元函数的微分方程称为常微分方程（即$y$是仅仅关于$x$的函数）</p>
+<p>背景：利用函数关系，我们可以就客观事物的规律性进行研究。然而有时候我们不能直接找出所需要的函数，只能列出<strong>函数和导数的关系式</strong>。这就是<strong>微分方程</strong>，对微分方程进行研究，找出未知函数的过程，叫<strong>解微分方程</strong>。</p>
+<p>凡表示未知函数、未知函数的导数和自变量之间的关系的方程，叫做微分方程，有时也简称方程。微分方程中所出现的未知函数的最高阶导数的阶数，叫做<strong>微分方程的阶</strong></p>
+<p>把函数代入微分方程能使方程变成恒等式，这种函数叫做<strong>微分方程的解</strong>。</p>
+<p>如果微分方程的解中含有<strong>任意常数</strong>，且任意常数的个数与微分方程的阶数相同，这样的解叫做<strong>微分方程的通解</strong>。</p>
+<p>用以求出任意常数的条件叫<strong>初值条件</strong>，确定每一个任意常数之后，就得到了<strong>微分方程的特解</strong>。求特解的这样一个问题叫<strong>初值问题</strong>。</p>
+<p>微分方程的解的图形是一条曲线，叫做<strong>微分方程的积分曲线</strong>。</p>
+<h4 id="一阶微分方程-y’-f-x-y"><a href="#一阶微分方程-y’-f-x-y" class="headerlink" title="一阶微分方程($y’=f(x,y)$)"></a>一阶微分方程($y’=f(x,y)$)</h4><h5 id="变量可分离方程-g-y-dy-f-x-dx"><a href="#变量可分离方程-g-y-dy-f-x-dx" class="headerlink" title="变量可分离方程$g(y)dy=f(x)dx$"></a>变量可分离方程$g(y)dy=f(x)dx$</h5><p>如果一个一阶微分方程可以写成$g(y)dy=f(x)dx$的形式，原方程就叫做<strong>可分离变量的微分方程</strong>。解法：<strong>两边积分</strong></p>
+<p>如果已经分离变量的方程含有关于y的式子，那么解叫隐式解，如果隐式解中还含有任意常数，那么叫隐式通解。</p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105000608210.png" alt="image-20220105000608210" style="zoom:50%;"></p>
+<h5 id="齐次方程-frac-dy-dx-varphi-frac-y-x-）"><a href="#齐次方程-frac-dy-dx-varphi-frac-y-x-）" class="headerlink" title="齐次方程($\frac{dy}{dx}=\varphi(\frac{y}{x})$）"></a>齐次方程($\frac{dy}{dx}=\varphi(\frac{y}{x})$）</h5><p>如果一阶微分方程可以写成$\frac{dy}{dx}=\varphi(\frac{y}{x})$的形式，那么就称这方程为齐次方程。</p>
+<p>对于<strong>标准形式</strong>的齐次方程，通常令$u=\frac{y}{x}，y=ux$，然后化为可分离变量方程求解。</p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105001641243.png" alt="image-20220105001641243" style="zoom:50%;"></p>
+<h5 id="非标准齐次方程-frac-dy-dx-f-frac-ax-by-c-a-1x-b-1y-c-1-）"><a href="#非标准齐次方程-frac-dy-dx-f-frac-ax-by-c-a-1x-b-1y-c-1-）" class="headerlink" title="非标准齐次方程($\frac{dy}{dx}=f(\frac{ax+by+c}{a_1x+b_1y+c_1})$）"></a>非标准齐次方程($\frac{dy}{dx}=f(\frac{ax+by+c}{a_1x+b_1y+c_1})$）</h5><p>对于<strong>非标准形式</strong>、但可以化为齐次方程的一次微分方程$\frac{dy}{dx}=f(\frac{ax+by+c}{a_1x+b_1y+c_1})$，要<strong>先将其化为齐次方程，再化简为分离变量方程。</strong></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002004621.png" alt="image-20220105002004621" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002030606.png" alt="image-20220105002030606" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002405248.png" alt="image-20220105002405248" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002441644.png" alt="image-20220105002441644" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105002526851.png" alt="image-20220105002526851" style="zoom:50%;"></p>
+<h5 id="一阶线性微分方程（-frac-dy-dx-P-x-y-Q-x-）"><a href="#一阶线性微分方程（-frac-dy-dx-P-x-y-Q-x-）" class="headerlink" title="一阶线性微分方程（$\frac{dy}{dx}+P(x)y=Q(x)$）"></a>一阶线性微分方程（$\frac{dy}{dx}+P(x)y=Q(x)$）</h5><p>$\frac{dy}{dx}+P(x)y=Q(x)$叫做一阶线性微分方程。</p>
+<p>如果$Q(x)\equiv0$，那么被称为是齐次的，否则是非齐次的。</p>
+<p>对于齐次一阶线性微分方程$\frac{dy}{dx}+P(x)y=0$，可以分离变量，进而得到$\frac{dy}{y}=-P(x)dx$，进一步求出通解：$y=Ce^{-\int P(x)dx},(C=\pm e^{C_1})$.</p>
+<p>对于非齐次线性方程的通解，可用常数变易法来得到，用x的函数$u(x)$来替换齐次线性方程通解中的C.</p>
+<p>得到$y=ue^{-\int P(x)dx}$,$\frac{dy}{dx}=u’e^{-\int P(x)dx}-uP(x)e^{-\int P(x)dx}.$</p>
+<p>带回$\frac{dy}{dx}+P(x)y=Q(x)$,得到$u=\int Q(x)e^{\int P(x)dx}dx+c$.</p>
+<p>可知非齐次线性方程的通解是$y=e^{-\int P(xdx)}(\int Q(x)e^{\int P(x)dx}dx+C)$</p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105094803685.png" alt="image-20220105094803685" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105094815370.png" alt="image-20220105094815370" style="zoom:50%;"></p>
+<h5 id="伯努利方程（-frac-dy-dx-P-x-y-Q-x-y-n-）"><a href="#伯努利方程（-frac-dy-dx-P-x-y-Q-x-y-n-）" class="headerlink" title="伯努利方程（$\frac{dy}{dx}+P(x)y=Q(x)y^n$）"></a>伯努利方程（$\frac{dy}{dx}+P(x)y=Q(x)y^n$）</h5><p>$\frac{dy}{dx}+P(x)y=Q(x)y^n$叫做伯努利方程，当n=0或n=1时，是线性微分方程，当$n\neq 0,1$时，它不是线性的，通过变量的代换，就可以把它化为线性的。</p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110725088.png" alt="image-20220105110725088" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110738236.png" alt="image-20220105110738236" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105110749144.png" alt="image-20220105110749144" style="zoom:50%;"></p>
+<h4 id="可降阶的高阶微分方程（-y’’-f-x-y-y’-）"><a href="#可降阶的高阶微分方程（-y’’-f-x-y-y’-）" class="headerlink" title="可降阶的高阶微分方程（$y’’=f(x,y,y’)$）"></a>可降阶的高阶微分方程（$y’’=f(x,y,y’)$）</h4><p>基本思路就是高阶降到1阶</p>
+<h5 id="y-n-f-x-型的微分方程"><a href="#y-n-f-x-型的微分方程" class="headerlink" title="$y^{(n)}=f(x)$型的微分方程"></a>$y^{(n)}=f(x)$型的微分方程</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111205576.png" alt="image-20220105111205576" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111218154.png" alt="image-20220105111218154" style="zoom:50%;"></p>
+<h5 id="y’’-f-x-y’-型的微分方程"><a href="#y’’-f-x-y’-型的微分方程" class="headerlink" title="$y’’=f(x,y’)$型的微分方程"></a>$y’’=f(x,y’)$型的微分方程</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111344397.png" alt="image-20220105111344397" style="zoom:50%;"></p>
+<h5 id="y’’-f-y-y’-型的微分方程"><a href="#y’’-f-y-y’-型的微分方程" class="headerlink" title="$y’’=f(y,y’)$型的微分方程"></a>$y’’=f(y,y’)$型的微分方程</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105111617743.png" alt="image-20220105111617743" style="zoom:50%;"></p>
+<h4 id="高阶线性微分方程"><a href="#高阶线性微分方程" class="headerlink" title="高阶线性微分方程"></a>高阶线性微分方程</h4><p>二阶线性微分方程：$\frac{d^2y}{dx^2}+P(x)\frac{dy}{dx}+Q(x)y=f(x).$</p>
+<h5 id="线性微分方程解的结构"><a href="#线性微分方程解的结构" class="headerlink" title="线性微分方程解的结构"></a>线性微分方程解的结构</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153510195.png" alt="image-20220105153510195" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153713908.png" alt="image-20220105153713908" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153737794.png" alt="image-20220105153737794" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105153931940.png" alt="image-20220105153931940" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154113563.png" alt="image-20220105154113563" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154216153.png" alt="image-20220105154216153" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154230245.png" alt="image-20220105154230245" style="zoom:50%;"></p>
+<h5 id="常数变易法"><a href="#常数变易法" class="headerlink" title="常数变易法"></a>常数变易法</h5><p>//</p>
+<h4 id="常系数齐次线性微分方程"><a href="#常系数齐次线性微分方程" class="headerlink" title="常系数齐次线性微分方程"></a>常系数齐次线性微分方程</h4><h5 id="二阶"><a href="#二阶" class="headerlink" title="二阶"></a>二阶</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105154808668.png" alt="image-20220105154808668" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155549969.png" alt="image-20220105155549969" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155609002.png" alt="image-20220105155609002" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155658522.png" alt="image-20220105155658522" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155712906.png" alt="image-20220105155712906" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155724721.png" alt="image-20220105155724721" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155742343.png" alt="image-20220105155742343" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155754638.png" alt="image-20220105155754638" style="zoom:50%;"></p>
+<h5 id="n阶"><a href="#n阶" class="headerlink" title="n阶"></a>n阶</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155822772.png" alt="image-20220105155822772" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155834257.png" alt="image-20220105155834257" style="zoom: 50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155847018.png" alt="image-20220105155847018" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105155944246.png" alt="image-20220105155944246" style="zoom:50%;"></p>
+<h4 id="常系数非齐次线性微分方程"><a href="#常系数非齐次线性微分方程" class="headerlink" title="常系数非齐次线性微分方程"></a>常系数非齐次线性微分方程</h4><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105160220208.png" alt="image-20220105160220208" style="zoom:50%;"></p>
+<h5 id="f-x-e-lambda-x-P-m-x-型"><a href="#f-x-e-lambda-x-P-m-x-型" class="headerlink" title="$f(x)=e^{\lambda x}P_m(x)型$"></a>$f(x)=e^{\lambda x}P_m(x)型$</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161114577.png" alt="image-20220105161114577" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161124261.png" alt="image-20220105161124261" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161135719.png" alt="image-20220105161135719" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161155607.png" alt="image-20220105161155607" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161217024.png" alt="image-20220105161217024" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161227839.png" alt="image-20220105161227839" style="zoom:50%;"></p>
+<h5 id="f-x-e-lambda-x-P-l-x-cos-omega-x-Q-n-x-sin-omega-x-型"><a href="#f-x-e-lambda-x-P-l-x-cos-omega-x-Q-n-x-sin-omega-x-型" class="headerlink" title="$f(x)=e^{\lambda x}[P_l(x)cos \omega x+Q_n(x)sin \omega x]型$"></a>$f(x)=e^{\lambda x}[P_l(x)cos \omega x+Q_n(x)sin \omega x]型$</h5><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161734716.png" alt="image-20220105161734716" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161746300.png" alt="image-20220105161746300" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161801018.png" alt="image-20220105161801018" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161809770.png" alt="image-20220105161809770" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161822322.png" alt="image-20220105161822322" style="zoom: 50%;"></p>
+<h4 id="欧拉方程"><a href="#欧拉方程" class="headerlink" title="欧拉方程"></a>欧拉方程</h4><p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161911739.png" alt="image-20220105161911739" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161922355.png" alt="image-20220105161922355" style="zoom:50%;"></p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220105161941383.png" alt="image-20220105161941383" style="zoom:50%;"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="常微分方程最基本的计算题型"><a href="#常微分方程最基本的计算题型" class="headerlink" title="常微分方程最基本的计算题型"></a>常微分方程最基本的计算题型</h5><p>（1）变量可分离方程$g(y)dy=f(x)dx$</p>
+<blockquote>
+<p>​    注意：如：$\frac{dy}{dx}=f(x)g(y)$在分离变量时，将$g(y)$移动到分母位置，如果其本身没有非零的要求，可能会丢解，要进行处理</p>
+</blockquote>
+<p>（2）齐次方程($\frac{dy}{dx}=\varphi(\frac{y}{x})$）    </p>
+<p>（3）非标准齐次方程($\frac{dy}{dx}=f(\frac{ax+by+c}{a_1x+b_1y+c_1})$）</p>
+<p>（4）一阶线性微分方程（$\frac{dy}{dx}+P(x)y=Q(x)$）</p>
+<blockquote>
+<p>​    通解：$\large y=e^{-\int p(x)dx}[\int e^{\int p(x)dx}·q(x)dx+C]$</p>
+<p>​    出现$e^{\int p(x)dx}=|\phi(x)|$可以不加绝对值，其它时候必须加绝对值。</p>
+</blockquote>
+<p>（5）$y^{(n)}=f(x)$型</p>
+<p>（6）$y’’=f(x,y’)$型</p>
+<p>（7）$y’’=f(y,y’)$型</p>
+<p>（8）二阶线性微分方程$\frac{d^2y}{dx^2}+P(x)\frac{dy}{dx}+Q(x)y=f(x).$</p>
+<p>（9）二阶常系数齐次线性微分方程</p>
+<p>（10）n阶常系数齐次线性微分方程</p>
+<p>（11）$f(x)=e^{\lambda x}P_m(x)$型常系数非齐次线性微分方程</p>
+<p>（12）$f(x)=e^{\lambda x}[P_l(x)\cos \omega x+Q_n(x)\sin \omega x]$型常系数非齐次线性微分方程</p>
+<h5 id="添加常数因子-C-的问题"><a href="#添加常数因子-C-的问题" class="headerlink" title="添加常数因子$C$的问题"></a>添加常数因子$C$的问题</h5><p>在求解常微分方程中，如何化到最简，已经化到最简的标志是什么，包括如何选取常数因子C，这些是很值得思考的问题。</p>
+<p>我的想法是，如果是比较复杂的常微分方程，需要设多个常数因子$C$,那么我们在计算的过程中可以依次使用$C_0,C_1,C_2$……等等，等题目算完，写结果时，我们用$C,D$……去代替之前的 $C_0,C_1,C_2$，如果时选择填空题，可以直接用$C_1,C_2$，不要在没有$C_1,C_2$就用$C_3$，显得很不专业。最后算完，一定要标注常数因子的取值范围</p>
+<h3 id="题目集"><a href="#题目集" class="headerlink" title="题目集"></a>题目集</h3><h4 id="1-解微分方程时化简、C的选取、讨论绝对值正负号等细节问题"><a href="#1-解微分方程时化简、C的选取、讨论绝对值正负号等细节问题" class="headerlink" title="1 解微分方程时化简、C的选取、讨论绝对值正负号等细节问题"></a>1 解微分方程时化简、C的选取、讨论绝对值正负号等细节问题</h4><p>一定是长相最吓人的题目是最难的吗？一定是出题老师预留的压轴题的位置，出现的题最容易丢分吗？不一定。讨论定义域几乎是任何非科班数学考生的弱项，大家习惯的都是连续光滑的函数。</p>
+<blockquote>
+<p>《孟子·尽心上》:“行之而不著焉，习矣而不察焉，终身由之而不知其道者，众也。”</p>
+<p>只行动却不知其所以然，习惯之后察觉不了（细微之处），一辈子走这条路却不知道其中的道理，这就是大部分人。</p>
+</blockquote>
+<p><strong>（1）</strong>$y’=\frac{y(1-x)}{x}$的通解是（  ）</p>
+<p>​        $x$在分母上，所以$x\neq 0$，要先讨论这里$y\neq 0$，才能除下来</p>
+<p>​        $\int \frac{dy}{y}=\int \frac{1-x}{x}dx$</p>
+<p>​        $\ln|y|=\ln|x|-x+C_1$</p>
+<p>​        $|y|=e^{C_1}|x|e^{-x}$     </p>
+<blockquote>
+<p>据我观察，大部分的解都不带绝对值号，现在积出来两个绝对值号，注意，去掉绝对值号的唯一方式，就是<strong>修改常数项</strong>（其实就是加正负号） ，比如，$|x|=1$，可以化简为$x=\pm1$，我们不能把1改成$x^2$，也不能添项什么的。这里也是一样的，我们要去掉绝对值号，目的是化简，这里我们发现$e^{C_1}$取值是$(0,+\infty)$,$|y|=|x|$可化简为$y=\pm x$，然后我们这里理应想到需要一个新的常数$C$,它的取值范围是$\pm e^{C_1}$</p>
+</blockquote>
+<p>​        令$C=\pm e^{C_1}$（$C!=0$）,这样可以把它化为</p>
+<p>​        $y=Cxe^{-x}$($C!=0$)</p>
+<p>​        讨论$y=0$的情况，发现只需要让$C=0$，所以可以化简为</p>
+<p>​        $y=Cxe^{-x}$（$C$是任意常数）</p>
+<p><img src="/2022/03/27/%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/image-20220330113612938.png" alt="image-20220330113612938" style="zoom:67%;"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/21/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%AD%A6/" rel="prev" title="多元函数微积分学">
+      <i class="fa fa-chevron-left"></i> 多元函数微积分学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AE%9E%E9%AA%8C1/" rel="next" title="计算机网络实验：traceroute">
+      计算机网络实验：traceroute <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text"> 微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B-y%E2%80%99-f-x-y"><span class="nav-number">1.2.</span> <span class="nav-text">一阶微分方程($y’&#x3D;f(x,y)$)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%8F%AF%E5%88%86%E7%A6%BB%E6%96%B9%E7%A8%8B-g-y-dy-f-x-dx"><span class="nav-number">1.2.1.</span> <span class="nav-text">变量可分离方程$g(y)dy&#x3D;f(x)dx$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BD%90%E6%AC%A1%E6%96%B9%E7%A8%8B-frac-dy-dx-varphi-frac-y-x-%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">齐次方程($\frac{dy}{dx}&#x3D;\varphi(\frac{y}{x})$）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E6%A0%87%E5%87%86%E9%BD%90%E6%AC%A1%E6%96%B9%E7%A8%8B-frac-dy-dx-f-frac-ax-by-c-a-1x-b-1y-c-1-%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">非标准齐次方程($\frac{dy}{dx}&#x3D;f(\frac{ax+by+c}{a_1x+b_1y+c_1})$）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%EF%BC%88-frac-dy-dx-P-x-y-Q-x-%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">一阶线性微分方程（$\frac{dy}{dx}+P(x)y&#x3D;Q(x)$）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%96%B9%E7%A8%8B%EF%BC%88-frac-dy-dx-P-x-y-Q-x-y-n-%EF%BC%89"><span class="nav-number">1.2.5.</span> <span class="nav-text">伯努利方程（$\frac{dy}{dx}+P(x)y&#x3D;Q(x)y^n$）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%99%8D%E9%98%B6%E7%9A%84%E9%AB%98%E9%98%B6%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%EF%BC%88-y%E2%80%99%E2%80%99-f-x-y-y%E2%80%99-%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">可降阶的高阶微分方程（$y’’&#x3D;f(x,y,y’)$）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#y-n-f-x-%E5%9E%8B%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">$y^{(n)}&#x3D;f(x)$型的微分方程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#y%E2%80%99%E2%80%99-f-x-y%E2%80%99-%E5%9E%8B%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">$y’’&#x3D;f(x,y’)$型的微分方程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#y%E2%80%99%E2%80%99-f-y-y%E2%80%99-%E5%9E%8B%E7%9A%84%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.3.3.</span> <span class="nav-text">$y’’&#x3D;f(y,y’)$型的微分方程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">高阶线性微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A7%A3%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.1.</span> <span class="nav-text">线性微分方程解的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E6%95%B0%E5%8F%98%E6%98%93%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">常数变易法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">常系数齐次线性微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6"><span class="nav-number">1.5.1.</span> <span class="nav-text">二阶</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#n%E9%98%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">n阶</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%B3%BB%E6%95%B0%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">常系数非齐次线性微分方程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#f-x-e-lambda-x-P-m-x-%E5%9E%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">$f(x)&#x3D;e^{\lambda x}P_m(x)型$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f-x-e-lambda-x-P-l-x-cos-omega-x-Q-n-x-sin-omega-x-%E5%9E%8B"><span class="nav-number">1.6.2.</span> <span class="nav-text">$f(x)&#x3D;e^{\lambda x}[P_l(x)cos \omega x+Q_n(x)sin \omega x]型$</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AC%A7%E6%8B%89%E6%96%B9%E7%A8%8B"><span class="nav-number">1.7.</span> <span class="nav-text">欧拉方程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A2%98%E5%9E%8B"><span class="nav-number">1.8.1.</span> <span class="nav-text">常微分方程最基本的计算题型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%B8%B8%E6%95%B0%E5%9B%A0%E5%AD%90-C-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.8.2.</span> <span class="nav-text">添加常数因子$C$的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">题目集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%A7%A3%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E6%97%B6%E5%8C%96%E7%AE%80%E3%80%81C%E7%9A%84%E9%80%89%E5%8F%96%E3%80%81%E8%AE%A8%E8%AE%BA%E7%BB%9D%E5%AF%B9%E5%80%BC%E6%AD%A3%E8%B4%9F%E5%8F%B7%E7%AD%89%E7%BB%86%E8%8A%82%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">1 解微分方程时化简、C的选取、讨论绝对值正负号等细节问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Rosc. 1807"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Rosc. 1807</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+      
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rosc. 1807</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='255,51,51' opacity='0.5' zIndex='-1' count='160' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    // window.MathJax = {
+    //   loader: {
+    //
+    //     source: {
+    //       '[tex]/amsCd': '[tex]/amscd',
+    //       '[tex]/AMScd': '[tex]/amscd'
+    //     }
+    //   },
+    //   tex: {
+    //     inlineMath: {'[+]': [['$', '$']]},
+    //
+    //     tags: 'ams'
+    //   },
+    //   options: {
+    //     renderActions: {
+    //       findScript: [10, doc => {
+    //         document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+    //           const display = !!node.type.match(/; *mode=display/);
+    //           const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+    //           const text = document.createTextNode('');
+    //           node.parentNode.replaceChild(text, node);
+    //           math.start = {node: text, delim: '', n: 0};
+    //           math.end = {node: text, delim: '', n: 0};
+    //           doc.math.push(math);
+    //         });
+    //       }, '', false],
+    //       insertedScript: [200, () => {
+    //         document.querySelectorAll('mjx-container').forEach(node => {
+    //           let target = node.parentNode;
+    //           if (target.nodeName.toLowerCase() === 'li') {
+    //             target.parentNode.classList.add('has-jax');
+    //           }
+    //         });
+    //       }, '', false]
+    //     }
+    //   }
+    // };
+    window.MathJax = {
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        processEscapes: true
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@2.7.8/unpacked/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
+<!-- 引入jQuery -->
+<script type="text/javascript" src="//libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/snow2.js"></script>
